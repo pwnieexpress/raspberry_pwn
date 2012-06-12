@@ -46,7 +46,7 @@ Installation Steps
 
   # aptitude -y install git
 
-5. Download the latest Raspberry Pwn installer from the Pwnie Express Github repository:
+5. Download the Raspberry Pwn installer from the Pwnie Express Github repository:
 
   # git clone https://github.com/pwnieexpress/Raspberry-Pwn.git
 
@@ -67,7 +67,8 @@ Support
 ----------------------------------------------
 
 
-Public Github repo..
+Feature requests / bug reports:
+https://github.com/pwnieexpress/Raspberry-Pwn/issues
 
 Community Support Forum:
 http://forum.pwnieexpress.com
