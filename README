@@ -22,7 +22,7 @@ What you will need
 ----------------------------------------------
 
 1. A stock Raspberry Pi board (http://www.raspberrypi.org/)
-2. The Debian Raspberry Pi distribution (installed onto SD card)
+2. The Debian Raspberry Pi distribution (http://elinux.org/RPi_Beginners)
 3. SSH/console access to the Raspberry Pi
 4. Internet access from the Raspberry Pi
 
