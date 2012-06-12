@@ -1,0 +1,137 @@
+#!/usr/bin/env python
+
+import sys;
+import binascii;
+
+from GoodFETAVR import GoodFETAVR;
+from intelhex import IntelHex16bit, IntelHex;
+
+if(len(sys.argv)==1):
+    print "Usage: %s verb [objects]\n" % sys.argv[0];
+    print "%s test" % sys.argv[0];
+    print "%s info" % sys.argv[0];
+    print "%s lockbits [value]" % sys.argv[0];
+    print "%s dumpflash $foo.hex [0x$start 0x$stop]" % sys.argv[0];
+    print "%s erase" % sys.argv[0];
+    #print "%s flash $foo.hex [0x$start 0x$stop]" % sys.argv[0];
+    #print "%s verify $foo.hex [0x$start 0x$stop]" % sys.argv[0];
+    print "%s peekeeprom 0x$start [0x$stop]" % sys.argv[0];
+    sys.exit();
+
+#Initialize FET and set baud rate
+client=GoodFETAVR();
+client.serInit()
+
+#Connect to target
+client.start();
+
+if(sys.argv[1]=="glitch"):
+    print "Identifies as %s" % client.identstr();
+    client.glitchVoltages(0x880, 0xfff);
+    for i in range(1,2000):
+        client.start();
+        print "Identifies as %s, fused 0x%02x; eeprom(0)=%02x" % (
+            client.identstr(),
+            client.lockbits(),
+            client.eeprompeek(0));
+if(sys.argv[1]=="glitchgraph"):
+    print "Identifies as %s" % client.identstr();
+    for voltage in range(0x860,0x890,5):
+        str="";
+        count=0;
+        #five minutes for 1,80
+        #thirty minutes for 1,500
+        
+        for i in range(1,40):
+            client.glitchVoltages(voltage, voltage);
+            client.start();
+            if(client.lockbits()==0xFF):
+                str="%s." % str;
+                count+=1;
+        print "%04x %s" % (voltage,str);
+        #print "%f, %i" % (voltage*(3.3/4096.0),count);
+if(sys.argv[1]=="info"):
+    print "Identifies as %s, lock=%02x" % (client.identstr(),client.lockbits());
+if(sys.argv[1]=="erase"):
+    print "Erasing %s" % client.identstr();
+    client.erase();
+if(sys.argv[1]=="lockbits"):
+    print "Lockbits are 0x%02x" % client.lockbits();
+    if(len(sys.argv)>2):
+        print "Lockbits set 0x%02x" %  client.setlockbits(int(sys.argv[2],16));
+if(sys.argv[1]=="lock"):
+    client.setlockbits(0xFC);
+
+if(sys.argv[1]=="unlock"):
+    print "Identifies as %s" % client.identstr();
+    client.glitchVoltages(0x880, 0xfff);
+    for i in range(1,20):
+        client.start();
+        print "Identifies as %s, fused 0x%02x; eeprom(0)=%02x" % (
+            client.identstr(),
+            client.lockbits(),
+            client.eeprompeek(0));
+        if(client.lockbits()==0xFF):
+            client.setlockbits(0xFF);
+            print "Chip unlocked!"
+            exit();
+#if(sys.argv[1]=="unlock"):
+    
+
+
+if(sys.argv[1]=="dumpflash"):
+    f = sys.argv[2];
+    start=0x0000;
+    stop=0xFFFF;
+    if(len(sys.argv)>3):
+        start=int(sys.argv[3],16);
+    if(len(sys.argv)>4):
+        stop=int(sys.argv[4],16);
+    
+    print "Dumping from %04x to %04x as %s." % (start,stop,f);
+    #h = IntelHex16bit(None);
+    h = IntelHex(None);
+    i=start;
+    while i<=stop:
+        data=client.flashpeekblock(i);
+        print "Dumped %06x."%i;
+        for j in data:
+            if i<=stop: h[i]=ord(j);
+            i+=1;
+    h.write_hex_file(f);
+
+
+if(sys.argv[1]=="peekeeprom"):
+    start=0x0000;
+    if(len(sys.argv)>2):
+        start=int(sys.argv[2],16);
+    stop=start;
+    if(len(sys.argv)>3):
+        stop=int(sys.argv[3],16);
+    print "Peeking from %06x to %06x." % (start,stop);
+    while start<=stop:
+        print "%06x: %02x" % (start,client.eeprompeek(start));
+        start=start+1;
+
+if(sys.argv[1]=="peekflash"):
+    start=0x0000;
+    if(len(sys.argv)>2):
+        start=int(sys.argv[2],16);
+    stop=start;
+    if(len(sys.argv)>3):
+        stop=int(sys.argv[3],16);
+    print "Peeking from %06x to %06x." % (start,stop);
+    while start<=stop:
+        print "%06x: %02x" % (start,client.flashpeek(start));
+        start=start+1;
+
+if(sys.argv[1]=="pokeeeprom"):
+    start=0x0000;
+    val=0x00;
+    if(len(sys.argv)>2):
+        start=int(sys.argv[2],16);
+    if(len(sys.argv)>3):
+        val=int(sys.argv[3],16);
+    client.eeprompoke(start,val);
+
+

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=svcrack
+Encoding=UTF-8
+Exec=sh -c "cd /pentest/voip/sipvicious/ ; ./svcrack.py --help ; sudo -s"
+Icon=btmenu.png
+StartupNotify=false
+Terminal=true
+Type=Application
+Categories=bt-privilege-escalation-password-attacks-online;
+

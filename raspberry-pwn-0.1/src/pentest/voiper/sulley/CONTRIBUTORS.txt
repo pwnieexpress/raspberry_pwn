@@ -1,0 +1,16 @@
+# alphabetical order.
+
+Charlie Miller <charlesamiller@hotmail.com>
+    - General ideas, beta testing and morale support.
+
+Gerald Eisenhaur <gerry.eisenhaur@gmail.com>
+    - General ideas, beta testing and morale support.
+    - Numerous bug reports
+
+Jared DeMott <jdemott@appliedsec.com>
+    - General ideas, beta testing and morale support.
+
+Peter Silberman <peter.silberman@gmail.com>
+    - General ideas, beta testing and morale support.
+    - Upcoming file fuzzing capability
+    - Bug reports

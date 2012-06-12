@@ -1,0 +1,180 @@
+#!/usr/bin/env python
+
+#GoodFET SPI Flash Client
+#by Travis Goodspeed
+
+import sys;
+import binascii;
+import array;
+import time;
+
+from GoodFETNRF import GoodFETNRF;
+from intelhex import IntelHex;
+
+
+regnames=["CONFIG","EN_AA","EN_RXADDR","SETUP_AW","SETUP_RET",
+          "RF_CH","RF_SETUP","STATUS","OBSERVE_TX","RPD",
+          "RX_ADDR_P0","RX_ADDR_P1","RX_ADDR_P2","RX_ADDR_P3","RX_ADDR_P4","RX_ADDR_P5",
+          "TX_ADDR",
+          "RX_PW_P0","RX_PW_P1","RX_PW_P2","RX_PW_P3","RX_PW_P4","RX_PW_P5",
+          "FIFO_STATUS","?",
+          "?","?","DYNPD","?","?","?","?","?",
+          "?","?","?","?","?","?","?","?"];
+
+def printpacket(packet):
+    s="";
+    i=0;
+    for foo in packet:
+        i=i+1;
+        if i>client.packetlen: break;
+        s="%s %02x" % (s,ord(foo));
+    print "%s" %s;
+
+def printconfig():
+    print "Encoding %s" % client.RF_getenc();
+    print "Freq    %10i MHz" % (client.RF_getfreq()/10**6);
+    print "Rate    %10i kbps" % (client.RF_getrate()/1000);
+    print "PacketLen %02i bytes" % client.RF_getpacketlen();
+    #print "MacLen    %2i bytes" % client.RF_getmaclen();
+    print "SMAC  0x%010x" % client.RF_getsmac();
+    print "TMAC  0x%010x" % client.RF_gettmac();
+
+
+if(len(sys.argv)==1):
+    print "Usage: %s verb [objects]\n" % sys.argv[0];
+    print "%s info" % sys.argv[0];
+    print "%s test" % sys.argv[0];
+    print "%s regs" % sys.argv[0];
+    print "%s pyregs" % sys.argv[0];
+    print "%s sniff\n\tSniffs packets by current config." % sys.argv[0];
+    print "%s sniffob\n\tSniffs OpenBeacon traffic." % sys.argv[0];
+    print "%s carrier [freq]\n\tHolds a carrier on [freq] Hz." % sys.argv[0];
+    sys.exit();
+
+#Initialize FET and set baud rate
+client=GoodFETNRF();
+client.serInit()
+
+client.NRFsetup();
+
+if(sys.argv[1]=="info"):
+    printconfig();
+
+if(sys.argv[1]=="test"):
+    print "Old registers:"
+    printconfig();
+    
+    # Set PWR_UP=1 and PRIM_RX=0 in CONFIG.
+    client.poke(0x00,2);
+    #Delay of 1.5ms by round-trip.
+    
+    print "\n\n";
+    
+    #Try all data rates
+    for foo in [250*10**3,
+                1*10**6,
+                2*10**6]:
+        client.RF_setrate(foo);
+        if(client.RF_getrate()!=foo):
+            print "ERROR Rate %i not supported.  Got %i instead." % (foo,
+                                                                     client.RF_getrate());
+    
+    print "\n\n";
+    client.poke(0x0A,0xDEADBEEF,5);
+    #print "SMAC set to %010x" % client.RF_getsmac();
+    if client.RF_getsmac()!=0xdeadbeef:
+        print "ERROR: Failed to set MAC address.";
+    print "Final registers:"
+    printconfig();
+    
+if(sys.argv[1]=="carrier"):
+    if len(sys.argv)>2:
+        client.RF_setfreq(eval(sys.argv[2]));
+    client.RF_carrier();
+    printconfig();
+    print "\nHolding a carrier wave.";
+    while(1):
+        time.sleep(1);
+if(sys.argv[1]=="regs"):
+    for r in range(0,0x20):
+        print "r[0x%02x]=0x%010x //%16s " % (r,client.peek(r),regnames[r]);
+if(sys.argv[1]=="pyregs"):
+    for r in range(0,0x20):
+        print "client.set(0x%02x,0x%010x); #%16s " % (r,client.peek(r),regnames[r]);
+
+if(sys.argv[1]=="peek"):
+    start=0x0000;
+    if(len(sys.argv)>2):
+        start=int(sys.argv[2],16);
+    stop=start;
+    if(len(sys.argv)>3):
+        stop=int(sys.argv[3],16);
+    print "Peeking from %02x to %02x." % (start,stop);
+    while start<=stop:
+        print "%02x: %010x" % (start,client.peek(start));
+        start=start+1;
+if(sys.argv[1]=="poke"):
+    start=0x0000;
+    val=0x00;
+    if(len(sys.argv)>2):
+        start=int(sys.argv[2],16);
+    if(len(sys.argv)>3):
+        val=int(sys.argv[3],16);
+    print "Poking %02x to become %010x." % (start,val);
+    
+    client.poke(start,val);
+    print "Poked to %04x" % client.peek(start);
+
+if(sys.argv[1]=="sniffob"):
+    #Reversal of transmitter code from nRF_CMD.c of OpenBeacon
+    #TODO remove all poke() calls.
+    
+    client.poke(0x00,0x00); #Stop nRF
+    client.poke(0x01,0x00); #Disable Shockburst
+    client.poke(0x02,0x01); #Set RX Pipe 0
+    client.RF_setmaclen(5); # SETUP_AW for 5-byte addresses.
+    client.RF_setfreq(2481 * 10**6);
+    client.poke(0x06,0x09); #2MBps, -18dBm in RF_SETUP
+    client.poke(0x07,0x78); #Reset status register
+    
+    #OpenBeacon defines these in little endian as follows.
+    #0x01, 0x02, 0x03, 0x02, 0x01
+    client.RF_setsmac(0x0102030201);
+    #'O', 'C', 'A', 'E', 'B'
+    client.RF_settmac(0x424541434F);
+    
+    #Set packet length of 16.
+    client.RF_setpacketlen(16);
+    
+    #Power radio, prime for RX, but no checksum.
+    client.poke(0x00,0x70|0x03|0x08); #0x08 for one byte, 0x04 for two.
+    
+    print "Listening as %010x on %i MHz" % (client.RF_getsmac(),
+                                           client.RF_getfreq()/10**6);
+    #Now we're ready to get packets.
+    while 1:
+        packet=None;
+        while packet==None:
+            #time.sleep(0.1);
+            packet=client.RF_rxpacket();
+        printpacket(packet);
+        sys.stdout.flush();
+
+if(sys.argv[1]=="sniff"):
+    #client.poke(0x00,0x00); #Stop nRF
+    client.poke(0x07,0x78); #Reset status register
+    
+    #Power radio, prime for RX, checksum.
+    client.poke(0x00,0x70|0x03|0x08);
+    
+    print "Listening as %010x on %i MHz" % (client.RF_getsmac(),
+                                           client.RF_getfreq()/10**6);
+    #Now we're ready to get packets.
+    
+    while 1:
+        packet=None;
+        while packet==None:
+            #time.sleep(0.1);
+            packet=client.RF_rxpacket();
+        printpacket(packet);
+        sys.stdout.flush();

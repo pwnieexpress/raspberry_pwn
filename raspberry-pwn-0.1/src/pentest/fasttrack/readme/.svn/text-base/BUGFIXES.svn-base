@@ -1,0 +1,33 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+BUG FIX LOG
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Fixed erroring out messages where SQL Injector would get a site it
+couldn't exploit and would error out.
+
+- Fixed where duplicate IP addresses would show in SQL Bruter
+
+- With the new implementation of the UDP advanced footprinting, there
+was a minor issue where the file used to pull the compromised sql servers
+within Fast-Track wouldn't close properly. I added a filewries.close() to
+make sure the file is terminated properly before continuing to properly
+open and parse the data. This applies to both sqlbrute quick and sqlbrute
+wordlist.
+
+- Fixed minor issue with UDP footprinting where multiple IP addresses were
+found it would append the IPADDR and PORT number to the attack string and
+not brute force properly
+
+- Fixed some update errors and old os.popen warning messages. Switched
+to subprocess.Popen which is a newer and better method for OS system calls.
+
+- Fixed a couple minor bugs with SQL bruter
+
+- Fixed a bug where SQL Bruter would not properly brute force the SQL server
+due to a bug in FreeTDS. Special thanks Andrew Weidenheimer aka Leroy from 
+SecureState for finding this bug and finding the fix.
+
+- Fixed SQLPwnage where it wouldn't auto fill in the forms and throw an 
+exception in the wrong form parameter. 
+
+- Fixed a navigation error in the nav pane for updates.

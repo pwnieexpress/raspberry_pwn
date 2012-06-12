@@ -1,0 +1,63 @@
+VoIPER is a security toolkit that aims to allow developers and security researchers 
+to easily, extensively and automatically test VoIP devices for security vulnerabilties. 
+It incorporates a fuzzing suite built on the Sulley fuzzing framework, a SIP torturer
+tool based on RFC 4475 and a variety of auxilliary modules to assist in crash detection and 
+debugging. It is cross platform and usable via a command line interface on Linux, Windows
+and OS X or a GUI on Windows. The primary goal of VoIPER is to create a toolkit with all
+required testing functionality built in and to minimise the amount of effort an auditor
+has to put into testing the security of a VoIP code base.
+
+This is a beta release and has not been tested as extensively as I would like. That said,
+it includes a number of new and useful fuzzers as well as a new SIP backend that greatly
+increases protocol compliance and the ability to traverse the state tree of different 
+request types. It also means that protocol based crash detection is much more reliable 
+than before. Certain clients are quite odd in how they respond to fuzzing though (Ekiga
+for example) and as a result process based crash detection is still recommended where
+possible to avoid false positives.
+
+Also in this release it is possible to register with a server before beginning fuzzing,
+view 'voiper.config' to see how to enable this. 
+
+In this release fuzzers were added for REGISTER, NOTIFY and SUBSCRIBE as well as new
+fuzzers for CANCEL and ACK that aim to get the device into a state where it is expecting
+a CANCEL or ACK before fuzzing it. 
+
+For the moment the fuzzer incorporates tests for 
+ - SIP INVITE (3 different test suites)
+ - SIP ACK (Dumb and 'smart' versions)
+ - SIP CANCEL (Dumb and 'smart' versions)
+ - SIP NOTIFY
+ - SIP SUBSCRIBE
+ - SIP REGISTER
+ - SIP request structure 
+ - SDP over SIP
+
+This translates to well over 200,000 generated tests covering all SIP attributes 
+specified in RFC 3261 for the given messages. 
+
+It includes other features such as 
+ - Protocol and process based crash detection and recording
+ - Fuzzer pause/restart functionality (SFF) 
+ - Supports clients that require registration prior to fuzzing
+ - Simple to expand to new protocols 
+ - As far as possible, protocol compliance 
+ - Target process control (SFF)
+
+SFF : Provided as part of the Sulley Fuzzing Framework, in some cases with my modifications
+and fixes
+
+I would like to thank a number of people for their assistance in the development of this software:
+
+- Terron Williams for providing extensive, detailed and invaluable feedback during the beta 
+testing as well as being a source of encouragement
+- Ian S. for helping debug several crashes cause by VoIPER
+- Pedram Amini and Aaron Portnoy for their work on the Sulley Fuzzing Framework which allowed me
+to concentrate on the VoIP logic instead of focusing on building a fuzzing framework
+- Various people on the SmashTheStack and OverTheWire networks that helped in testing
+
+Feedback, suggestions, requests, comments and critisism are all more than welcome and can be sent
+to nnp[at symbol]unprotectedhex.com
+
+-nnp
+7 October 2008
+http://www.unprotectedhex.com

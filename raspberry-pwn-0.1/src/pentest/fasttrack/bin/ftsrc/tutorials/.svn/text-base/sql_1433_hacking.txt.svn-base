@@ -1,0 +1,50 @@
+**********************************************************************
+SQL 1433 Hacking: Requirements: PYMSSQL, FreeTDS
+**********************************************************************
+
+Alright, lets first start off with those of you that are unfamilar with
+hacking port 1433. 1433 is Microsoft's default port installtion for
+MSSQL. This goes for any version of SQL, by default it installs on 1433
+and is used for primary means of community for SQL Servers. If a website
+uses a back-end database to store information, the web server actually
+talks back to the SQL server via port 1433. 
+
+The way Fast-Track attacks this specific port is through a "brute force"
+attack, or attempting to guess the initial password. When first installing
+a SQL server, the administrator is asked if they would like to use 
+Integrated Windows Authentication, use SQL Authentication, or use Mixed
+Mode (a combination of both). Generally web applications are easy to use
+SQL authentication then mixed or integrated. 
+
+When going through the default installation of Microsoft SQL Server, there
+needs to be a password for the "sa" account which Microsoft automatically
+creates when installing the application. This "sa" account or "Systems
+Administrator" account has full access over the database, as well as runs
+under the "SYSTEM" account, which if your familar with Windows, has 
+administrative rights over the machine.
+
+When administrators generally install SQL Servers, they use weak passwords
+that are generally easy to guess. The tool itself attempts to guess the 
+password, and then use whats called a stored procedure (a built in function
+of SQL) called xp_cmdshell. The xp_cmdshell stored procedure is installed
+by default on SQL 2000/2005 but is disabled by default on 2005. I've added
+an enable function in the menu that enables it for you just in case its
+been disabled.
+
+The xp_cmdshell stored procedure is the same thing as a command prompt. It
+allows you to execute system level commands on the system itself. With this
+your able to do some badddddddd stuff.
+
+Alright, now onto what the tool can do. Fast-Track can brute force either
+using a small list it has built into the code, or you can import your own
+wordlist. Be careful when brute forcing SQL servers, as this generally flags
+an alert in intrusion prevention and detection systems. Generally the quick
+brute force method will allow you to go un-detected.
+
+If you happen to guess the "sa" password, it is trivial in Fast-Track to spawn
+a shell. Simply go to the spawn a shell in the Fast-Track menu and enter the
+username and password that Fast-Track guessed. Right now the shells pretty
+ugly, I plan on updating it to look more like a clean shell, but as for right now
+its not one hundred percent.
+
+**********************************************************************

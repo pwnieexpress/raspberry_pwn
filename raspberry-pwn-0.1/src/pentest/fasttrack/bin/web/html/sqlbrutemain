@@ -1,0 +1,72 @@
+  </td>
+  <td width="537" align="left" valign="top">  
+
+<!--Body Content Here-->
+
+<table width="100%" border="0" cellspacing="8" cellpadding="0">
+ <tr>
+  <td class="page_title">Fast-Track MSSQL Brute Main</td>
+ </tr>
+ <tr>
+  <td><p>This portion is fairly easy, when SQL installs it generally installs on port 1433. This
+tool connects to that port in an attempt to brute force the specific "sa" account. Fast-Track will
+automatically attempt to elevate your rights to "sa" if it isn't already obtained, in addition, in
+MSSQL Server 2005 the xp_cmdshell stored procedure is disabled, Fast-Track will automatically re-enable
+it for you. Once this has occured, you have several options for payload delivery including reverse
+VNC injection, meterpreter, and reverse shells.<br><br>
+If you scan multiple subnets, Fast-Track will list all individual systems compromised and will allow
+you to interact with each one. For example, if there are three SQL servers that were compromised you would
+see the following:
+<br><br>
+The following SQL Servers were compromised:<br>
+1. 192.168.1.10<br>
+2. 192.168.2.43<br>
+3. 10.10.1.55<br>
+<br>
+Enter the server to interact with:
+<br><br>
+By specifying the number, i.e. 1 or 2 or 3 would jump you into whatever payload you specify next.  
+<br><br>
+There are two options, the first "quick brute" attempts a pretty quick password list which has about
+fifty passwords it attempts.
+<br><br>
+The second is a wordlist brute, you can specify one host or a range and import a dictionary
+to brute force with.
+<br><br>
+The MSSQL Bruter supports multiple subnets i.e. class A's, class B's, and so on and so forth. You can
+also specifiy individual IP addresses. It uses the nmap syntax when performing the port scans.
+<br><br>
+Select which option you want to perform below, the MSSQL Quick Brute or the MSSQL Wordlist Brute.<br><br>
+</p></td>
+ </tr>
+ <tr>
+  <td bgcolor="#2A2A2A">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+     <tr>
+      <td class="box_bg">
+        <table width="100%" border="0" cellspacing="15" cellpadding="0">
+         <tr>
+          <td>
+           <p class="box_text"><b><a href="/quickbrute">MSSQL Quick Brute - Attack SQL Servers with about fifty passwords</p>
+           <p class="box_text"><b><a href="/wordlistbrute">MSSQL Wordlist Brute - Attack SQL Servers with a custom wordlist</p>
+
+
+          </td>
+         </tr>
+        </table>
+      </td>
+     </tr>
+     <tr>
+      <td><img src="images/fast_track_21.jpg" width="537" height="13" alt=""></td>
+     </tr>
+    </table>
+  </td>
+ </tr>
+</table>
+<p>&nbsp;</p>
+
+<!--Body Content End-->
+
+  <p>&nbsp;</p></td>
+ </tr>
+</table>    

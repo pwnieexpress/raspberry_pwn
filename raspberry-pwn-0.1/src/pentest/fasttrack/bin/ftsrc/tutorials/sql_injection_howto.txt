@@ -1,0 +1,149 @@
+**********************************************************************
+SQL Injection HOWTO: Requirements (Depends on what your using)
+**********************************************************************
+
+First lets start off with "What is SQL Injection". SQL Injection is a 
+method of executing back-end SQL commands on a database, utilizing the
+web front-end.
+
+Let me give you an example. You log into a site and you are prompted for
+a username and password.
+
+Login:
+Password:
+
+When you enter your information into the login and password prompt, a 
+query is made to a database and the login and password information is
+checked to ensure validity. If it isn't, it doesn't let you through right?
+
+If the programmers of the website don't understand security, then it may
+be possible to inject SQL statements into a specific URL or request and
+piggy back some malicious code on there. Lets try another example:
+
+Login: '
+Password: blah
+
+You can see a single quote is thrown into the login, and a password of blah
+is given. If this site was vulnerable to SQL Injection, the page would "blow"
+up, or in other words, error out showing a database error. If the developers
+were semi smart, SQL Injection may still be there, but have custom errors on.
+This is known as "Blind SQL Injection". We rely off of error messages to help
+us identify potential security holes. If they are using custom errors on their
+pages, it then becomes more challenging. So if this blows up and we get some 
+nice errors, or the page at least errors out with a custom error message, it
+may be vulnerable to SQL Injection.
+
+          """
+          pause2=raw_input("Press enter to continue to the next page")
+          print """
+
+Why did this error out? A single quote represents the start of a new SQL statement.
+
+We basically just told the SQL server hey, we are starting a new SQL statement, but
+didn't properly close the statement. Its an invalid statement, so SQL says bug off
+and says complete the string next time. How do we exploit this?
+
+Lets take another look:
+
+Login: ' or 1=1--
+Password: blah
+
+We just send the server ' start a new SQL statement or 1=1 (always true) and -- 
+(comment out everything else). This statement here is about as basic as it
+gets. We just say hey, this is true, and don't worry about anything else like
+a password or anything. Generally this drops us into the first account in the
+table name, or the admin account in most circumstances.
+
+Let's take a look at what the URL is actually giving back to us:
+
+http://www.thisisafakesite.com/Default.aspx?login=' or 1=1--&password=blah
+
+You can see in the URL where we insert our malicious code in the ' or 1=1--.
+
+Generally this is not always going to be in the URL, thats why in Fast-Track
+when you specify for Fast-Track to NOT do everything for you, it actually
+generates the string its going to send for you so that you can insert that 
+into a specific request through a web proxy like the Burp Suite. 
+
+The specific attack we use in Fast-Track uses specific injection techniques
+by using the xp_cmdshell stored procedure. If the web application's queries
+are not running off of an administrative level account like "sa" or has
+the systems administrator role within MSSQL, then this attack will not work.
+
+In order for Fast-Track to know which parameter to inject in, you need to
+tell it by putting an 'INJECTHERE into the url. So the above URL would look
+like:
+
+http://www.thisisafakesite.com/Default.aspx?login='INJECTHERE&password=blah
+
+Fast-Track will identify this and automatically inject the SQL queries into
+the portion you specify.
+
+          """
+          pause3=raw_input("Press enter to continue to the next page")
+          print """
+
+Some of the things Fast-Track does for you is the following:
+
+1. If the xp_cmdshell is disabled in SQL 2000 or SQL 2005, it will
+automatically reconfigure and enable it for you.
+
+
+If using the Binary Payload:
+
+(Binary Payload) 2. Injects a binary2hex file on the victims machine through HTTP, and then
+uses debug to rewrite it as an executable. Then provides you with a fully
+functioning reverse shell without ever having to force a reverse out to 
+download a seperate file.
+
+If using the FTP SQL Injector portion:
+
+(FTP Mode) 2. Sets up an FTP server using ProFTPD, creates a user account on
+your linux machine called ftpuser with password of ftpuser. Then
+creates a home directory of /home/ftpuser. Copies over NetCat to
+this specific folder.
+
+(FTP Mode) 3. Initiates an FTP connection ORIGINATING from the SQL server
+your attacking. So this attack bypasses ingress filtering!!
+
+(FTP Mode) 4. Pulls off NetCat from your machine, or a machine you specify.
+
+5. Initiates a call FROM the SQL server your attacking on port 8080 or 4444,
+again bypassing all ingress points, and hopefully, their egress points.
+
+(FTP Mode) 6. Gives you a shell through Netcat onto the windows system.
+
+ (FTP Mode) 7. Once a connection is established and a shell is spawned, Fast-Track 
+cleans up everything by shutting down the FTP server, deleting the user
+account and home directory for security reasons.
+
+There are also two other menus that allow you to either manually setup
+each attach, or just generate the strings needed in order to use the
+attacks. This can be used if the parameters you need to inject to
+aren't in the URL, but in a form on thepage.
+
+          """
+          pause4=raw_input("Press enter to continue to the next page")
+          print """
+
+Overall this is one hell of an attack if its successful. The automatic
+function only works if you have an IP address that is externally 
+accessible (if your hacking internet facing sites), if your internal,
+obviously this doesn't matter. 
+
+If your running this attack from an internally NATTed system, you
+will have to setup everything yourself...which is fairly easy to do.
+Simply have an externally facing FTP server with nc.exe on it, and
+netcat listening on whatever port you specify, i.e nc -lvp 80.
+
+The reason for FTP is due to the fact there really isn't any other
+consistent method for transferring different flavors of operating 
+systems and transporting it to the operating system. Windows 2000,
+XP, 2003, 2003 R2, Vista, 98, and virtually all other Windows
+operating systems has FTP. This is needed in order to get netcat
+onto the specified system itself.
+
+**********************************************************************
+Special thanks to Sasquatch from SecureState for doing the generator on 
+Windows, made it extremely easy for me to incorporate it into this..
+**********************************************************************

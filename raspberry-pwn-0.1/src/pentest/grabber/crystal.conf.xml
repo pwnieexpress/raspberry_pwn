@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!-- Crystal Module for Grabber configuration file -->
+<crystal version="0.1">
+	<!-- Give some information, distant/local files -->
+	<url >http://192.168.1.2/bank</url>
+	<files>\\192.168.1.2\htdocs\bank</files>
+	<!-- Analyzer information, here PHP-Sat -->
+	<analyzer>
+		<path input="--config-file C:\Samate\WebAppScanner\Grabber\php-sat.grabber.ini --preserve-positions --complex-inclusion -i" output="-o">C:\msys\1.0\bin\php-sat.exe</path>
+		<extension>php</extension>
+		<!--
+			Typical pattern block
+
+		    11: not flagged php line
+			12: /**
+			13: 	pattern content...
+			14: */
+			15: php line with the flaw +- FLAGGED!
+		-->
+		<patterns name="php-sat" start="/**" end="*/">
+			<!-- Analyze with the pattern -->
+			<pattern module="xss,include">
+			   Pattern ID: MCV000
+			</pattern>
+			<pattern module="sql,bsql">
+			   Pattern ID: MCV001
+			</pattern>
+		</patterns>
+	</analyzer>
+</crystal>

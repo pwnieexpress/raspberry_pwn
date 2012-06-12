@@ -1,0 +1,71 @@
+v0.01
+	- SIP INVITE tests (request line, basic headers, all headers, SDP)
+	- SIP OPTIONS tests
+	- SIP INVITE Cancelling
+	- SIP Crash detection (OPTIONS based)
+	- RFC 4475 torture tool
+	- Crash replay tool
+	- Client registration support
+	- ACK messages for responses
+	- Inline documentation on pretty much all functions
+
+v0.02
+	- Fuzzing of multiple Via headers (SIP)
+	- Fuzzing of line folding (SIP)
+	- Fuzzing of multiple routes (SIP)
+	- Fuzzing of multple record-route headers (SIP)
+	- Enhanced the request line fuzzer (SIP)
+	- Added '-s' command line option to fuzzer to allow skipping of tests
+	- Add sent_data to the cancel queue instead of rendered data
+	- Support for all 45 headers defined in RFC 3261
+	- Created nix_process_monitor.py that replicates the functionality of process_monitor.py script of Sulley for *nix systems
+	- Added several legos to Sulley increasing # tests to nearly 200,000
+	- Separated SIP utilities into their own module
+	- Made a number of changes to Sulley, see the end of the README for full details
+
+v0.03 (Private Beta 1)
+	- GUI for Windows
+	- Made even more changes to Sulley to facilitate the GUI, mainly in sulley/sulley/sessions.py
+	- You can now use target restarting facility along with the waiting for client registration stuff
+	- *BUGFIX* Fixed missing '<' and '>' in INVITE_COMMON From and To fields
+	- *BUGFIX* Fixed missing '<' in INVITE_COMMON Contact field
+	- *BUGFIX* Added a debug handler in *_process_monitor.py for unscheduled exits that aren't picked up as access violations
+	- Added '-c' and '-t' options to crash_replay.py to allow the CANCEL messages for SIP INVITE requests to be generated
+
+v0.04 April 21st 2008 (First public release)
+	- *BUGFIX* Added code to create the session directory if it doesn't exist, instead of just falling over
+	- *BUGFIX* Added check for existence of '-t' option to crash_replay.py if '-c' is present
+	- Removed notification to the user that UDP data truncation is taking place
+	- *BUGFIX* Fixed error where the 'Stop' button on the GUI wasn't functioning
+	- Changed the crash detection mechanism so that it accepts any response from the target as a sign it is still alive. 		
+	Previously it would only accept a response to the OPTIONS request sent. This seems to reduce false positives without
+	effecting the accuracy of detection.
+	- Fixed some formatting issues with logging
+	- Changed logging to use 24 hour format
+	- *BUGFIX* Added support for logging level 2 to the GUI. It now pauses the fuzzer correctly on detecting a crash. 
+	Restarting is done via the Pause/Restart Button
+	- Added T38 support to the SDP fuzzer
+	- Removed notification of UDP packet truncation
+	- *BUGFIX* Notify procmon and procmon.target when the 'Stop' button on the GUI is pressed
+	- Fixed path issues with sulley/utils/crashbin_explorer.py
+	- Added help docs to the fuzzers and made them available via the GUI and the command line
+	- Removed SDPEncoded fuzzer for now 
+	- crash_replay.py can now output self contained POC python scripts
+	- Integrated the -c and -t options of crash_replay.py
+	- *BUGFIX* Fixed bug in the order of paramaters being passed to the abstract fuzzer classes
+	- Changed the settle in timeout of win_process_monitor.py to 10 seconds
+	- Created a basic fuzzer for ACK and CANCEL SIP requests
+	- Created USAGE.txt
+
+v0.05 (Final release of this branch. Future releases will be based off of the current dev branch) 
+	- User can specify the 'settle in' time to processes restarted by win/nix_process_monitor.py
+	- Users can specify the maximum length fuzz string to use
+	- *BUGFIX* Fixed an import path issue in sulley/s_utils/crashbin_explorer.py
+
+v0.06 (I lied...this is the final release of this branch)
+        - Changed the post-test sleep to .5 seconds instead of 1. I have no idea why this was set so high
+
+v0.07 (Beta release)
+        - Added a bundle of new fuzzers
+        - Rewrote the entire SIP backend
+        - Added a 'voiper.config' file to allow certain options to be specified to the SIP backend

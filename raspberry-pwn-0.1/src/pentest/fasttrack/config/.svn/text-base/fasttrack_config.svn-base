@@ -1,0 +1,10 @@
+################################################################################################################
+#
+# FAST-TRACK CONFIGURATION FILE. THIS IS VERY BETA AND WILL BE ADDED UPON AS THE NEED GROWS, THIS WAS TO MIMIC
+# THE CONFIG FILE SIMILAR TO THE SOCIAL-ENGINEER-TOOLKIT (SET). 
+#
+################################################################################################################
+#
+# CONFIG THE METASPOIT PATH HERE AND CHANGE IT TO WHATEVER YOU WANT
+METASPLOIT_PATH=/pentest/exploits/framework/
+

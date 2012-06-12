@@ -1,0 +1,402 @@
+
+<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module fdpexpect</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>fdpexpect</strong></big></big> (version 2.3)</font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/noah/pexpect/trunk/pexpect/fdpexpect.py">/home/noah/pexpect/trunk/pexpect/fdpexpect.py</a></font></td></tr></table>
+    <p><tt>This&nbsp;is&nbsp;like&nbsp;pexpect,&nbsp;but&nbsp;will&nbsp;work&nbsp;on&nbsp;any&nbsp;file&nbsp;descriptor&nbsp;that&nbsp;you&nbsp;pass&nbsp;it.<br>
+So&nbsp;you&nbsp;are&nbsp;reponsible&nbsp;for&nbsp;opening&nbsp;and&nbsp;close&nbsp;the&nbsp;file&nbsp;descriptor.<br>
+&nbsp;<br>
+$Id:&nbsp;fdpexpect.py&nbsp;505&nbsp;2007-12-26&nbsp;21:33:50Z&nbsp;noah&nbsp;$</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="os.html">os</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="pexpect.html#spawn">pexpect.spawn</a>(<a href="__builtin__.html#object">__builtin__.object</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="fdpexpect.html#fdspawn">fdspawn</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="fdspawn">class <strong>fdspawn</strong></a>(<a href="pexpect.html#spawn">pexpect.spawn</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>This&nbsp;is&nbsp;like&nbsp;pexpect.<a href="pexpect.html#spawn">spawn</a>&nbsp;but&nbsp;allows&nbsp;you&nbsp;to&nbsp;supply&nbsp;your&nbsp;own&nbsp;open&nbsp;file<br>
+descriptor.&nbsp;For&nbsp;example,&nbsp;you&nbsp;could&nbsp;use&nbsp;it&nbsp;to&nbsp;read&nbsp;through&nbsp;a&nbsp;file&nbsp;looking<br>
+for&nbsp;patterns,&nbsp;or&nbsp;to&nbsp;control&nbsp;a&nbsp;modem&nbsp;or&nbsp;serial&nbsp;device.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="fdpexpect.html#fdspawn">fdspawn</a></dd>
+<dd><a href="pexpect.html#spawn">pexpect.spawn</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="fdspawn-__del__"><strong>__del__</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="fdspawn-__init__"><strong>__init__</strong></a>(self, fd, args<font color="#909090">=[]</font>, timeout<font color="#909090">=30</font>, maxread<font color="#909090">=2000</font>, searchwindowsize<font color="#909090">=None</font>, logfile<font color="#909090">=None</font>)</dt><dd><tt>This&nbsp;takes&nbsp;a&nbsp;file&nbsp;descriptor&nbsp;(an&nbsp;int)&nbsp;or&nbsp;an&nbsp;object&nbsp;that&nbsp;support&nbsp;the<br>
+<a href="#fdspawn-fileno">fileno</a>()&nbsp;method&nbsp;(returning&nbsp;an&nbsp;int).&nbsp;All&nbsp;Python&nbsp;file-like&nbsp;objects<br>
+support&nbsp;<a href="#fdspawn-fileno">fileno</a>().</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-close"><strong>close</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="fdspawn-isalive"><strong>isalive</strong></a>(self)</dt><dd><tt>This&nbsp;checks&nbsp;if&nbsp;the&nbsp;file&nbsp;descriptor&nbsp;is&nbsp;still&nbsp;valid.&nbsp;If&nbsp;os.fstat()<br>
+does&nbsp;not&nbsp;raise&nbsp;an&nbsp;exception&nbsp;then&nbsp;we&nbsp;assume&nbsp;it&nbsp;is&nbsp;alive.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-kill"><strong>kill</strong></a>(self, sig)</dt></dl>
+
+<dl><dt><a name="fdspawn-terminate"><strong>terminate</strong></a>(self, force<font color="#909090">=False</font>)</dt></dl>
+
+<hr>
+Methods inherited from <a href="pexpect.html#spawn">pexpect.spawn</a>:<br>
+<dl><dt><a name="fdspawn-__iter__"><strong>__iter__</strong></a>(self)</dt><dd><tt>This&nbsp;is&nbsp;to&nbsp;support&nbsp;iterators&nbsp;over&nbsp;a&nbsp;file-like&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>This&nbsp;returns&nbsp;a&nbsp;human-readable&nbsp;string&nbsp;that&nbsp;represents&nbsp;the&nbsp;state&nbsp;of<br>
+the&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-compile_pattern_list"><strong>compile_pattern_list</strong></a>(self, patterns)</dt><dd><tt>This&nbsp;compiles&nbsp;a&nbsp;pattern-string&nbsp;or&nbsp;a&nbsp;list&nbsp;of&nbsp;pattern-strings.<br>
+Patterns&nbsp;must&nbsp;be&nbsp;a&nbsp;StringType,&nbsp;EOF,&nbsp;TIMEOUT,&nbsp;SRE_Pattern,&nbsp;or&nbsp;a&nbsp;list&nbsp;of<br>
+those.&nbsp;Patterns&nbsp;may&nbsp;also&nbsp;be&nbsp;None&nbsp;which&nbsp;results&nbsp;in&nbsp;an&nbsp;empty&nbsp;list&nbsp;(you<br>
+might&nbsp;do&nbsp;this&nbsp;if&nbsp;waiting&nbsp;for&nbsp;an&nbsp;EOF&nbsp;or&nbsp;TIMEOUT&nbsp;condition&nbsp;without<br>
+expecting&nbsp;any&nbsp;pattern).<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;used&nbsp;by&nbsp;<a href="#fdspawn-expect">expect</a>()&nbsp;when&nbsp;calling&nbsp;<a href="#fdspawn-expect_list">expect_list</a>().&nbsp;Thus&nbsp;<a href="#fdspawn-expect">expect</a>()&nbsp;is<br>
+nothing&nbsp;more&nbsp;than::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpl&nbsp;=&nbsp;<a href="#fdspawn-compile_pattern_list">compile_pattern_list</a>(pl)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;<a href="#fdspawn-expect_list">expect_list</a>(cpl,&nbsp;timeout)<br>
+&nbsp;<br>
+If&nbsp;you&nbsp;are&nbsp;using&nbsp;<a href="#fdspawn-expect">expect</a>()&nbsp;within&nbsp;a&nbsp;loop&nbsp;it&nbsp;may&nbsp;be&nbsp;more<br>
+efficient&nbsp;to&nbsp;compile&nbsp;the&nbsp;patterns&nbsp;first&nbsp;and&nbsp;then&nbsp;call&nbsp;<a href="#fdspawn-expect_list">expect_list</a>().<br>
+This&nbsp;avoid&nbsp;calls&nbsp;in&nbsp;a&nbsp;loop&nbsp;to&nbsp;<a href="#fdspawn-compile_pattern_list">compile_pattern_list</a>()::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cpl&nbsp;=&nbsp;<a href="#fdspawn-compile_pattern_list">compile_pattern_list</a>(my_pattern)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;while&nbsp;some_condition:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i&nbsp;=&nbsp;<a href="#fdspawn-expect_list">expect_list</a>(clp,&nbsp;timeout)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-eof"><strong>eof</strong></a>(self)</dt><dd><tt>This&nbsp;returns&nbsp;True&nbsp;if&nbsp;the&nbsp;EOF&nbsp;exception&nbsp;was&nbsp;ever&nbsp;raised.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-expect"><strong>expect</strong></a>(self, pattern, timeout<font color="#909090">=-1</font>, searchwindowsize<font color="#909090">=None</font>)</dt><dd><tt>This&nbsp;seeks&nbsp;through&nbsp;the&nbsp;stream&nbsp;until&nbsp;a&nbsp;pattern&nbsp;is&nbsp;matched.&nbsp;The<br>
+pattern&nbsp;is&nbsp;overloaded&nbsp;and&nbsp;may&nbsp;take&nbsp;several&nbsp;types.&nbsp;The&nbsp;pattern&nbsp;can&nbsp;be&nbsp;a<br>
+StringType,&nbsp;EOF,&nbsp;a&nbsp;compiled&nbsp;re,&nbsp;or&nbsp;a&nbsp;list&nbsp;of&nbsp;any&nbsp;of&nbsp;those&nbsp;types.<br>
+Strings&nbsp;will&nbsp;be&nbsp;compiled&nbsp;to&nbsp;re&nbsp;types.&nbsp;This&nbsp;returns&nbsp;the&nbsp;index&nbsp;into&nbsp;the<br>
+pattern&nbsp;list.&nbsp;If&nbsp;the&nbsp;pattern&nbsp;was&nbsp;not&nbsp;a&nbsp;list&nbsp;this&nbsp;returns&nbsp;index&nbsp;0&nbsp;on&nbsp;a<br>
+successful&nbsp;match.&nbsp;This&nbsp;may&nbsp;raise&nbsp;exceptions&nbsp;for&nbsp;EOF&nbsp;or&nbsp;TIMEOUT.&nbsp;To<br>
+avoid&nbsp;the&nbsp;EOF&nbsp;or&nbsp;TIMEOUT&nbsp;exceptions&nbsp;add&nbsp;EOF&nbsp;or&nbsp;TIMEOUT&nbsp;to&nbsp;the&nbsp;pattern<br>
+list.&nbsp;That&nbsp;will&nbsp;cause&nbsp;expect&nbsp;to&nbsp;match&nbsp;an&nbsp;EOF&nbsp;or&nbsp;TIMEOUT&nbsp;condition<br>
+instead&nbsp;of&nbsp;raising&nbsp;an&nbsp;exception.<br>
+&nbsp;<br>
+If&nbsp;you&nbsp;pass&nbsp;a&nbsp;list&nbsp;of&nbsp;patterns&nbsp;and&nbsp;more&nbsp;than&nbsp;one&nbsp;matches,&nbsp;the&nbsp;first&nbsp;match<br>
+in&nbsp;the&nbsp;stream&nbsp;is&nbsp;chosen.&nbsp;If&nbsp;more&nbsp;than&nbsp;one&nbsp;pattern&nbsp;matches&nbsp;at&nbsp;that&nbsp;point,<br>
+the&nbsp;leftmost&nbsp;in&nbsp;the&nbsp;pattern&nbsp;list&nbsp;is&nbsp;chosen.&nbsp;For&nbsp;example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;the&nbsp;input&nbsp;is&nbsp;'foobar'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;=&nbsp;p.expect&nbsp;(['bar',&nbsp;'foo',&nbsp;'foobar'])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;returns&nbsp;1&nbsp;('foo')&nbsp;even&nbsp;though&nbsp;'foobar'&nbsp;is&nbsp;a&nbsp;"better"&nbsp;match<br>
+&nbsp;<br>
+Please&nbsp;note,&nbsp;however,&nbsp;that&nbsp;buffering&nbsp;can&nbsp;affect&nbsp;this&nbsp;behavior,&nbsp;since<br>
+input&nbsp;arrives&nbsp;in&nbsp;unpredictable&nbsp;chunks.&nbsp;For&nbsp;example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;the&nbsp;input&nbsp;is&nbsp;'foobar'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;=&nbsp;p.expect&nbsp;(['foobar',&nbsp;'foo'])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;returns&nbsp;0&nbsp;('foobar')&nbsp;if&nbsp;all&nbsp;input&nbsp;is&nbsp;available&nbsp;at&nbsp;once,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;#&nbsp;but&nbsp;returs&nbsp;1&nbsp;('foo')&nbsp;if&nbsp;parts&nbsp;of&nbsp;the&nbsp;final&nbsp;'bar'&nbsp;arrive&nbsp;late<br>
+&nbsp;<br>
+After&nbsp;a&nbsp;match&nbsp;is&nbsp;found&nbsp;the&nbsp;instance&nbsp;attributes&nbsp;'before',&nbsp;'after'&nbsp;and<br>
+'match'&nbsp;will&nbsp;be&nbsp;set.&nbsp;You&nbsp;can&nbsp;see&nbsp;all&nbsp;the&nbsp;data&nbsp;read&nbsp;before&nbsp;the&nbsp;match&nbsp;in<br>
+'before'.&nbsp;You&nbsp;can&nbsp;see&nbsp;the&nbsp;data&nbsp;that&nbsp;was&nbsp;matched&nbsp;in&nbsp;'after'.&nbsp;The<br>
+re.MatchObject&nbsp;used&nbsp;in&nbsp;the&nbsp;re&nbsp;match&nbsp;will&nbsp;be&nbsp;in&nbsp;'match'.&nbsp;If&nbsp;an&nbsp;error<br>
+occurred&nbsp;then&nbsp;'before'&nbsp;will&nbsp;be&nbsp;set&nbsp;to&nbsp;all&nbsp;the&nbsp;data&nbsp;read&nbsp;so&nbsp;far&nbsp;and<br>
+'after'&nbsp;and&nbsp;'match'&nbsp;will&nbsp;be&nbsp;None.<br>
+&nbsp;<br>
+If&nbsp;timeout&nbsp;is&nbsp;-1&nbsp;then&nbsp;timeout&nbsp;will&nbsp;be&nbsp;set&nbsp;to&nbsp;the&nbsp;self.<strong>timeout</strong>&nbsp;value.<br>
+&nbsp;<br>
+A&nbsp;list&nbsp;entry&nbsp;may&nbsp;be&nbsp;EOF&nbsp;or&nbsp;TIMEOUT&nbsp;instead&nbsp;of&nbsp;a&nbsp;string.&nbsp;This&nbsp;will<br>
+catch&nbsp;these&nbsp;exceptions&nbsp;and&nbsp;return&nbsp;the&nbsp;index&nbsp;of&nbsp;the&nbsp;list&nbsp;entry&nbsp;instead<br>
+of&nbsp;raising&nbsp;the&nbsp;exception.&nbsp;The&nbsp;attribute&nbsp;'after'&nbsp;will&nbsp;be&nbsp;set&nbsp;to&nbsp;the<br>
+exception&nbsp;type.&nbsp;The&nbsp;attribute&nbsp;'match'&nbsp;will&nbsp;be&nbsp;None.&nbsp;This&nbsp;allows&nbsp;you&nbsp;to<br>
+write&nbsp;code&nbsp;like&nbsp;this::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;=&nbsp;p.expect&nbsp;(['good',&nbsp;'bad',&nbsp;pexpect.EOF,&nbsp;pexpect.TIMEOUT])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;index&nbsp;==&nbsp;0:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;do_something()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elif&nbsp;index&nbsp;==&nbsp;1:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;do_something_else()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elif&nbsp;index&nbsp;==&nbsp;2:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;do_some_other_thing()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elif&nbsp;index&nbsp;==&nbsp;3:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;do_something_completely_different()<br>
+&nbsp;<br>
+instead&nbsp;of&nbsp;code&nbsp;like&nbsp;this::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;index&nbsp;=&nbsp;p.expect&nbsp;(['good',&nbsp;'bad'])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;index&nbsp;==&nbsp;0:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;do_something()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;elif&nbsp;index&nbsp;==&nbsp;1:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;do_something_else()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;except&nbsp;EOF:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;do_some_other_thing()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;except&nbsp;TIMEOUT:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;do_something_completely_different()<br>
+&nbsp;<br>
+These&nbsp;two&nbsp;forms&nbsp;are&nbsp;equivalent.&nbsp;It&nbsp;all&nbsp;depends&nbsp;on&nbsp;what&nbsp;you&nbsp;want.&nbsp;You<br>
+can&nbsp;also&nbsp;just&nbsp;expect&nbsp;the&nbsp;EOF&nbsp;if&nbsp;you&nbsp;are&nbsp;waiting&nbsp;for&nbsp;all&nbsp;output&nbsp;of&nbsp;a<br>
+child&nbsp;to&nbsp;finish.&nbsp;For&nbsp;example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p&nbsp;=&nbsp;pexpect.<a href="pexpect.html#spawn">spawn</a>('/bin/ls')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p.expect&nbsp;(pexpect.EOF)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;print&nbsp;p.before<br>
+&nbsp;<br>
+If&nbsp;you&nbsp;are&nbsp;trying&nbsp;to&nbsp;optimize&nbsp;for&nbsp;speed&nbsp;then&nbsp;see&nbsp;<a href="#fdspawn-expect_list">expect_list</a>().</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-expect_exact"><strong>expect_exact</strong></a>(self, pattern_list, timeout<font color="#909090">=-1</font>, searchwindowsize<font color="#909090">=-1</font>)</dt><dd><tt>This&nbsp;is&nbsp;similar&nbsp;to&nbsp;<a href="#fdspawn-expect">expect</a>(),&nbsp;but&nbsp;uses&nbsp;plain&nbsp;string&nbsp;matching&nbsp;instead<br>
+of&nbsp;compiled&nbsp;regular&nbsp;expressions&nbsp;in&nbsp;'pattern_list'.&nbsp;The&nbsp;'pattern_list'<br>
+may&nbsp;be&nbsp;a&nbsp;string;&nbsp;a&nbsp;list&nbsp;or&nbsp;other&nbsp;sequence&nbsp;of&nbsp;strings;&nbsp;or&nbsp;TIMEOUT&nbsp;and<br>
+EOF.<br>
+&nbsp;<br>
+This&nbsp;call&nbsp;might&nbsp;be&nbsp;faster&nbsp;than&nbsp;<a href="#fdspawn-expect">expect</a>()&nbsp;for&nbsp;two&nbsp;reasons:&nbsp;string<br>
+searching&nbsp;is&nbsp;faster&nbsp;than&nbsp;RE&nbsp;matching&nbsp;and&nbsp;it&nbsp;is&nbsp;possible&nbsp;to&nbsp;limit&nbsp;the<br>
+search&nbsp;to&nbsp;just&nbsp;the&nbsp;end&nbsp;of&nbsp;the&nbsp;input&nbsp;buffer.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;is&nbsp;also&nbsp;useful&nbsp;when&nbsp;you&nbsp;don't&nbsp;want&nbsp;to&nbsp;have&nbsp;to&nbsp;worry&nbsp;about<br>
+escaping&nbsp;regular&nbsp;expression&nbsp;characters&nbsp;that&nbsp;you&nbsp;want&nbsp;to&nbsp;match.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-expect_list"><strong>expect_list</strong></a>(self, pattern_list, timeout<font color="#909090">=-1</font>, searchwindowsize<font color="#909090">=-1</font>)</dt><dd><tt>This&nbsp;takes&nbsp;a&nbsp;list&nbsp;of&nbsp;compiled&nbsp;regular&nbsp;expressions&nbsp;and&nbsp;returns&nbsp;the<br>
+index&nbsp;into&nbsp;the&nbsp;pattern_list&nbsp;that&nbsp;matched&nbsp;the&nbsp;child&nbsp;output.&nbsp;The&nbsp;list&nbsp;may<br>
+also&nbsp;contain&nbsp;EOF&nbsp;or&nbsp;TIMEOUT&nbsp;(which&nbsp;are&nbsp;not&nbsp;compiled&nbsp;regular<br>
+expressions).&nbsp;This&nbsp;method&nbsp;is&nbsp;similar&nbsp;to&nbsp;the&nbsp;<a href="#fdspawn-expect">expect</a>()&nbsp;method&nbsp;except&nbsp;that<br>
+<a href="#fdspawn-expect_list">expect_list</a>()&nbsp;does&nbsp;not&nbsp;recompile&nbsp;the&nbsp;pattern&nbsp;list&nbsp;on&nbsp;every&nbsp;call.&nbsp;This<br>
+may&nbsp;help&nbsp;if&nbsp;you&nbsp;are&nbsp;trying&nbsp;to&nbsp;optimize&nbsp;for&nbsp;speed,&nbsp;otherwise&nbsp;just&nbsp;use<br>
+the&nbsp;<a href="#fdspawn-expect">expect</a>()&nbsp;method.&nbsp;&nbsp;This&nbsp;is&nbsp;called&nbsp;by&nbsp;<a href="#fdspawn-expect">expect</a>().&nbsp;If&nbsp;timeout==-1&nbsp;then<br>
+the&nbsp;self.<strong>timeout</strong>&nbsp;value&nbsp;is&nbsp;used.&nbsp;If&nbsp;searchwindowsize==-1&nbsp;then&nbsp;the<br>
+self.<strong>searchwindowsize</strong>&nbsp;value&nbsp;is&nbsp;used.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-expect_loop"><strong>expect_loop</strong></a>(self, searcher, timeout<font color="#909090">=-1</font>, searchwindowsize<font color="#909090">=-1</font>)</dt><dd><tt>This&nbsp;is&nbsp;the&nbsp;common&nbsp;loop&nbsp;used&nbsp;inside&nbsp;expect.&nbsp;The&nbsp;'searcher'&nbsp;should&nbsp;be<br>
+an&nbsp;instance&nbsp;of&nbsp;searcher_re&nbsp;or&nbsp;searcher_string,&nbsp;which&nbsp;describes&nbsp;how&nbsp;and&nbsp;what<br>
+to&nbsp;search&nbsp;for&nbsp;in&nbsp;the&nbsp;input.<br>
+&nbsp;<br>
+See&nbsp;<a href="#fdspawn-expect">expect</a>()&nbsp;for&nbsp;other&nbsp;arguments,&nbsp;return&nbsp;value&nbsp;and&nbsp;exceptions.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-fileno"><strong>fileno</strong></a>(self)</dt><dd><tt>This&nbsp;returns&nbsp;the&nbsp;file&nbsp;descriptor&nbsp;of&nbsp;the&nbsp;pty&nbsp;for&nbsp;the&nbsp;child.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-flush"><strong>flush</strong></a>(self)</dt><dd><tt>This&nbsp;does&nbsp;nothing.&nbsp;It&nbsp;is&nbsp;here&nbsp;to&nbsp;support&nbsp;the&nbsp;interface&nbsp;for&nbsp;a<br>
+File-like&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-getecho"><strong>getecho</strong></a>(self)</dt><dd><tt>This&nbsp;returns&nbsp;the&nbsp;terminal&nbsp;echo&nbsp;mode.&nbsp;This&nbsp;returns&nbsp;True&nbsp;if&nbsp;echo&nbsp;is<br>
+on&nbsp;or&nbsp;False&nbsp;if&nbsp;echo&nbsp;is&nbsp;off.&nbsp;Child&nbsp;applications&nbsp;that&nbsp;are&nbsp;expecting&nbsp;you<br>
+to&nbsp;enter&nbsp;a&nbsp;password&nbsp;often&nbsp;set&nbsp;ECHO&nbsp;False.&nbsp;See&nbsp;<a href="#fdspawn-waitnoecho">waitnoecho</a>().</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-getwinsize"><strong>getwinsize</strong></a>(self)</dt><dd><tt>This&nbsp;returns&nbsp;the&nbsp;terminal&nbsp;window&nbsp;size&nbsp;of&nbsp;the&nbsp;child&nbsp;tty.&nbsp;The&nbsp;return<br>
+value&nbsp;is&nbsp;a&nbsp;tuple&nbsp;of&nbsp;(rows,&nbsp;cols).</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-interact"><strong>interact</strong></a>(self, escape_character<font color="#909090">='<font color="#c040c0">\x1d</font>'</font>, input_filter<font color="#909090">=None</font>, output_filter<font color="#909090">=None</font>)</dt><dd><tt>This&nbsp;gives&nbsp;control&nbsp;of&nbsp;the&nbsp;child&nbsp;process&nbsp;to&nbsp;the&nbsp;interactive&nbsp;user&nbsp;(the<br>
+human&nbsp;at&nbsp;the&nbsp;keyboard).&nbsp;Keystrokes&nbsp;are&nbsp;sent&nbsp;to&nbsp;the&nbsp;child&nbsp;process,&nbsp;and<br>
+the&nbsp;stdout&nbsp;and&nbsp;stderr&nbsp;output&nbsp;of&nbsp;the&nbsp;child&nbsp;process&nbsp;is&nbsp;printed.&nbsp;This<br>
+simply&nbsp;echos&nbsp;the&nbsp;child&nbsp;stdout&nbsp;and&nbsp;child&nbsp;stderr&nbsp;to&nbsp;the&nbsp;real&nbsp;stdout&nbsp;and<br>
+it&nbsp;echos&nbsp;the&nbsp;real&nbsp;stdin&nbsp;to&nbsp;the&nbsp;child&nbsp;stdin.&nbsp;When&nbsp;the&nbsp;user&nbsp;types&nbsp;the<br>
+escape_character&nbsp;this&nbsp;method&nbsp;will&nbsp;stop.&nbsp;The&nbsp;default&nbsp;for<br>
+escape_character&nbsp;is&nbsp;^].&nbsp;This&nbsp;should&nbsp;not&nbsp;be&nbsp;confused&nbsp;with&nbsp;ASCII&nbsp;27&nbsp;--<br>
+the&nbsp;ESC&nbsp;character.&nbsp;ASCII&nbsp;29&nbsp;was&nbsp;chosen&nbsp;for&nbsp;historical&nbsp;merit&nbsp;because<br>
+this&nbsp;is&nbsp;the&nbsp;character&nbsp;used&nbsp;by&nbsp;'telnet'&nbsp;as&nbsp;the&nbsp;escape&nbsp;character.&nbsp;The<br>
+escape_character&nbsp;will&nbsp;not&nbsp;be&nbsp;sent&nbsp;to&nbsp;the&nbsp;child&nbsp;process.<br>
+&nbsp;<br>
+You&nbsp;may&nbsp;pass&nbsp;in&nbsp;optional&nbsp;input&nbsp;and&nbsp;output&nbsp;filter&nbsp;functions.&nbsp;These<br>
+functions&nbsp;should&nbsp;take&nbsp;a&nbsp;string&nbsp;and&nbsp;return&nbsp;a&nbsp;string.&nbsp;The&nbsp;output_filter<br>
+will&nbsp;be&nbsp;passed&nbsp;all&nbsp;the&nbsp;output&nbsp;from&nbsp;the&nbsp;child&nbsp;process.&nbsp;The&nbsp;input_filter<br>
+will&nbsp;be&nbsp;passed&nbsp;all&nbsp;the&nbsp;keyboard&nbsp;input&nbsp;from&nbsp;the&nbsp;user.&nbsp;The&nbsp;input_filter<br>
+is&nbsp;run&nbsp;BEFORE&nbsp;the&nbsp;check&nbsp;for&nbsp;the&nbsp;escape_character.<br>
+&nbsp;<br>
+Note&nbsp;that&nbsp;if&nbsp;you&nbsp;change&nbsp;the&nbsp;window&nbsp;size&nbsp;of&nbsp;the&nbsp;parent&nbsp;the&nbsp;SIGWINCH<br>
+signal&nbsp;will&nbsp;not&nbsp;be&nbsp;passed&nbsp;through&nbsp;to&nbsp;the&nbsp;child.&nbsp;If&nbsp;you&nbsp;want&nbsp;the&nbsp;child<br>
+window&nbsp;size&nbsp;to&nbsp;change&nbsp;when&nbsp;the&nbsp;parent's&nbsp;window&nbsp;size&nbsp;changes&nbsp;then&nbsp;do<br>
+something&nbsp;like&nbsp;the&nbsp;following&nbsp;example::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;import&nbsp;pexpect,&nbsp;struct,&nbsp;fcntl,&nbsp;termios,&nbsp;signal,&nbsp;sys<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def&nbsp;sigwinch_passthrough&nbsp;(sig,&nbsp;data):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;s&nbsp;=&nbsp;struct.pack("HHHH",&nbsp;0,&nbsp;0,&nbsp;0,&nbsp;0)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;=&nbsp;struct.unpack('hhhh',&nbsp;fcntl.ioctl(sys.stdout.<a href="#fdspawn-fileno">fileno</a>(),&nbsp;termios.TIOCGWINSZ&nbsp;,&nbsp;s))<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;global&nbsp;p<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p.<a href="#fdspawn-setwinsize">setwinsize</a>(a[0],a[1])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p&nbsp;=&nbsp;pexpect.<a href="pexpect.html#spawn">spawn</a>('/bin/bash')&nbsp;#&nbsp;Note&nbsp;this&nbsp;is&nbsp;global&nbsp;and&nbsp;used&nbsp;in&nbsp;sigwinch_passthrough.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;signal.signal(signal.SIGWINCH,&nbsp;sigwinch_passthrough)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p.<a href="#fdspawn-interact">interact</a>()</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-isatty"><strong>isatty</strong></a>(self)</dt><dd><tt>This&nbsp;returns&nbsp;True&nbsp;if&nbsp;the&nbsp;file&nbsp;descriptor&nbsp;is&nbsp;open&nbsp;and&nbsp;connected&nbsp;to&nbsp;a<br>
+tty(-like)&nbsp;device,&nbsp;else&nbsp;False.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-next"><strong>next</strong></a>(self)</dt><dd><tt>This&nbsp;is&nbsp;to&nbsp;support&nbsp;iterators&nbsp;over&nbsp;a&nbsp;file-like&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-read"><strong>read</strong></a>(self, size<font color="#909090">=-1</font>)</dt><dd><tt>This&nbsp;reads&nbsp;at&nbsp;most&nbsp;"size"&nbsp;bytes&nbsp;from&nbsp;the&nbsp;file&nbsp;(less&nbsp;if&nbsp;the&nbsp;read&nbsp;hits<br>
+EOF&nbsp;before&nbsp;obtaining&nbsp;size&nbsp;bytes).&nbsp;If&nbsp;the&nbsp;size&nbsp;argument&nbsp;is&nbsp;negative&nbsp;or<br>
+omitted,&nbsp;read&nbsp;all&nbsp;data&nbsp;until&nbsp;EOF&nbsp;is&nbsp;reached.&nbsp;The&nbsp;bytes&nbsp;are&nbsp;returned&nbsp;as<br>
+a&nbsp;string&nbsp;object.&nbsp;An&nbsp;empty&nbsp;string&nbsp;is&nbsp;returned&nbsp;when&nbsp;EOF&nbsp;is&nbsp;encountered<br>
+immediately.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-read_nonblocking"><strong>read_nonblocking</strong></a>(self, size<font color="#909090">=1</font>, timeout<font color="#909090">=-1</font>)</dt><dd><tt>This&nbsp;reads&nbsp;at&nbsp;most&nbsp;size&nbsp;characters&nbsp;from&nbsp;the&nbsp;child&nbsp;application.&nbsp;It<br>
+includes&nbsp;a&nbsp;timeout.&nbsp;If&nbsp;the&nbsp;read&nbsp;does&nbsp;not&nbsp;complete&nbsp;within&nbsp;the&nbsp;timeout<br>
+period&nbsp;then&nbsp;a&nbsp;TIMEOUT&nbsp;exception&nbsp;is&nbsp;raised.&nbsp;If&nbsp;the&nbsp;end&nbsp;of&nbsp;file&nbsp;is&nbsp;read<br>
+then&nbsp;an&nbsp;EOF&nbsp;exception&nbsp;will&nbsp;be&nbsp;raised.&nbsp;If&nbsp;a&nbsp;log&nbsp;file&nbsp;was&nbsp;set&nbsp;using<br>
+<a href="#fdspawn-setlog">setlog</a>()&nbsp;then&nbsp;all&nbsp;data&nbsp;will&nbsp;also&nbsp;be&nbsp;written&nbsp;to&nbsp;the&nbsp;log&nbsp;file.<br>
+&nbsp;<br>
+If&nbsp;timeout&nbsp;is&nbsp;None&nbsp;then&nbsp;the&nbsp;read&nbsp;may&nbsp;block&nbsp;indefinitely.&nbsp;If&nbsp;timeout&nbsp;is&nbsp;-1<br>
+then&nbsp;the&nbsp;self.<strong>timeout</strong>&nbsp;value&nbsp;is&nbsp;used.&nbsp;If&nbsp;timeout&nbsp;is&nbsp;0&nbsp;then&nbsp;the&nbsp;child&nbsp;is<br>
+polled&nbsp;and&nbsp;if&nbsp;there&nbsp;was&nbsp;no&nbsp;data&nbsp;immediately&nbsp;ready&nbsp;then&nbsp;this&nbsp;will&nbsp;raise<br>
+a&nbsp;TIMEOUT&nbsp;exception.<br>
+&nbsp;<br>
+The&nbsp;timeout&nbsp;refers&nbsp;only&nbsp;to&nbsp;the&nbsp;amount&nbsp;of&nbsp;time&nbsp;to&nbsp;read&nbsp;at&nbsp;least&nbsp;one<br>
+character.&nbsp;This&nbsp;is&nbsp;not&nbsp;effected&nbsp;by&nbsp;the&nbsp;'size'&nbsp;parameter,&nbsp;so&nbsp;if&nbsp;you&nbsp;call<br>
+<a href="#fdspawn-read_nonblocking">read_nonblocking</a>(size=100,&nbsp;timeout=30)&nbsp;and&nbsp;only&nbsp;one&nbsp;character&nbsp;is<br>
+available&nbsp;right&nbsp;away&nbsp;then&nbsp;one&nbsp;character&nbsp;will&nbsp;be&nbsp;returned&nbsp;immediately.<br>
+It&nbsp;will&nbsp;not&nbsp;wait&nbsp;for&nbsp;30&nbsp;seconds&nbsp;for&nbsp;another&nbsp;99&nbsp;characters&nbsp;to&nbsp;come&nbsp;in.<br>
+&nbsp;<br>
+This&nbsp;is&nbsp;a&nbsp;wrapper&nbsp;around&nbsp;os.<a href="#fdspawn-read">read</a>().&nbsp;It&nbsp;uses&nbsp;select.select()&nbsp;to<br>
+implement&nbsp;the&nbsp;timeout.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-readline"><strong>readline</strong></a>(self, size<font color="#909090">=-1</font>)</dt><dd><tt>This&nbsp;reads&nbsp;and&nbsp;returns&nbsp;one&nbsp;entire&nbsp;line.&nbsp;A&nbsp;trailing&nbsp;newline&nbsp;is&nbsp;kept<br>
+in&nbsp;the&nbsp;string,&nbsp;but&nbsp;may&nbsp;be&nbsp;absent&nbsp;when&nbsp;a&nbsp;file&nbsp;ends&nbsp;with&nbsp;an&nbsp;incomplete<br>
+line.&nbsp;Note:&nbsp;This&nbsp;<a href="#fdspawn-readline">readline</a>()&nbsp;looks&nbsp;for&nbsp;a&nbsp;\r\n&nbsp;pair&nbsp;even&nbsp;on&nbsp;UNIX<br>
+because&nbsp;this&nbsp;is&nbsp;what&nbsp;the&nbsp;pseudo&nbsp;tty&nbsp;device&nbsp;returns.&nbsp;So&nbsp;contrary&nbsp;to&nbsp;what<br>
+you&nbsp;may&nbsp;expect&nbsp;you&nbsp;will&nbsp;receive&nbsp;the&nbsp;newline&nbsp;as&nbsp;\r\n.&nbsp;An&nbsp;empty&nbsp;string<br>
+is&nbsp;returned&nbsp;when&nbsp;EOF&nbsp;is&nbsp;hit&nbsp;immediately.&nbsp;Currently,&nbsp;the&nbsp;size&nbsp;argument&nbsp;is<br>
+mostly&nbsp;ignored,&nbsp;so&nbsp;this&nbsp;behavior&nbsp;is&nbsp;not&nbsp;standard&nbsp;for&nbsp;a&nbsp;file-like<br>
+object.&nbsp;If&nbsp;size&nbsp;is&nbsp;0&nbsp;then&nbsp;an&nbsp;empty&nbsp;string&nbsp;is&nbsp;returned.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-readlines"><strong>readlines</strong></a>(self, sizehint<font color="#909090">=-1</font>)</dt><dd><tt>This&nbsp;reads&nbsp;until&nbsp;EOF&nbsp;using&nbsp;<a href="#fdspawn-readline">readline</a>()&nbsp;and&nbsp;returns&nbsp;a&nbsp;list&nbsp;containing<br>
+the&nbsp;lines&nbsp;thus&nbsp;read.&nbsp;The&nbsp;optional&nbsp;"sizehint"&nbsp;argument&nbsp;is&nbsp;ignored.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-send"><strong>send</strong></a>(self, s)</dt><dd><tt>This&nbsp;sends&nbsp;a&nbsp;string&nbsp;to&nbsp;the&nbsp;child&nbsp;process.&nbsp;This&nbsp;returns&nbsp;the&nbsp;number&nbsp;of<br>
+bytes&nbsp;written.&nbsp;If&nbsp;a&nbsp;log&nbsp;file&nbsp;was&nbsp;set&nbsp;then&nbsp;the&nbsp;data&nbsp;is&nbsp;also&nbsp;written&nbsp;to<br>
+the&nbsp;log.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-sendcontrol"><strong>sendcontrol</strong></a>(self, char)</dt><dd><tt>This&nbsp;sends&nbsp;a&nbsp;control&nbsp;character&nbsp;to&nbsp;the&nbsp;child&nbsp;such&nbsp;as&nbsp;Ctrl-C&nbsp;or<br>
+Ctrl-D.&nbsp;For&nbsp;example,&nbsp;to&nbsp;send&nbsp;a&nbsp;Ctrl-G&nbsp;(ASCII&nbsp;7)::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;child.<a href="#fdspawn-sendcontrol">sendcontrol</a>('g')<br>
+&nbsp;<br>
+See&nbsp;also,&nbsp;<a href="#fdspawn-sendintr">sendintr</a>()&nbsp;and&nbsp;<a href="#fdspawn-sendeof">sendeof</a>().</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-sendeof"><strong>sendeof</strong></a>(self)</dt><dd><tt>This&nbsp;sends&nbsp;an&nbsp;EOF&nbsp;to&nbsp;the&nbsp;child.&nbsp;This&nbsp;sends&nbsp;a&nbsp;character&nbsp;which&nbsp;causes<br>
+the&nbsp;pending&nbsp;parent&nbsp;output&nbsp;buffer&nbsp;to&nbsp;be&nbsp;sent&nbsp;to&nbsp;the&nbsp;waiting&nbsp;child<br>
+program&nbsp;without&nbsp;waiting&nbsp;for&nbsp;end-of-line.&nbsp;If&nbsp;it&nbsp;is&nbsp;the&nbsp;first&nbsp;character<br>
+of&nbsp;the&nbsp;line,&nbsp;the&nbsp;<a href="#fdspawn-read">read</a>()&nbsp;in&nbsp;the&nbsp;user&nbsp;program&nbsp;returns&nbsp;0,&nbsp;which&nbsp;signifies<br>
+end-of-file.&nbsp;This&nbsp;means&nbsp;to&nbsp;work&nbsp;as&nbsp;expected&nbsp;a&nbsp;<a href="#fdspawn-sendeof">sendeof</a>()&nbsp;has&nbsp;to&nbsp;be<br>
+called&nbsp;at&nbsp;the&nbsp;beginning&nbsp;of&nbsp;a&nbsp;line.&nbsp;This&nbsp;method&nbsp;does&nbsp;not&nbsp;send&nbsp;a&nbsp;newline.<br>
+It&nbsp;is&nbsp;the&nbsp;responsibility&nbsp;of&nbsp;the&nbsp;caller&nbsp;to&nbsp;ensure&nbsp;the&nbsp;eof&nbsp;is&nbsp;sent&nbsp;at&nbsp;the<br>
+beginning&nbsp;of&nbsp;a&nbsp;line.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-sendintr"><strong>sendintr</strong></a>(self)</dt><dd><tt>This&nbsp;sends&nbsp;a&nbsp;SIGINT&nbsp;to&nbsp;the&nbsp;child.&nbsp;It&nbsp;does&nbsp;not&nbsp;require<br>
+the&nbsp;SIGINT&nbsp;to&nbsp;be&nbsp;the&nbsp;first&nbsp;character&nbsp;on&nbsp;a&nbsp;line.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-sendline"><strong>sendline</strong></a>(self, s<font color="#909090">=''</font>)</dt><dd><tt>This&nbsp;is&nbsp;like&nbsp;<a href="#fdspawn-send">send</a>(),&nbsp;but&nbsp;it&nbsp;adds&nbsp;a&nbsp;line&nbsp;feed&nbsp;(os.linesep).&nbsp;This<br>
+returns&nbsp;the&nbsp;number&nbsp;of&nbsp;bytes&nbsp;written.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-setecho"><strong>setecho</strong></a>(self, state)</dt><dd><tt>This&nbsp;sets&nbsp;the&nbsp;terminal&nbsp;echo&nbsp;mode&nbsp;on&nbsp;or&nbsp;off.&nbsp;Note&nbsp;that&nbsp;anything&nbsp;the<br>
+child&nbsp;sent&nbsp;before&nbsp;the&nbsp;echo&nbsp;will&nbsp;be&nbsp;lost,&nbsp;so&nbsp;you&nbsp;should&nbsp;be&nbsp;sure&nbsp;that<br>
+your&nbsp;input&nbsp;buffer&nbsp;is&nbsp;empty&nbsp;before&nbsp;you&nbsp;call&nbsp;<a href="#fdspawn-setecho">setecho</a>().&nbsp;For&nbsp;example,&nbsp;the<br>
+following&nbsp;will&nbsp;work&nbsp;as&nbsp;expected::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p&nbsp;=&nbsp;pexpect.<a href="pexpect.html#spawn">spawn</a>('cat')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p.sendline&nbsp;('1234')&nbsp;#&nbsp;We&nbsp;will&nbsp;see&nbsp;this&nbsp;twice&nbsp;(once&nbsp;from&nbsp;tty&nbsp;echo&nbsp;and&nbsp;again&nbsp;from&nbsp;cat).<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p.expect&nbsp;(['1234'])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p.expect&nbsp;(['1234'])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p.<a href="#fdspawn-setecho">setecho</a>(False)&nbsp;#&nbsp;Turn&nbsp;off&nbsp;tty&nbsp;echo<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p.sendline&nbsp;('abcd')&nbsp;#&nbsp;We&nbsp;will&nbsp;set&nbsp;this&nbsp;only&nbsp;once&nbsp;(echoed&nbsp;by&nbsp;cat).<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p.sendline&nbsp;('wxyz')&nbsp;#&nbsp;We&nbsp;will&nbsp;set&nbsp;this&nbsp;only&nbsp;once&nbsp;(echoed&nbsp;by&nbsp;cat)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p.expect&nbsp;(['abcd'])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p.expect&nbsp;(['wxyz'])<br>
+&nbsp;<br>
+The&nbsp;following&nbsp;WILL&nbsp;NOT&nbsp;WORK&nbsp;because&nbsp;the&nbsp;lines&nbsp;sent&nbsp;before&nbsp;the&nbsp;setecho<br>
+will&nbsp;be&nbsp;lost::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p&nbsp;=&nbsp;pexpect.<a href="pexpect.html#spawn">spawn</a>('cat')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p.sendline&nbsp;('1234')&nbsp;#&nbsp;We&nbsp;will&nbsp;see&nbsp;this&nbsp;twice&nbsp;(once&nbsp;from&nbsp;tty&nbsp;echo&nbsp;and&nbsp;again&nbsp;from&nbsp;cat).<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p.<a href="#fdspawn-setecho">setecho</a>(False)&nbsp;#&nbsp;Turn&nbsp;off&nbsp;tty&nbsp;echo<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p.sendline&nbsp;('abcd')&nbsp;#&nbsp;We&nbsp;will&nbsp;set&nbsp;this&nbsp;only&nbsp;once&nbsp;(echoed&nbsp;by&nbsp;cat).<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p.sendline&nbsp;('wxyz')&nbsp;#&nbsp;We&nbsp;will&nbsp;set&nbsp;this&nbsp;only&nbsp;once&nbsp;(echoed&nbsp;by&nbsp;cat)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p.expect&nbsp;(['1234'])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p.expect&nbsp;(['1234'])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p.expect&nbsp;(['abcd'])<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p.expect&nbsp;(['wxyz'])</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-setlog"><strong>setlog</strong></a>(self, fileobject)</dt><dd><tt>This&nbsp;method&nbsp;is&nbsp;no&nbsp;longer&nbsp;supported&nbsp;or&nbsp;allowed.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-setmaxread"><strong>setmaxread</strong></a>(self, maxread)</dt><dd><tt>This&nbsp;method&nbsp;is&nbsp;no&nbsp;longer&nbsp;supported&nbsp;or&nbsp;allowed.&nbsp;I&nbsp;don't&nbsp;like&nbsp;getters<br>
+and&nbsp;setters&nbsp;without&nbsp;a&nbsp;good&nbsp;reason.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-setwinsize"><strong>setwinsize</strong></a>(self, r, c)</dt><dd><tt>This&nbsp;sets&nbsp;the&nbsp;terminal&nbsp;window&nbsp;size&nbsp;of&nbsp;the&nbsp;child&nbsp;tty.&nbsp;This&nbsp;will&nbsp;cause<br>
+a&nbsp;SIGWINCH&nbsp;signal&nbsp;to&nbsp;be&nbsp;sent&nbsp;to&nbsp;the&nbsp;child.&nbsp;This&nbsp;does&nbsp;not&nbsp;change&nbsp;the<br>
+physical&nbsp;window&nbsp;size.&nbsp;It&nbsp;changes&nbsp;the&nbsp;size&nbsp;reported&nbsp;to&nbsp;TTY-aware<br>
+applications&nbsp;like&nbsp;vi&nbsp;or&nbsp;curses&nbsp;--&nbsp;applications&nbsp;that&nbsp;respond&nbsp;to&nbsp;the<br>
+SIGWINCH&nbsp;signal.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-wait"><strong>wait</strong></a>(self)</dt><dd><tt>This&nbsp;waits&nbsp;until&nbsp;the&nbsp;child&nbsp;exits.&nbsp;This&nbsp;is&nbsp;a&nbsp;blocking&nbsp;call.&nbsp;This&nbsp;will<br>
+not&nbsp;read&nbsp;any&nbsp;data&nbsp;from&nbsp;the&nbsp;child,&nbsp;so&nbsp;this&nbsp;will&nbsp;block&nbsp;forever&nbsp;if&nbsp;the<br>
+child&nbsp;has&nbsp;unread&nbsp;output&nbsp;and&nbsp;has&nbsp;terminated.&nbsp;In&nbsp;other&nbsp;words,&nbsp;the&nbsp;child<br>
+may&nbsp;have&nbsp;printed&nbsp;output&nbsp;then&nbsp;called&nbsp;exit();&nbsp;but,&nbsp;technically,&nbsp;the&nbsp;child<br>
+is&nbsp;still&nbsp;alive&nbsp;until&nbsp;its&nbsp;output&nbsp;is&nbsp;read.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-waitnoecho"><strong>waitnoecho</strong></a>(self, timeout<font color="#909090">=-1</font>)</dt><dd><tt>This&nbsp;waits&nbsp;until&nbsp;the&nbsp;terminal&nbsp;ECHO&nbsp;flag&nbsp;is&nbsp;set&nbsp;False.&nbsp;This&nbsp;returns<br>
+True&nbsp;if&nbsp;the&nbsp;echo&nbsp;mode&nbsp;is&nbsp;off.&nbsp;This&nbsp;returns&nbsp;False&nbsp;if&nbsp;the&nbsp;ECHO&nbsp;flag&nbsp;was<br>
+not&nbsp;set&nbsp;False&nbsp;before&nbsp;the&nbsp;timeout.&nbsp;This&nbsp;can&nbsp;be&nbsp;used&nbsp;to&nbsp;detect&nbsp;when&nbsp;the<br>
+child&nbsp;is&nbsp;waiting&nbsp;for&nbsp;a&nbsp;password.&nbsp;Usually&nbsp;a&nbsp;child&nbsp;application&nbsp;will&nbsp;turn<br>
+off&nbsp;echo&nbsp;mode&nbsp;when&nbsp;it&nbsp;is&nbsp;waiting&nbsp;for&nbsp;the&nbsp;user&nbsp;to&nbsp;enter&nbsp;a&nbsp;password.&nbsp;For<br>
+example,&nbsp;instead&nbsp;of&nbsp;expecting&nbsp;the&nbsp;"password:"&nbsp;prompt&nbsp;you&nbsp;can&nbsp;wait&nbsp;for<br>
+the&nbsp;child&nbsp;to&nbsp;set&nbsp;ECHO&nbsp;off::<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p&nbsp;=&nbsp;pexpect.<a href="pexpect.html#spawn">spawn</a>&nbsp;('ssh&nbsp;user@example.com')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p.<a href="#fdspawn-waitnoecho">waitnoecho</a>()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;p.<a href="#fdspawn-sendline">sendline</a>(mypassword)<br>
+&nbsp;<br>
+If&nbsp;timeout&nbsp;is&nbsp;None&nbsp;then&nbsp;this&nbsp;method&nbsp;to&nbsp;block&nbsp;forever&nbsp;until&nbsp;ECHO&nbsp;flag&nbsp;is<br>
+False.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-write"><strong>write</strong></a>(self, s)</dt><dd><tt>This&nbsp;is&nbsp;similar&nbsp;to&nbsp;<a href="#fdspawn-send">send</a>()&nbsp;except&nbsp;that&nbsp;there&nbsp;is&nbsp;no&nbsp;return&nbsp;value.</tt></dd></dl>
+
+<dl><dt><a name="fdspawn-writelines"><strong>writelines</strong></a>(self, sequence)</dt><dd><tt>This&nbsp;calls&nbsp;<a href="#fdspawn-write">write</a>()&nbsp;for&nbsp;each&nbsp;element&nbsp;in&nbsp;the&nbsp;sequence.&nbsp;The&nbsp;sequence<br>
+can&nbsp;be&nbsp;any&nbsp;iterable&nbsp;object&nbsp;producing&nbsp;strings,&nbsp;typically&nbsp;a&nbsp;list&nbsp;of<br>
+strings.&nbsp;This&nbsp;does&nbsp;not&nbsp;add&nbsp;line&nbsp;separators&nbsp;There&nbsp;is&nbsp;no&nbsp;return&nbsp;value.</tt></dd></dl>
+
+<hr>
+Data descriptors inherited from <a href="pexpect.html#spawn">pexpect.spawn</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><tt>dictionary&nbsp;for&nbsp;instance&nbsp;variables&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>__all__</strong> = ['fdspawn']<br>
+<strong>__revision__</strong> = '$Revision: 399 $'<br>
+<strong>__version__</strong> = '2.3'</td></tr></table>
+</body></html>

@@ -1,0 +1,60 @@
+
+        [ Bruteforce Exploit Detector ]
+
+[ About --+
+
+  BED is a program which is designed to check daemons for
+  potential buffer overflows, format string bugs et. al.
+
+  BED simply sends the commands to the server and checks
+  whether it is still alive afterwards.
+
+  Of course this will not detect all bugs of the specified
+  daemon but it will (at least it should) help you to
+  check your software for common vulnerabilities.
+
+
+[ Version --+
+
+  0.42 - "What is the question?"
+
+[ Notice --+
+
+  On success, BED WILL CRASH THE DAEMON, so do not test
+  on critical and important systems.
+  We are not responsible for any problems accuring during
+  running our software.
+
+[ More Informations --+
+
+  See 'docs/'.
+
+[ License --+
+
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+  See 'docs/gpl.txt' for more information.
+
+[ Authors --+
+
+  Eric Sesterhenn aka. 'Snakebyte'
+    -Mail: snakebyte@gmx.de
+    -Web:  www.snake-basket.de
+
+  Martin J. Muench aka. 'mjm'
+    -Mail: mjm@codito.de
+    -Web:  www.codito.de
+
+

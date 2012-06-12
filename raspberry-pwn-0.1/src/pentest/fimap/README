@@ -1,0 +1,15 @@
+Project Homepage : http://fimap.googlecode.com
+To run fimap type: python fimap.py
+
+Needs: Python >= 2.4
+
+This is fimap alpha .08.1 - Enemy Unknown
+
+New in this version:
+  * This version really just fixes some bugs.
+  * Also this version fixes the google mode. All credits for the googlefix goes to the comments on the xgoogle homepage!
+  
+
+Please report all bugs you find directly at the project homepage.
+
+-imax.

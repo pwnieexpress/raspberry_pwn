@@ -1,0 +1,54 @@
+[name]
+
+	Plecost: Wordpress finger printer tool
+
+[version]
+
+	0.2.2-9-beta
+
+[Description] 
+
+        Wordpress finger printer tool search and 
+retrieve information about the plugins versions 
+installed in Wordpress systems. 
+
+        It can analyze a single URL or perform 
+an analysis based on the results indexed by 
+Google. Additionally displays CVE code associated
+with each plugin, if there.
+
+[Changelog] 
+	
+	0.2.2-9-beta:
+
+	- Fixed Wordpress plugin list load.
+	- Added current Wordpress version.
+
+	0.2.2-8-beta & 0.2.2-7-beta:
+	
+	- Fixed some execition errors.
+
+        0.1-6-rt-beta:
+        
+        - Threads support added.
+
+	0.0.1-4beta:
+	
+	- Improved Google search.
+	- Cast errors.
+	
+	0.0.1-2beta: 
+	
+	- Raise exception when URL opened not exits.
+	- Raise exception when plugins list file is not accesible.
+	- Restructured form that command line input parameters was collected.
+        - Changed serveral graphi
+
+	0.0.1-1beta:
+	
+	- Added compatibility with spanish readme.html
+	
+	0.0.1beta:
+	
+	- First release
+

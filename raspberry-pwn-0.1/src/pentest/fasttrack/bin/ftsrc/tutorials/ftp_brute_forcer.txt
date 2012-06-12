@@ -1,0 +1,13 @@
+***********************************************************************
+FTP Brute Forcer: Requirements PExpect
+***********************************************************************
+
+Not really much to explain here, this is a simple brute forcer I wrote
+one night while bored. It's not threaded so it might run a little slow.
+
+It attempts to guess passwords from a predefined wordlist that you
+specify. Once a password has been determined, it automatically logs
+you in and drops you to interactive so you can identify whats on the
+specific system.
+
+**********************************************************************

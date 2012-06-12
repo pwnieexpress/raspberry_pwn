@@ -1,0 +1,45 @@
+  </td>
+  <td width="537" align="left" valign="top">  
+
+<!--Body Content Here-->
+
+<table width="100%" border="0" cellspacing="8" cellpadding="0">
+ <tr>
+  <td class="page_title">Fast-Track MSSQL SQLPwnage</td>
+ </tr>
+ <tr>
+  <td><p>
+<br>SQL Pwnage takes SQL Injection to a new level and has multiple functions that allow rapid penetration testing of systems. SQL Pwnage can crawl a URL looking for error based and blind based SQL Injection, once this has been identified, a multitude of payloads can be delivered to the host. SQLPwnage uses an advanced method for delivery and incorporates a new custom hack bypassing the 64kb debug limit. We can now deliver our payloads without filesize restriction!
+<br>
+<br>In addition to these features, SQLPwnage can scan subnets looking for web servers, auto crawl them, and deliver you the payload.
+</p></td>
+ </tr>
+ <tr>
+  <td bgcolor="#2A2A2A">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+     <tr>
+      <td class="box_bg">
+        <table width="100%" border="0" cellspacing="15" cellpadding="0">
+         <tr>
+          <td>
+           <p class="box_text"><b><a href="/sqlpwnageerror">MSSQL Injection Search and Destroy Binary Payload Injection (ERROR BASED)</p>
+           <p class="box_text"><b><a href="/sqlpwnageblind">MSSQL Injection Search and Destroy Binary Payload Injection (BLIND)</p>
+          </td>
+         </tr>
+        </table>
+      </td>
+     </tr>
+     <tr>
+      <td><img src="images/fast_track_21.jpg" width="537" height="13" alt=""></td>
+     </tr>
+    </table>
+  </td>
+ </tr>
+</table>
+<p>&nbsp;</p>
+
+<!--Body Content End-->
+
+  <p>&nbsp;</p></td>
+ </tr>
+</table>    

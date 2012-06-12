@@ -1,0 +1,805 @@
+#!/usr/bin/env python
+# PIC client (currently only supports dsPIC33F/PIC24H.)
+#
+# Note that a verify operation only considers addresses specified in
+# the given Intel hex file ($foo.hex).
+# 
+# sixfile expects a plain text file, one instruction per line.
+#
+#
+# Scott Livingston  <slivingston at caltech.edu>
+#
+# March, April 2010.
+
+
+import sys
+import time
+
+from GoodFET import GoodFET
+from intelhex import IntelHex
+
+#############
+# Some constants (not really immutable...)
+#############
+PICAPP = 0x34
+MONITORAPP = 0x00
+NOK = 0x7E
+dev_table = { 0x00EE : "dsPIC33FJ128GP708",
+              0x00EF : "dsPIC33FJ128GP710",
+              0x080A : "PIC24HJ12GP201" }
+cfg_table = { 0xF80000 : "FBS",
+              0xF80002 : "FSS",
+              0xF80004 : "FGS",
+              0xF80006 : "FOSCSEL",
+              0xF80008 : "FOSC",
+              0xF8000A : "FWDT",
+              0xF8000C : "FPOR",
+              0xF8000E : "FICD",
+              0xF80010 : "FUID0",
+              0xF80012 : "FUID1",
+              0xF80014 : "FUID2",
+              0xF80016 : "FUID3",
+              "width" : 7 } # For pretty printing.
+
+#cfg_bitmask_table = { 
+
+
+#############
+# Functions:
+#############
+
+def runlist( cmd_li ):
+    """Load (and execute) a given list of instructions.
+Assumes ICSP session already started."""
+    cmd_byte_li = build_instr_stream( cmd_li )
+    data = client.writecmd( PICAPP, 0x86, len(cmd_byte_li), cmd_byte_li )
+    if client.app == PICAPP and client.verb == 0x86 and client.count != len(cmd_byte_li):
+        print "Error: incomplete execution of sixlist.\nOnly %d instructions run." % (client.count/3)
+        stopICSP()
+        exit(-1)
+    elif client.app == 0xff and client.verb == 0xff: # GoodFET debugstr
+        print "Error (in runlist): failed transaction; aborting."
+        stopICSP()
+        exit(-1)
+
+def build_instr_stream( cmd_li ):
+    """Given a list of instruction words, returns a list of bytes of
+the same, in little endian ordering."""
+    cmd_byte_li = []
+    for instr in cmd_li:
+        cmd_byte_li += [instr & 0xff,
+                        (instr >> 8) & 0xff,
+                        (instr >> 16) & 0xff]
+    return cmd_byte_li
+
+def readreg( reg_num ):
+    """Read contents of a working register (i.e. W0, W1, ..., W15)."""
+    instr = 0x883C20+(reg_num&0xf)
+    client.writecmd( PICAPP, 0x82, 3, [instr & 0xff,
+                                       (instr >> 8) & 0xff,
+                                       (instr >> 16) & 0xff] )
+    client.writecmd( PICAPP, 0x82, 3, [0x00,0x00,0x00] ) # NOP (pump clock)
+    return readVISI()
+
+def writereg( reg_num, word ):
+    """Write 16-bit word to a working register (i.e., W0, W1, ..., W15)."""
+    instr = 0x200000 + ((word&0xffff)<<4) + (reg_num&0xf)
+    client.writecmd( PICAPP, 0x82, 3, [instr & 0xff,
+                                       (instr >> 8) & 0xff,
+                                       (instr >> 16) & 0xff] )
+
+def readVISI():
+    """Read VISI register; assumes ICSP session already started."""
+    data = client.writecmd( PICAPP, 0x83, 0 )
+    result = ord(data[0])
+    result |= ord(data[1]) << 8
+    return result
+
+def readNVMCON():
+    """Read NVMCON register; assumes ICSP session already started."""
+    rd_nvmcon_li = [0x803B00, # MOV NVMCON, W0
+                    0x883C20, # MOV W0, VISI
+                    0x000000, # NOP
+                    0x000000] # NOP
+    runlist( rd_nvmcon_li )
+    return readVISI()
+
+def resetPC():
+    """Reset program counter during an active ISCP session."""
+    runlist( [0x040200,   # GOTO 0x0200
+              0x000000] )
+
+def startICSP():
+    #print "Starting dsPIC33F/PIC24H ICSP session..."
+    data = client.writecmd( PICAPP, 0x84, 0 )
+
+def stopICSP():
+    #print "Stopping dsPIC33F/PIC24H ICSP session..."
+    data = client.writecmd( PICAPP, 0x85, 0 )
+
+def dumpVISI():
+    """Read and print VISI register to stdout; assumes ICSP session already started."""
+    print "Reading VISI register..."
+    result = readVISI()
+    print "VISI: 0x%04X" % result
+
+def dump_pm( start_addr, stop_addr, pretty=False ):
+    """Dump routine, now encapsulated in a function.
+Returns an instance of IntelHex corresponding to result.
+
+Note that we start and stop an ICSP session here! This means an
+existing session will be broken."""
+    readpm_cmd_li = [0x200000, # MOV #addr<23:16>, W0
+                     0x880190, # MOV W0, TBLPAG
+                     0x200006, # MOV #addr<15:0>, W6
+                     0xEB0380, # CLR W7
+                     0x000000, # NOP
+                     0xBA1B96, # TBLRDL [W6], [W7++]
+                     0x000000, # NOP
+                     0x000000, # NOP
+                     0xBADBB6, # TBLRDH.B [W6++], [W7++]
+                     0x000000, # NOP
+                     0x000000, # NOP
+                     0xBADBD6, # TBLRDH.B [++W6], [W7++]
+                     0x000000, # NOP
+                     0x000000, # NOP
+                     0xBA1BB6, # TBLRDL [W6++], [W7++]
+                     0x000000, # NOP
+                     0x000000, # NOP
+                     0xBA1B96, # TBLRDL [W6], [W7++]
+                     0x000000, # NOP
+                     0x000000, # NOP
+                     0xBADBB6, # TBLRDH.B [W6++], [W7++]
+                     0x000000, # NOP
+                     0x000000, # NOP
+                     0xBADBD6, # TBLRDH.B [++W6], [W7++]
+                     0x000000, # NOP
+                     0x000000, # NOP
+                     0xBA0BB6, # TBLRDL [W6++], [W7]
+                     0x000000, # NOP
+                     0x000000] # NOP
+
+    dumphex = IntelHex()
+
+    startICSP()
+
+    print "Reading program memory 0x%06X:0x%06X ..." % ( start_addr, stop_addr )
+    # Prep device
+    client.writecmd( PICAPP, 0x82, 3, [0x00,0x02,0x04] ) #GOTO 0x200 (reset)
+    client.writecmd( PICAPP, 0x82, 3, [0x00,0x02,0x04] ) #GOTO 0x200 (reset)
+    client.writecmd( PICAPP, 0x82, 3, [0x00,0x00,0x00] ) #NOP (pump clock)
+
+    last_highb = -1 # Only set TBLPAG when needed.
+    packed_instr_list = [0,0,0,0,0,0] # For packing 4 (24-bit) instructions in 6 (16-bit) words
+    for addr in range( start_addr&0xfffff8, stop_addr+8, 8 ):
+        if (addr>>16)&0xff != last_highb: 
+            last_highb = (addr>>16)&0xff;
+            specify_addr_cmd = [readpm_cmd_li[0] + ((addr & 0xff0000)>>12),
+                                readpm_cmd_li[1],
+                                readpm_cmd_li[2] + ((addr & 0xffff)<<4)]
+        else:
+            specify_addr_cmd = [readpm_cmd_li[2] + ((addr & 0xffff)<<4)]
+        runlist( specify_addr_cmd + readpm_cmd_li[3:] )
+
+        for reg_num in range(6): # Read W0:5, to get packed instructions
+            packed_instr_list[reg_num] = readreg( reg_num )
+        instr_list = words2instr( packed_instr_list )
+
+        for offset in range(4): # Print result
+            if addr+offset*2 < start_addr:
+                continue
+            if addr+offset*2 > stop_addr:
+                break
+            dumphex.puts( ((addr+offset*2)&0xffffff)*2,
+                          chr(instr_list[offset]&0xff)
+                          +chr((instr_list[offset]>>8)&0xff)
+                          +chr((instr_list[offset]>>16)&0xff)
+                          +chr(0) )
+            if pretty:
+                print "0x%06X    0x%06X" % (addr+offset*2,instr_list[offset])
+
+    stopICSP()
+
+    return dumphex
+
+    
+def instr2words( instr_list ):
+    """Convert a list of 4 24-bit instructions to a list of 6 words
+(16-bit width).
+
+Returns [-1] on failure."""
+    if len(instr_list) < 4: # Catch mistakes
+        print "Error in instr2words: operand has less than 4 elements."
+        return [-1]
+    word_list = [0,0,0,0,0,0]
+    for k in [0,1]:
+        word_list[k*3] = instr_list[k*2] & 0xffff
+        word_list[k*3+1] = (instr_list[k*2]>>16)&0xff
+        word_list[k*3+1] |= (instr_list[k*2+1]>>8)&0xff00
+        word_list[k*3+2] = instr_list[k*2+1] & 0xffff
+    return word_list
+
+def words2instr( word_list ):
+    """4 24-bit instructions from a packing in 6 words (16 bit width).
+This is the inverse of function instr2words.
+
+Returns [-1] on failure."""
+    if len(word_list) < 6: # Catch mistakes
+        print "Error in words2instr: operand has less than 6 elements."
+        return [-1]
+    instr_list = [0,0,0,0]
+    for k in [0,1]:
+        instr_list[k*2] = word_list[k*3]
+        instr_list[k*2] |= (word_list[k*3+1]&0xff)<<16
+        instr_list[k*2+1] = word_list[k*3+2]
+        instr_list[k*2+1] |= (word_list[k*3+1]&0xff00)<<8
+    return instr_list
+
+
+#############
+# Main entry: 
+#############
+
+if len(sys.argv) == 1:
+    print "Usage: %s verb [objects]\n" % sys.argv[0]
+    print "%s devid" % sys.argv[0]
+    print "%s read 0x$addr" % sys.argv[0]
+    print "%s dump $foo.hex [0x$start 0x$stop] [pretty]" % sys.argv[0]
+    print "%s config" % sys.argv[0]
+    print "%s program $foo.hex" % sys.argv[0]
+    print "%s verify $foo.hex" % sys.argv[0]
+    print "%s write 0x$address 0x$value" % sys.argv[0]
+    print "%s write_config 0x$reg_address (or $reg_name) [$0x0000]" % sys.argv[0]
+    print "%s erase [0x$page]" % sys.argv[0] # bulk or page erase
+    print "%s six [instruction]" % sys.argv[0]
+    print "%s sixfile [$foo.txt]" % sys.argv[0]
+    print "%s regout" % sys.argv[0]
+    print """
+Note: use - for stdout.
+Warning: only supports dsPIC33F/PIC24H (maybe)...
+"""
+    sys.exit()
+
+# Initialize and open connection to GoodFET
+client = GoodFET()
+client.verbose = False # Dump activity to terminal
+client.serInit( timeout=10 ) # UART comm timeout (in seconds)
+
+
+# Handle each possible PIC verb in turn
+
+if sys.argv[1] == "devid": #0x81
+    print "Requesting Application ID, DEVID and hardware revision..."
+    data = client.writecmd( PICAPP, 0x81, 0 )
+    
+    if len(data) > 0:
+        appid = ord(data[0])
+    else:
+        appid = -1
+    if len(data) > 2:
+        devid = ord(data[1]) + (ord(data[2]) << 8)
+    else:
+        devid = -1
+    if len(data) > 4:
+        hwrev = ord(data[3]) + (ord(data[4]) << 8)
+    else:
+        hwrev = -1
+    print "Application ID:   0x%02X" % appid
+    if dev_table.has_key( devid ):
+        print "DEVID:          0x%04X  (%s)" % ( devid, dev_table[devid] )
+    else:
+        print "DEVID:          0x%04X  (unknown)" %  devid
+    print "revision:       0x%04X"% hwrev
+    #print "\n(Note that -1 indicates failure to read a value.)"
+
+elif sys.argv[1] == "config": # Dump configuration registers
+    prep_cmd_li = [0x040200, # GOTO 0x0200
+                   0x000000, #
+                   0x200F80, # MOV #0x00F8, W0
+                   0x880190, # MOV W0, TBLPAG
+                   0xEB0300, # CLR W6
+                   0x207847, # MOV #VISI, W7
+                   0x000000] # NOP
+    rd_cmd_li = [0xBA0BB6, # TBLRDL [W6++], [W7]
+                 0x000000, # NOP
+                 0x000000] # NOP
+    startICSP()
+    print "Dumping configuration registers..."
+    for instr in prep_cmd_li:
+        data = client.writecmd( PICAPP, 0x82, 3, [instr & 0xff,
+                                                  (instr >> 8) & 0xff,
+                                                  (instr >> 16) & 0xff] )
+    for k in range(12): # twelve configuration registers total
+        for instr in rd_cmd_li:
+            data = client.writecmd( PICAPP, 0x82, 3, [instr & 0xff,
+                                                  (instr >> 8) & 0xff,
+                                                  (instr >> 16) & 0xff] )
+        result = readVISI()
+        addr = 0xF80000+k*2
+        if cfg_table.has_key( addr ):
+            print "0x%06X (%s): 0x%02X" % ( addr,
+                                            cfg_table[addr].ljust(cfg_table["width"]),
+                                            result )
+        else:
+            print "0x%06X: 0x%02X" % ( addr, result )
+
+    stopICSP()
+
+elif sys.argv[1] == "program":
+    if len(sys.argv) != 3:
+        print "Error: an Intel HEX file to load must be given."
+        exit(1)
+
+    try:
+        proghex = IntelHex( sys.argv[2] )
+    except IOError:
+        print "Error while attempting to read from %s" % sys.argv[2]
+        exit(-1)
+    ph_addrs = proghex.addresses()
+
+    # Load starting program memory address
+    wr_pm64_li_setaddr = [0x040200, # GOTO 0x0200
+                          0x000000, #
+                          0x24001A, # MOV $0x4001, W10
+                          0x883B0A, # MOV W10, NVMCON
+                          0x200000, # + ((addr>>12)&0xff0),  # MOV #addr<23:16>, W0
+                          0x880190, # MOV W0, TBLPAG
+                          0x200007] # + ((addr&0xffff)<<4), # MOV #addr<15:0>, W7
+
+    # Load 4 instructions into write latches
+    wr_pm64_li_wrlat = [0xEB0300, # CLR W6
+                        0x000000, # NOP
+                        0xBB0BB6, # TBLWTL [W6++], [W7]
+                        0x000000, # NOP
+                        0x000000, # NOP
+                        0xBBDBB6, # TBLWTH.B [W6++], [W7++]
+                        0x000000, # NOP
+                        0x000000, # NOP
+                        0xBBEBB6, # TBLWTH.B [W6++], [++W7]
+                        0x000000, # NOP
+                        0x000000, # NOP
+                        0xBB1BB6, # TBLWTL [W6++], [W7++]
+                        0x000000, # NOP
+                        0x000000, # NOP
+                        0xBB0BB6, # TBLWTL [W6++], [W7]
+                        0x000000, # NOP
+                        0x000000, # NOP
+                        0xBBDBB6, # TBLWTH.B [W6++], [W7++]
+                        0x000000, # NOP
+                        0x000000, # NOP
+                        0xBBEBB6, # TBLWTH.B [W6++], [++W7]
+                        0x000000, # NOP
+                        0x000000, # NOP
+                        0xBB1BB6, # TBLWTL [W6++], [W7++]
+                        0x000000, # NOP
+                        0x000000] # NOP
+
+    wr_pm64_li_wr = [0xA8E761, # BSET NVMCON, #WR
+                     0x000000, # NOP
+                     0x000000, # NOP
+                     0x000000, # NOP
+                     0x000000] # NOP
+    
+    startICSP()
+    
+    for last_code_addr in reversed(ph_addrs):
+        if (last_code_addr>>1) < 0xf80000:
+            last_row_addr = (last_code_addr>>1) & 0xffff80
+            break
+    for addr in range((ph_addrs[0]>>1)&0xffff80,last_code_addr+2,128):
+        # Prevent crossing addresses where upper byte
+        # (i.e., address<23:16>) changes.
+        #if addr+126 > 0xffff:
+        #    stop_addr = addr | 0xffff
+        #else:
+        #    stop_addr = addr+126
+
+        runlist( wr_pm64_li_setaddr[:4]
+                 + [0x200000 + ((addr>>12)&0xff0),
+                    wr_pm64_li_setaddr[5],
+                    0x200007 + ((addr&0xffff)<<4)] )
+                 
+        instr_list = [0,0,0,0]
+        for mid_addr in range(addr,addr+126,8):
+            for offset in range(4):
+                if (mid_addr+offset*2)<<1 not in ph_addrs:
+                    instr_list[offset] = 0xffffff
+                else:
+                    instr_list[offset] = proghex[(mid_addr+offset*2)<<1]
+                    instr_list[offset] |= proghex[((mid_addr+offset*2)<<1)+1] << 8
+                    instr_list[offset] |= proghex[((mid_addr+offset*2)<<1)+2] << 16
+            packed_instr_list = instr2words( instr_list )
+            runlist( [0x200000 + ((packed_instr_list[0]&0xffff)<<4),
+                      0x200001 + ((packed_instr_list[1]&0xffff)<<4),
+                      0x200002 + ((packed_instr_list[2]&0xffff)<<4),
+                      0x200003 + ((packed_instr_list[3]&0xffff)<<4),
+                      0x200004 + ((packed_instr_list[4]&0xffff)<<4),
+                      0x200005 + ((packed_instr_list[5]&0xffff)<<4)]
+                     + wr_pm64_li_wrlat )
+        
+        runlist( wr_pm64_li_wr )
+        status = readNVMCON()
+        while status & 0x8000:
+            client.writecmd( PICAPP, 0x82, 3, [0x00,0x00,0x00] )
+            status = readNVMCON()
+
+    # Configuration registers must be treated separately
+    for addr in ph_addrs[ph_addrs.index(last_code_addr):]:
+        if addr%4 != 0:
+            continue
+        if (addr>>1) > 0xf80017:
+            break
+        wr_cfg_li = [0x040200, # GOTO 0x0200
+                     0x000000, #
+                     0x200007 + ((addr<<3)&0xffff0), # MOV #addr<15:0>, W7
+                     0x24000A, # MOV #0x4000, W10
+                     0x883B0A, # MOV W10, NVMCON
+                     0x200F80, # MOV #0xF8, W0
+                     0x880190, # MOV W0, TBLPAG
+                     0x200000 + ((proghex[addr]&0x00ff)<<4), # MOV #new_val<7:0>, W0
+                     0xBB0B80, # TBLWTL W0, [W7]
+                     0x000000, # NOP
+                     0x000000, # NOP
+                     0xA8E761, # BSET NVMCON, #WR
+                     0x000000, # NOP
+                     0x000000, # NOP
+                     0x000000, # NOP
+                     0x000000] # NOP
+        runlist( wr_cfg_li )
+        status = readNVMCON()
+        while status & 0x8000:
+            client.writecmd( PICAPP, 0x82, 3, [0x00,0x00,0x00] )
+            status = readNVMCON()
+
+    stopICSP()
+
+
+elif sys.argv[1] == "verify":
+    if len(sys.argv) != 3:
+        print "Error: an Intel HEX file with which to compare must be given."
+        exit(1)
+
+    try:
+        proghex = IntelHex( sys.argv[2] )
+    except IOError:
+        print "Error while attempting to read from %s" % sys.argv[2]
+        exit(-1)
+
+    print "WARNING: verifying config registers not yet supported."
+
+    for addr in proghex.addresses():
+        if addr % 4 != 0 or (addr>>1) < 0x200:
+            continue
+        #elif first_addr == None:
+        #    first_addr = addr>>1
+        if (addr>>1) >= 0xf80000:
+            break
+        last_addr = addr>>1
+    dumphex = dump_pm( (proghex.addresses()[0]>>1),
+                       last_addr )
+
+    # Step through addresses in HEX file and compare to those in target PIC
+    for addr in proghex.addresses():
+        if addr>>1 >= 0xF80000:
+            break # verifying config registers not yet supported
+        # Compare; fail if mismatch
+        if proghex[addr] != dumphex[addr]:
+            addr &= addr&0xfffffffc
+            found_instr = dumphex[addr]
+            found_instr |= dumphex[addr+1]<<8
+            found_instr |= dumphex[addr+2]<<16
+            exp_instr = proghex[addr]
+            exp_instr |= proghex[addr+1]<<8
+            exp_instr |= proghex[addr+2]<<16
+            print "Fail at address 0x%06X: found 0x%06X, expected 0x%06X." % ( addr>>1, found_instr, exp_instr )
+            exit(-1)
+
+    print "PASSED" # Be verbose.
+
+
+elif sys.argv[1] == "write":
+    if len(sys.argv) != 4:
+        print "Error: an address (in program memory) and\n value (or instruction) to write must be given."
+        exit(1)
+    
+    addr = int(float.fromhex(sys.argv[2]))
+    new_instr = int(float.fromhex(sys.argv[3]))
+    #new_instr_li = []
+    #for k in range(4):
+    #    new_instr_li.append( int(float.fromhex(sys.argv[k+3])) )
+
+    #new_words = instr2words( new_instr_li )
+        
+    wr_pm_li = [0x040200, # GOTO 0x0200
+                0x000000, #
+
+                0x24003A, # MOV $0x4003, W10
+                0x883B0A, # MOV W10, NVMCON
+                0x200000 + ((addr>>12)&0xff0),  # MOV #addr<23:16>, W0
+                0x880190, # MOV W0, TBLPAG
+                0x200007 + ((addr&0xffff)<<4), # MOV #addr<15:0>, W7
+
+                # Here we load the instruction into registers W0:W1
+                0x200000 + ((new_instr&0xffff)<<4),
+                0x200001 + ((new_instr>>12)&0xff0),
+                #0x200000 + ((new_words[0]&0xffff)<<4),
+                #0x200001 + ((new_words[1]&0xffff)<<4),
+                #0x200002 + ((new_words[2]&0xffff)<<4), 
+                #0x200003 + ((new_words[3]&0xffff)<<4),
+                #0x200004 + ((new_words[4]&0xffff)<<4),
+                #0x200005 + ((new_words[5]&0xffff)<<4),
+
+                0xEB0300, # CLR W6
+                0x000000, # NOP
+                0xBB0BB6, # TBLWTL [W6++], [W7]
+                0x000000, # NOP
+                0x000000, # NOP
+                0xBB8B96, # TBLWTH [W6], [W7]
+                #0xBBDBB6, # TBLWTH.B [W6++], [W7++]
+                0x000000, # NOP
+                0x000000, # NOP
+                #0xBBEBB6, # TBLWTH.B [W6++], [++W7]
+                #0x000000, # NOP
+                #0x000000, # NOP
+                #0xBB1BB6, # TBLWTL [W6++], [W7++]
+                #0x000000, # NOP
+                #0x000000, # NOP
+                #0xBB0BB6, # TBLWTL [W6++], [W7]
+                #0x000000, # NOP
+                #0x000000, # NOP
+                #0xBBDBB6, # TBLWTH.B [W6++], [W7++]
+                #0x000000, # NOP
+                #0x000000, # NOP
+                #0xBBEBB6, # TBLWTH.B [W6++], [++W7]
+                #0x000000, # NOP
+                #0x000000, # NOP
+                #0xBB1BB6, # TBLWTL [W6++], [W7++]
+                #0x000000, # NOP
+                #0x000000, # NOP
+                
+                0xA8E761, # BSET NVMCON, #WR
+                0x000000, # NOP
+                0x000000, # NOP
+                0x000000, # NOP
+                0x000000] # NOP
+    
+    startICSP()
+
+    runlist( wr_pm_li )
+    status = readNVMCON()
+    while status & 0x8000:
+        client.writecmd( PICAPP, 0x82, 3, [0x00,0x00,0x00] ) # NOP (pump clock)
+        status = readNVMCON()
+
+    stopICSP()
+
+elif sys.argv[1] == "write_config":
+    if len(sys.argv) < 3:
+        print "Error: please specify the target config register."
+        exit(1)
+    elif len(sys.argv) == 3:
+        new_val = 0xFF # Assume new value
+    else:
+        new_val = int(float.fromhex(sys.argv[3]))
+    try:
+        reg_addr = int(float.fromhex(sys.argv[2]))
+    except ValueError:
+        if sys.argv[2] not in cfg_table.values():
+            print "Given register, %s, not recognized." % sys.argv[2]
+            exit(1)
+        reg_addr = cfg_table.keys()[cfg_table.values().index(sys.argv[2])]
+    
+    wr_cfg_li = [0x040200, # GOTO 0x0200
+                 0x000000, #
+                 0x200007 + ((reg_addr&0xffff)<<4), # MOV #addr<15:0>, W7
+                 0x24000A, # MOV #0x4000, W10
+                 0x883B0A, # MOV W10, NVMCON
+                 0x200F80, # MOV #0xF8, W0
+                 0x880190, # MOV W0, TBLPAG
+                 0x200000 + ((new_val&0xffff)<<4), # MOV #<new_val>, W0
+                 0xBB0B80, # TBLWTL W0, [W7]
+                 0x000000, # NOP
+                 0x000000, # NOP
+                 0xA8E761, # BSET NVMCON, #WR
+                 0x000000, # NOP
+                 0x000000, # NOP
+                 0x000000, # NOP
+                 0x000000] # NOP
+
+    startICSP()
+
+    runlist( wr_cfg_li )
+    status = readNVMCON()
+    while status & 0x8000:
+        client.writecmd( PICAPP, 0x82, 3, [0x00,0x00,0x00] ) # NOP (pump clock)
+        status = readNVMCON()
+
+    stopICSP()
+        
+
+elif sys.argv[1] == "read": # Read an address of program memory
+    startICSP()
+
+    addr = int(float.fromhex(sys.argv[2]))
+
+    readpm_cmd_li = [0x040200,                         # GOTO 0x0200
+                     0x000000,                         #
+                     0x200000+((addr & 0xff0000)>>12), # MOV #addr<23:16>, W0
+                     0x880190,                         # MOV W0, TBLPAG
+                     0x200006+((addr & 0xffff)<<4),    # MOV #addr<15:0>, W6
+                     0xEB0380,                         # CLR W7
+                     0xEB0080,                         # CLR W1
+                     0x000000,                         # NOP
+                     0xBA1B96,                         # TBLRDL [W6], [W7++]
+                     0x000000,                         # NOP
+                     0x000000,                         # NOP
+                     0xBACB96,                         # TBLRDH.B [W6], [W7]
+                     0x000000,                         # NOP
+                     0x000000]                         # NOP
+                     
+    runlist( readpm_cmd_li )
+    loww = readreg(0)  # Read W0, which has lower 16 bits
+    highb = readreg(1) # Read W1, which has high 8 bits
+    result = (highb<<16) | loww
+    
+    print "0x%06X: 0x%06X" % ( addr, result )
+
+    stopICSP()
+
+elif sys.argv[1] == "dump": # Read section of program memory
+    if len(sys.argv) < 3:
+        print "Error: please specify file in which to dump program memory."
+        exit(1)
+    fname = sys.argv[2]
+
+    if len(sys.argv) == 6:
+        print_term = True
+    else:
+        print_term = False
+        
+    if len(sys.argv) > 4:
+        start_addr = int(float.fromhex(sys.argv[3]))
+        stop_addr  = int(float.fromhex(sys.argv[4]))
+    else:
+        # Assume all of program memory (including unimplemented sections,
+        # which will be read as zeroes.
+        start_addr = 0x0
+        stop_addr = 0xFFFFFE
+
+    dumphex = dump_pm( start_addr, stop_addr, print_term )
+        
+    if not print_term:
+        if fname == "-":
+            dumphex.tofile( sys.stdout, format="hex" )
+        else:
+            dumphex.tofile( fname, format="hex" )
+
+
+elif sys.argv[1] == "erase": # Bulk (all program memory) or page erase
+
+    if len(sys.argv) == 3:
+        addr = int(float.fromhex(sys.argv[2]))
+    else:
+        addr = None
+
+    if addr is None: # Bulk erase (all of program memory)
+        erase_cmd_li = [0x040200, # GOTO 0x0200
+                        0x000000, #
+                        0x2404FA, # MOV $0x404F, W10
+                        0x883B0A, # MOV W10, NVMCON
+                        0xA8E761, # BSET NVMCON, #WR
+                        0x000000, # NOP
+                        0x000000, # NOP
+                        0x000000, # NOP
+                        0x000000] # NOP
+    else: # Page erase
+        print "Erasing page of 0x%06X" % addr
+        erase_cmd_li = [0x040200, # GOTO 0x0200
+                        0x000000, #
+                        0x24042A, # MOV $0x4042, W10
+                        0x883B0A, # MOV W10, NVMCON
+                        0x200000+((addr & 0xff0000)>>12), # MOV #addr<23:16>, W0
+                        0x880190, # MOV W0, TBLPAG
+                        0x200001+((addr&0xffff)<<4), # MOV addr<15:0>, W1
+                        0x000000, # NOP
+                        0xBB0881, # TBLTWL W1, [W1]
+                        0x000000, # NOP
+                        0x000000, # NOP
+                        0xA8E761, # BSET NVMCON, #WR
+                        0x000000, # NOP
+                        0x000000, # NOP
+                        0x000000, # NOP
+                        0x000000] # NOP
+        # Note that page alignment (effectively, bitmask of 0xffff80
+        # applied to given program memory address) seems to be
+        # enforced by hardware.
+
+    startICSP()
+
+    runlist( erase_cmd_li )
+    status = readNVMCON()
+    while status & 0x8000:
+        client.writecmd( PICAPP, 0x82, 3, [0x00,0x00,0x00] ) # NOP (pump clock)
+        status = readNVMCON()
+
+    stopICSP()
+
+elif sys.argv[1] == "six": #0x82
+    startICSP()
+    
+    if len(sys.argv) < 3:
+        instr = 0x000000 # Assume nop
+    else:
+        instr = int(float.fromhex(sys.argv[2]))
+    print "Loading 0x%06X for execution..." % instr
+    data = client.writecmd( PICAPP, 0x82, 3, [instr & 0xff,
+                                       (instr >> 8) & 0xff,
+                                       (instr >> 16) & 0xff] )
+    print "Executing (by loading nop; pumping clock)..."
+    data = client.writecmd( PICAPP, 0x82, 3, [0x00,0x00,0x00] )
+
+    dumpVISI()
+
+    stopICSP()
+
+elif sys.argv[1] == "sixfile": #0x82 (repeated for each instruction in file)
+    startICSP()
+
+    if len(sys.argv) < 3:
+        print "Warning: no file given; trying cmd.txt..."
+        fname = "cmd.txt"
+    else:
+        fname = sys.argv[2]
+
+    try:
+        instrfile = open( fname, "r" )
+    except:
+        print "Failed to open file %s for reading." % fname
+        exit(-1)
+
+    try:
+        print "Opened file %s. Consecutively reading commmands..." % fname
+        for line in instrfile:
+            words = line.split()
+            if len(words) > 0:
+                try:
+                    instr = int(float.fromhex(words[0]))
+                except ValueError:
+                    print "Warning: invalid instruction found at offset %d." % instrfile.tell()
+                    continue
+                print "Loading 0x%06X for execution..." % instr
+                data = client.writecmd( PICAPP, 0x82, 3, [instr & 0xff,
+                                                   (instr >> 8) & 0xff,
+                                                   (instr >> 16) & 0xff] )
+            #else:
+            #    print "Warning: empty line found at offset %d." % instrfile.tell()
+    except:
+        print "Error: exception caught while reading file %s." % fname
+        instrfile.close()
+        stopICSP()
+        exit(-1)
+
+    instrfile.close()
+    
+    print "Loading nop, pumping clock (to finish execution)..."
+    data = client.writecmd( PICAPP, 0x82, 3, [0x00,0x00,0x00] )
+    
+    dumpVISI()
+
+    stopICSP()
+
+elif sys.argv[1] == "regout": #0x83
+    startICSP()
+
+    print "Reading VISI register..."
+    data = client.writecmd( PICAPP, 0x83, 0 )
+    result = ord(data[0])
+    result |= ord(data[1]) << 8
+    print "VISI: 0x%04X" % result
+
+    stopICSP()
+
+else:
+    print "Unrecognized verb: %s" % sys.argv[1]
+    sys.exit(-1)
+

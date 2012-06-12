@@ -1,0 +1,18 @@
+Dependencies:
+- Python 2.4
+- Ctypes (Windows only)
+- wxPython ANSI version (Windows only)
+
+Install
+
+It should be noted that when using VoIPER it needs to be installed and running on a seperate system to the device you are testing as VoIPER binds to the same ports as the devices it tests. 
+
+Before installing VoIPER first install any dependencies. You will need Python installed regardless of operating system. Version 2.4 is recommmended as some of the post testing tools provided by Sulley are dependent on it. These are purely optional to use though and version 2.5 is fine for the normal operation of VoIPER. Ctypes is required if you intend to use the sulley/win_process_monitor.py script. In this case ctypes would need to be installed on the machine you are testing. You would use this for process based crash detection where the target is running on a Windows system. Ctypes is also required to interpret any .crashbin files created by win_process_monitor.py. 
+
+Once this is done simply extract voiper into whatever directory you want and you are ready to test!
+
+Check out the README.txt and USAGE.txt files for more information and http://www.unprotectedhex.com for some videos of VoIPER usage.
+
+-nnp 
+
+21 April 2008

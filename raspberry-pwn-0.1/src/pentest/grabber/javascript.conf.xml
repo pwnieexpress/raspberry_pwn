@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!-- JavaScript Source Code Analyzer configuration file -->
+<javascript version="0.1">
+	<!-- 
+		Analyzer information, here JavaScript Lint by Matthias Miller
+		http://www.JavaScriptLint.com
+	-->
+	<analyzer>
+		<path input="-nologo -process" output="">C:\server\jsl-0.3.0\jsl.exe</path>
+		<configuration param="-conf">C:\work\Samate\Grabber\jsl.grabber.conf</configuration>
+		<extension>js</extension>
+		<pattern>__FILENAME__(__LINE__): __ERROR__</pattern>
+	</analyzer>
+</javascript>

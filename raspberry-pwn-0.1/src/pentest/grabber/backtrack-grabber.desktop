@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=grabber
+Encoding=UTF-8
+Exec=sh -c "cd /pentest/web/grabber/; python grabber.py -h; sudo -s"
+Icon=btmenu.png
+StartupNotify=true
+Terminal=1
+Type=Application
+Categories=bt-web-assessment-vulnerability-scanner;

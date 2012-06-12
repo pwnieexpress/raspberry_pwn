@@ -1,0 +1,30 @@
+Fast-Track - A new beginning...
+                                                                            
+Created by: David Kennedy (ReL1K)                                          
+                                                                            
+Email: davek@social-engineer.org
+                                                                      
+Bug Tracker and Wiki: http://www.secmaniac.com
+      
+Can find me on IRC:                                                        
+irc.freenode.net #social-engineer                                                       
+                                                                            
+DISCLAIMER: This is only for testing purposes and can only be               
+used where strict consent has been given. Do not use this for              
+illegal purposes period.                                                   
+                                                                            
+Any modifications, changes, or alterations to this application              
+is acceptable, however, any public releases utilizing this code
+must be approved by its creator before release. Please read the
+LICENSE.txt file for more information on licensing.
+
+To run: simply type python fast-track.py or ./fast-track.py
+
+To start off, you will first need to install all the dependecies
+required for fast-track. In order to do that, type:
+
+python setup.py install
+
+Read the Tutorials section on using each tool.
+
+./fast-track.py -g (gui) -i (menu mode)

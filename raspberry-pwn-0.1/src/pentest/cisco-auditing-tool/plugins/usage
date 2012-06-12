@@ -1,0 +1,19 @@
+sub usage {
+
+	print "\n";
+	print "Cisco Auditing Tool - g0ne [null0]\n";
+	print "Usage: \n";
+	print "\t-h hostname\t(for scanning single hosts)\n";
+	print "\t-f hostfile\t(for scanning multiple hosts)\n";
+	print "\t-p port #\t(default port is 23)\n";
+	print "\t-w wordlist\t(wordlist for community name guessing)\n";
+	print "\t-a passlist\t(wordlist for password guessing)\n";
+	print "\t-i [ioshist]\t(Check for IOS History bug)\n";
+	print "\t-l logfile\t(file to log to, default screen)\n";
+	print "\t-q quiet mode\t(no screen output)\n";
+	print "\n";
+	
+	return(1);
+
+} print;
+ 

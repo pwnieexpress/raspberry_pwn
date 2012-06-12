@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 23
+/!svn/ver/842/fasttrack
+END
+.project
+K 25
+svn:wc:ra_dav:version-url
+V 32
+/!svn/ver/327/fasttrack/.project
+END
+fast-track.py
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/!svn/ver/499/fasttrack/fast-track.py
+END
+setup.py
+K 25
+svn:wc:ra_dav:version-url
+V 32
+/!svn/ver/441/fasttrack/setup.py
+END
+.pydevproject
+K 25
+svn:wc:ra_dav:version-url
+V 37
+/!svn/ver/327/fasttrack/.pydevproject
+END

@@ -1,0 +1,42 @@
+#!/usr/bin/env python
+
+#GoodFET SPI Flash Client
+#by Travis Goodspeed
+
+import sys;
+import binascii;
+import array;
+import time;
+
+from GoodFETRadio import GoodFETRadio;
+from intelhex import IntelHex;
+from GoodFET import GoodFET, getClient;
+
+if(len(sys.argv)==1):
+    print "Usage: %s [driver|verb] verb [objects]\n" % sys.argv[0];
+    print "driver:= cc | nrf"; #msp430
+    print "verb:=   info";
+    print "         rs|radioinfo";
+    print "         test";
+    print "         regs";
+    print "         sniff";
+    print "         carrier [freq]";
+    sys.exit();
+
+driver=sys.argv[1];
+print "Using driver %s" % driver;
+client=GoodFETRadio(getClient(driver));
+client.start();
+
+
+
+
+
+if sys.argv[2]=='test':
+   client.test();
+if sys.argv[2]=='rssi':
+   rssireg=client.getrssi();
+   print "RSSI=%04x" % rssireg;
+client.stop();
+
+

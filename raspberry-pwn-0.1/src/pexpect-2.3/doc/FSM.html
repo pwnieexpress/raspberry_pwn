@@ -1,0 +1,272 @@
+
+<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module FSM</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>FSM</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/noah/pexpect/trunk/pexpect/FSM.py">/home/noah/pexpect/trunk/pexpect/FSM.py</a></font></td></tr></table>
+    <p><tt>This&nbsp;module&nbsp;implements&nbsp;a&nbsp;Finite&nbsp;State&nbsp;Machine&nbsp;(<a href="#FSM">FSM</a>).&nbsp;In&nbsp;addition&nbsp;to&nbsp;state<br>
+this&nbsp;<a href="#FSM">FSM</a>&nbsp;also&nbsp;maintains&nbsp;a&nbsp;user&nbsp;defined&nbsp;"memory".&nbsp;So&nbsp;this&nbsp;<a href="#FSM">FSM</a>&nbsp;can&nbsp;be&nbsp;used&nbsp;as&nbsp;a<br>
+Push-down&nbsp;Automata&nbsp;(PDA)&nbsp;since&nbsp;a&nbsp;PDA&nbsp;is&nbsp;a&nbsp;<a href="#FSM">FSM</a>&nbsp;+&nbsp;memory.<br>
+&nbsp;<br>
+The&nbsp;following&nbsp;describes&nbsp;how&nbsp;the&nbsp;<a href="#FSM">FSM</a>&nbsp;works,&nbsp;but&nbsp;you&nbsp;will&nbsp;probably&nbsp;also&nbsp;need&nbsp;to<br>
+see&nbsp;the&nbsp;example&nbsp;function&nbsp;to&nbsp;understand&nbsp;how&nbsp;the&nbsp;<a href="#FSM">FSM</a>&nbsp;is&nbsp;used&nbsp;in&nbsp;practice.<br>
+&nbsp;<br>
+You&nbsp;define&nbsp;an&nbsp;<a href="#FSM">FSM</a>&nbsp;by&nbsp;building&nbsp;tables&nbsp;of&nbsp;transitions.&nbsp;For&nbsp;a&nbsp;given&nbsp;input&nbsp;symbol<br>
+the&nbsp;process()&nbsp;method&nbsp;uses&nbsp;these&nbsp;tables&nbsp;to&nbsp;decide&nbsp;what&nbsp;action&nbsp;to&nbsp;call&nbsp;and&nbsp;what<br>
+the&nbsp;next&nbsp;state&nbsp;will&nbsp;be.&nbsp;The&nbsp;<a href="#FSM">FSM</a>&nbsp;has&nbsp;a&nbsp;table&nbsp;of&nbsp;transitions&nbsp;that&nbsp;associate:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(input_symbol,&nbsp;current_state)&nbsp;--&gt;&nbsp;(action,&nbsp;next_state)<br>
+&nbsp;<br>
+Where&nbsp;"action"&nbsp;is&nbsp;a&nbsp;function&nbsp;you&nbsp;define.&nbsp;The&nbsp;symbols&nbsp;and&nbsp;states&nbsp;can&nbsp;be&nbsp;any<br>
+objects.&nbsp;You&nbsp;use&nbsp;the&nbsp;add_transition()&nbsp;and&nbsp;add_transition_list()&nbsp;methods&nbsp;to&nbsp;add<br>
+to&nbsp;the&nbsp;transition&nbsp;table.&nbsp;The&nbsp;<a href="#FSM">FSM</a>&nbsp;also&nbsp;has&nbsp;a&nbsp;table&nbsp;of&nbsp;transitions&nbsp;that<br>
+associate:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(current_state)&nbsp;--&gt;&nbsp;(action,&nbsp;next_state)<br>
+&nbsp;<br>
+You&nbsp;use&nbsp;the&nbsp;add_transition_any()&nbsp;method&nbsp;to&nbsp;add&nbsp;to&nbsp;this&nbsp;transition&nbsp;table.&nbsp;The<br>
+<a href="#FSM">FSM</a>&nbsp;also&nbsp;has&nbsp;one&nbsp;default&nbsp;transition&nbsp;that&nbsp;is&nbsp;not&nbsp;associated&nbsp;with&nbsp;any&nbsp;specific<br>
+input_symbol&nbsp;or&nbsp;state.&nbsp;You&nbsp;use&nbsp;the&nbsp;set_default_transition()&nbsp;method&nbsp;to&nbsp;set&nbsp;the<br>
+default&nbsp;transition.<br>
+&nbsp;<br>
+When&nbsp;an&nbsp;action&nbsp;function&nbsp;is&nbsp;called&nbsp;it&nbsp;is&nbsp;passed&nbsp;a&nbsp;reference&nbsp;to&nbsp;the&nbsp;<a href="#FSM">FSM</a>.&nbsp;The<br>
+action&nbsp;function&nbsp;may&nbsp;then&nbsp;access&nbsp;attributes&nbsp;of&nbsp;the&nbsp;<a href="#FSM">FSM</a>&nbsp;such&nbsp;as&nbsp;input_symbol,<br>
+current_state,&nbsp;or&nbsp;"memory".&nbsp;The&nbsp;"memory"&nbsp;attribute&nbsp;can&nbsp;be&nbsp;any&nbsp;object&nbsp;that&nbsp;you<br>
+want&nbsp;to&nbsp;pass&nbsp;along&nbsp;to&nbsp;the&nbsp;action&nbsp;functions.&nbsp;It&nbsp;is&nbsp;not&nbsp;used&nbsp;by&nbsp;the&nbsp;<a href="#FSM">FSM</a>&nbsp;itself.<br>
+For&nbsp;parsing&nbsp;you&nbsp;would&nbsp;typically&nbsp;pass&nbsp;a&nbsp;list&nbsp;to&nbsp;be&nbsp;used&nbsp;as&nbsp;a&nbsp;stack.<br>
+&nbsp;<br>
+The&nbsp;processing&nbsp;sequence&nbsp;is&nbsp;as&nbsp;follows.&nbsp;The&nbsp;process()&nbsp;method&nbsp;is&nbsp;given&nbsp;an<br>
+input_symbol&nbsp;to&nbsp;process.&nbsp;The&nbsp;<a href="#FSM">FSM</a>&nbsp;will&nbsp;search&nbsp;the&nbsp;table&nbsp;of&nbsp;transitions&nbsp;that<br>
+associate:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(input_symbol,&nbsp;current_state)&nbsp;--&gt;&nbsp;(action,&nbsp;next_state)<br>
+&nbsp;<br>
+If&nbsp;the&nbsp;pair&nbsp;(input_symbol,&nbsp;current_state)&nbsp;is&nbsp;found&nbsp;then&nbsp;process()&nbsp;will&nbsp;call&nbsp;the<br>
+associated&nbsp;action&nbsp;function&nbsp;and&nbsp;then&nbsp;set&nbsp;the&nbsp;current&nbsp;state&nbsp;to&nbsp;the&nbsp;next_state.<br>
+&nbsp;<br>
+If&nbsp;the&nbsp;<a href="#FSM">FSM</a>&nbsp;cannot&nbsp;find&nbsp;a&nbsp;match&nbsp;for&nbsp;(input_symbol,&nbsp;current_state)&nbsp;it&nbsp;will&nbsp;then<br>
+search&nbsp;the&nbsp;table&nbsp;of&nbsp;transitions&nbsp;that&nbsp;associate:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(current_state)&nbsp;--&gt;&nbsp;(action,&nbsp;next_state)<br>
+&nbsp;<br>
+If&nbsp;the&nbsp;current_state&nbsp;is&nbsp;found&nbsp;then&nbsp;the&nbsp;process()&nbsp;method&nbsp;will&nbsp;call&nbsp;the<br>
+associated&nbsp;action&nbsp;function&nbsp;and&nbsp;then&nbsp;set&nbsp;the&nbsp;current&nbsp;state&nbsp;to&nbsp;the&nbsp;next_state.<br>
+Notice&nbsp;that&nbsp;this&nbsp;table&nbsp;lacks&nbsp;an&nbsp;input_symbol.&nbsp;It&nbsp;lets&nbsp;you&nbsp;define&nbsp;transitions<br>
+for&nbsp;a&nbsp;current_state&nbsp;and&nbsp;ANY&nbsp;input_symbol.&nbsp;Hence,&nbsp;it&nbsp;is&nbsp;called&nbsp;the&nbsp;"any"&nbsp;table.<br>
+Remember,&nbsp;it&nbsp;is&nbsp;always&nbsp;checked&nbsp;after&nbsp;first&nbsp;searching&nbsp;the&nbsp;table&nbsp;for&nbsp;a&nbsp;specific<br>
+(input_symbol,&nbsp;current_state).<br>
+&nbsp;<br>
+For&nbsp;the&nbsp;case&nbsp;where&nbsp;the&nbsp;<a href="#FSM">FSM</a>&nbsp;did&nbsp;not&nbsp;match&nbsp;either&nbsp;of&nbsp;the&nbsp;previous&nbsp;two&nbsp;cases&nbsp;the<br>
+<a href="#FSM">FSM</a>&nbsp;will&nbsp;try&nbsp;to&nbsp;use&nbsp;the&nbsp;default&nbsp;transition.&nbsp;If&nbsp;the&nbsp;default&nbsp;transition&nbsp;is<br>
+defined&nbsp;then&nbsp;the&nbsp;process()&nbsp;method&nbsp;will&nbsp;call&nbsp;the&nbsp;associated&nbsp;action&nbsp;function&nbsp;and<br>
+then&nbsp;set&nbsp;the&nbsp;current&nbsp;state&nbsp;to&nbsp;the&nbsp;next_state.&nbsp;This&nbsp;lets&nbsp;you&nbsp;define&nbsp;a&nbsp;default<br>
+transition&nbsp;as&nbsp;a&nbsp;catch-all&nbsp;case.&nbsp;You&nbsp;can&nbsp;think&nbsp;of&nbsp;it&nbsp;as&nbsp;an&nbsp;exception&nbsp;handler.<br>
+There&nbsp;can&nbsp;be&nbsp;only&nbsp;one&nbsp;default&nbsp;transition.<br>
+&nbsp;<br>
+Finally,&nbsp;if&nbsp;none&nbsp;of&nbsp;the&nbsp;previous&nbsp;cases&nbsp;are&nbsp;defined&nbsp;for&nbsp;an&nbsp;input_symbol&nbsp;and<br>
+current_state&nbsp;then&nbsp;the&nbsp;<a href="#FSM">FSM</a>&nbsp;will&nbsp;raise&nbsp;an&nbsp;exception.&nbsp;This&nbsp;may&nbsp;be&nbsp;desirable,&nbsp;but<br>
+you&nbsp;can&nbsp;always&nbsp;prevent&nbsp;this&nbsp;just&nbsp;by&nbsp;defining&nbsp;a&nbsp;default&nbsp;transition.<br>
+&nbsp;<br>
+Noah&nbsp;Spurrier&nbsp;20020822</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="optparse.html">optparse</a><br>
+<a href="os.html">os</a><br>
+</td><td width="25%" valign=top><a href="string.html">string</a><br>
+<a href="sys.html">sys</a><br>
+</td><td width="25%" valign=top><a href="time.html">time</a><br>
+<a href="traceback.html">traceback</a><br>
+</td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="FSM.html#FSM">FSM</a>
+</font></dt><dt><font face="helvetica, arial"><a href="exceptions.html#Exception">exceptions.Exception</a>(<a href="exceptions.html#BaseException">exceptions.BaseException</a>)
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="FSM.html#ExceptionFSM">ExceptionFSM</a>
+</font></dt></dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ExceptionFSM">class <strong>ExceptionFSM</strong></a>(<a href="exceptions.html#Exception">exceptions.Exception</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>This&nbsp;is&nbsp;the&nbsp;<a href="#FSM">FSM</a>&nbsp;<a href="exceptions.html#Exception">Exception</a>&nbsp;class.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="FSM.html#ExceptionFSM">ExceptionFSM</a></dd>
+<dd><a href="exceptions.html#Exception">exceptions.Exception</a></dd>
+<dd><a href="exceptions.html#BaseException">exceptions.BaseException</a></dd>
+<dd><a href="__builtin__.html#object">__builtin__.object</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="ExceptionFSM-__init__"><strong>__init__</strong></a>(self, value)</dt></dl>
+
+<dl><dt><a name="ExceptionFSM-__str__"><strong>__str__</strong></a>(self)</dt></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><tt>list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object&nbsp;(if&nbsp;defined)</tt></dd>
+</dl>
+<hr>
+Data and other attributes inherited from <a href="exceptions.html#Exception">exceptions.Exception</a>:<br>
+<dl><dt><strong>__new__</strong> = &lt;built-in method __new__ of type object at 0x81400e0&gt;<dd><tt>T.<a href="#ExceptionFSM-__new__">__new__</a>(S,&nbsp;...)&nbsp;-&gt;&nbsp;a&nbsp;new&nbsp;object&nbsp;with&nbsp;type&nbsp;S,&nbsp;a&nbsp;subtype&nbsp;of&nbsp;T</tt></dl>
+
+<hr>
+Methods inherited from <a href="exceptions.html#BaseException">exceptions.BaseException</a>:<br>
+<dl><dt><a name="ExceptionFSM-__delattr__"><strong>__delattr__</strong></a>(...)</dt><dd><tt>x.<a href="#ExceptionFSM-__delattr__">__delattr__</a>('name')&nbsp;&lt;==&gt;&nbsp;del&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="ExceptionFSM-__getattribute__"><strong>__getattribute__</strong></a>(...)</dt><dd><tt>x.<a href="#ExceptionFSM-__getattribute__">__getattribute__</a>('name')&nbsp;&lt;==&gt;&nbsp;x.name</tt></dd></dl>
+
+<dl><dt><a name="ExceptionFSM-__getitem__"><strong>__getitem__</strong></a>(...)</dt><dd><tt>x.<a href="#ExceptionFSM-__getitem__">__getitem__</a>(y)&nbsp;&lt;==&gt;&nbsp;x[y]</tt></dd></dl>
+
+<dl><dt><a name="ExceptionFSM-__getslice__"><strong>__getslice__</strong></a>(...)</dt><dd><tt>x.<a href="#ExceptionFSM-__getslice__">__getslice__</a>(i,&nbsp;j)&nbsp;&lt;==&gt;&nbsp;x[i:j]<br>
+&nbsp;<br>
+Use&nbsp;of&nbsp;negative&nbsp;indices&nbsp;is&nbsp;not&nbsp;supported.</tt></dd></dl>
+
+<dl><dt><a name="ExceptionFSM-__reduce__"><strong>__reduce__</strong></a>(...)</dt></dl>
+
+<dl><dt><a name="ExceptionFSM-__repr__"><strong>__repr__</strong></a>(...)</dt><dd><tt>x.<a href="#ExceptionFSM-__repr__">__repr__</a>()&nbsp;&lt;==&gt;&nbsp;repr(x)</tt></dd></dl>
+
+<dl><dt><a name="ExceptionFSM-__setattr__"><strong>__setattr__</strong></a>(...)</dt><dd><tt>x.<a href="#ExceptionFSM-__setattr__">__setattr__</a>('name',&nbsp;value)&nbsp;&lt;==&gt;&nbsp;x.name&nbsp;=&nbsp;value</tt></dd></dl>
+
+<dl><dt><a name="ExceptionFSM-__setstate__"><strong>__setstate__</strong></a>(...)</dt></dl>
+
+<hr>
+Data descriptors inherited from <a href="exceptions.html#BaseException">exceptions.BaseException</a>:<br>
+<dl><dt><strong>__dict__</strong></dt>
+</dl>
+<dl><dt><strong>args</strong></dt>
+</dl>
+<dl><dt><strong>message</strong></dt>
+<dd><tt>exception&nbsp;message</tt></dd>
+</dl>
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="FSM">class <strong>FSM</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>This&nbsp;is&nbsp;a&nbsp;Finite&nbsp;State&nbsp;Machine&nbsp;(<a href="#FSM">FSM</a>).<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="FSM-__init__"><strong>__init__</strong></a>(self, initial_state, memory<font color="#909090">=None</font>)</dt><dd><tt>This&nbsp;creates&nbsp;the&nbsp;<a href="#FSM">FSM</a>.&nbsp;You&nbsp;set&nbsp;the&nbsp;initial&nbsp;state&nbsp;here.&nbsp;The&nbsp;"memory"<br>
+attribute&nbsp;is&nbsp;any&nbsp;object&nbsp;that&nbsp;you&nbsp;want&nbsp;to&nbsp;pass&nbsp;along&nbsp;to&nbsp;the&nbsp;action<br>
+functions.&nbsp;It&nbsp;is&nbsp;not&nbsp;used&nbsp;by&nbsp;the&nbsp;<a href="#FSM">FSM</a>.&nbsp;For&nbsp;parsing&nbsp;you&nbsp;would&nbsp;typically<br>
+pass&nbsp;a&nbsp;list&nbsp;to&nbsp;be&nbsp;used&nbsp;as&nbsp;a&nbsp;stack.</tt></dd></dl>
+
+<dl><dt><a name="FSM-add_transition"><strong>add_transition</strong></a>(self, input_symbol, state, action<font color="#909090">=None</font>, next_state<font color="#909090">=None</font>)</dt><dd><tt>This&nbsp;adds&nbsp;a&nbsp;transition&nbsp;that&nbsp;associates:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(input_symbol,&nbsp;current_state)&nbsp;--&gt;&nbsp;(action,&nbsp;next_state)<br>
+&nbsp;<br>
+The&nbsp;action&nbsp;may&nbsp;be&nbsp;set&nbsp;to&nbsp;None&nbsp;in&nbsp;which&nbsp;case&nbsp;the&nbsp;<a href="#FSM-process">process</a>()&nbsp;method&nbsp;will<br>
+ignore&nbsp;the&nbsp;action&nbsp;and&nbsp;only&nbsp;set&nbsp;the&nbsp;next_state.&nbsp;The&nbsp;next_state&nbsp;may&nbsp;be<br>
+set&nbsp;to&nbsp;None&nbsp;in&nbsp;which&nbsp;case&nbsp;the&nbsp;current&nbsp;state&nbsp;will&nbsp;be&nbsp;unchanged.<br>
+&nbsp;<br>
+You&nbsp;can&nbsp;also&nbsp;set&nbsp;transitions&nbsp;for&nbsp;a&nbsp;list&nbsp;of&nbsp;symbols&nbsp;by&nbsp;using<br>
+<a href="#FSM-add_transition_list">add_transition_list</a>().</tt></dd></dl>
+
+<dl><dt><a name="FSM-add_transition_any"><strong>add_transition_any</strong></a>(self, state, action<font color="#909090">=None</font>, next_state<font color="#909090">=None</font>)</dt><dd><tt>This&nbsp;adds&nbsp;a&nbsp;transition&nbsp;that&nbsp;associates:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(current_state)&nbsp;--&gt;&nbsp;(action,&nbsp;next_state)<br>
+&nbsp;<br>
+That&nbsp;is,&nbsp;any&nbsp;input&nbsp;symbol&nbsp;will&nbsp;match&nbsp;the&nbsp;current&nbsp;state.<br>
+The&nbsp;<a href="#FSM-process">process</a>()&nbsp;method&nbsp;checks&nbsp;the&nbsp;"any"&nbsp;state&nbsp;associations&nbsp;after&nbsp;it&nbsp;first<br>
+checks&nbsp;for&nbsp;an&nbsp;exact&nbsp;match&nbsp;of&nbsp;(input_symbol,&nbsp;current_state).<br>
+&nbsp;<br>
+The&nbsp;action&nbsp;may&nbsp;be&nbsp;set&nbsp;to&nbsp;None&nbsp;in&nbsp;which&nbsp;case&nbsp;the&nbsp;<a href="#FSM-process">process</a>()&nbsp;method&nbsp;will<br>
+ignore&nbsp;the&nbsp;action&nbsp;and&nbsp;only&nbsp;set&nbsp;the&nbsp;next_state.&nbsp;The&nbsp;next_state&nbsp;may&nbsp;be<br>
+set&nbsp;to&nbsp;None&nbsp;in&nbsp;which&nbsp;case&nbsp;the&nbsp;current&nbsp;state&nbsp;will&nbsp;be&nbsp;unchanged.</tt></dd></dl>
+
+<dl><dt><a name="FSM-add_transition_list"><strong>add_transition_list</strong></a>(self, list_input_symbols, state, action<font color="#909090">=None</font>, next_state<font color="#909090">=None</font>)</dt><dd><tt>This&nbsp;adds&nbsp;the&nbsp;same&nbsp;transition&nbsp;for&nbsp;a&nbsp;list&nbsp;of&nbsp;input&nbsp;symbols.<br>
+You&nbsp;can&nbsp;pass&nbsp;a&nbsp;list&nbsp;or&nbsp;a&nbsp;string.&nbsp;Note&nbsp;that&nbsp;it&nbsp;is&nbsp;handy&nbsp;to&nbsp;use<br>
+string.digits,&nbsp;string.whitespace,&nbsp;string.letters,&nbsp;etc.&nbsp;to&nbsp;add<br>
+transitions&nbsp;that&nbsp;match&nbsp;character&nbsp;classes.<br>
+&nbsp;<br>
+The&nbsp;action&nbsp;may&nbsp;be&nbsp;set&nbsp;to&nbsp;None&nbsp;in&nbsp;which&nbsp;case&nbsp;the&nbsp;<a href="#FSM-process">process</a>()&nbsp;method&nbsp;will<br>
+ignore&nbsp;the&nbsp;action&nbsp;and&nbsp;only&nbsp;set&nbsp;the&nbsp;next_state.&nbsp;The&nbsp;next_state&nbsp;may&nbsp;be<br>
+set&nbsp;to&nbsp;None&nbsp;in&nbsp;which&nbsp;case&nbsp;the&nbsp;current&nbsp;state&nbsp;will&nbsp;be&nbsp;unchanged.</tt></dd></dl>
+
+<dl><dt><a name="FSM-get_transition"><strong>get_transition</strong></a>(self, input_symbol, state)</dt><dd><tt>This&nbsp;returns&nbsp;(action,&nbsp;next&nbsp;state)&nbsp;given&nbsp;an&nbsp;input_symbol&nbsp;and&nbsp;state.<br>
+This&nbsp;does&nbsp;not&nbsp;modify&nbsp;the&nbsp;<a href="#FSM">FSM</a>&nbsp;state,&nbsp;so&nbsp;calling&nbsp;this&nbsp;method&nbsp;has&nbsp;no&nbsp;side<br>
+effects.&nbsp;Normally&nbsp;you&nbsp;do&nbsp;not&nbsp;call&nbsp;this&nbsp;method&nbsp;directly.&nbsp;It&nbsp;is&nbsp;called&nbsp;by<br>
+<a href="#FSM-process">process</a>().<br>
+&nbsp;<br>
+The&nbsp;sequence&nbsp;of&nbsp;steps&nbsp;to&nbsp;check&nbsp;for&nbsp;a&nbsp;defined&nbsp;transition&nbsp;goes&nbsp;from&nbsp;the<br>
+most&nbsp;specific&nbsp;to&nbsp;the&nbsp;least&nbsp;specific.<br>
+&nbsp;<br>
+1.&nbsp;Check&nbsp;state_transitions[]&nbsp;that&nbsp;match&nbsp;exactly&nbsp;the&nbsp;tuple,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(input_symbol,&nbsp;state)<br>
+&nbsp;<br>
+2.&nbsp;Check&nbsp;state_transitions_any[]&nbsp;that&nbsp;match&nbsp;(state)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;In&nbsp;other&nbsp;words,&nbsp;match&nbsp;a&nbsp;specific&nbsp;state&nbsp;and&nbsp;ANY&nbsp;input_symbol.<br>
+&nbsp;<br>
+3.&nbsp;Check&nbsp;if&nbsp;the&nbsp;default_transition&nbsp;is&nbsp;defined.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;catches&nbsp;any&nbsp;input_symbol&nbsp;and&nbsp;any&nbsp;state.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;This&nbsp;is&nbsp;a&nbsp;handler&nbsp;for&nbsp;errors,&nbsp;undefined&nbsp;states,&nbsp;or&nbsp;defaults.<br>
+&nbsp;<br>
+4.&nbsp;No&nbsp;transition&nbsp;was&nbsp;defined.&nbsp;If&nbsp;we&nbsp;get&nbsp;here&nbsp;then&nbsp;raise&nbsp;an&nbsp;exception.</tt></dd></dl>
+
+<dl><dt><a name="FSM-process"><strong>process</strong></a>(self, input_symbol)</dt><dd><tt>This&nbsp;is&nbsp;the&nbsp;main&nbsp;method&nbsp;that&nbsp;you&nbsp;call&nbsp;to&nbsp;process&nbsp;input.&nbsp;This&nbsp;may<br>
+cause&nbsp;the&nbsp;<a href="#FSM">FSM</a>&nbsp;to&nbsp;change&nbsp;state&nbsp;and&nbsp;call&nbsp;an&nbsp;action.&nbsp;This&nbsp;method&nbsp;calls<br>
+<a href="#FSM-get_transition">get_transition</a>()&nbsp;to&nbsp;find&nbsp;the&nbsp;action&nbsp;and&nbsp;next_state&nbsp;associated&nbsp;with&nbsp;the<br>
+input_symbol&nbsp;and&nbsp;current_state.&nbsp;If&nbsp;the&nbsp;action&nbsp;is&nbsp;None&nbsp;then&nbsp;the&nbsp;action<br>
+is&nbsp;not&nbsp;called&nbsp;and&nbsp;only&nbsp;the&nbsp;current&nbsp;state&nbsp;is&nbsp;changed.&nbsp;This&nbsp;method<br>
+processes&nbsp;one&nbsp;complete&nbsp;input&nbsp;symbol.&nbsp;You&nbsp;can&nbsp;process&nbsp;a&nbsp;list&nbsp;of&nbsp;symbols<br>
+(or&nbsp;a&nbsp;string)&nbsp;by&nbsp;calling&nbsp;<a href="#FSM-process_list">process_list</a>().</tt></dd></dl>
+
+<dl><dt><a name="FSM-process_list"><strong>process_list</strong></a>(self, input_symbols)</dt><dd><tt>This&nbsp;takes&nbsp;a&nbsp;list&nbsp;and&nbsp;sends&nbsp;each&nbsp;element&nbsp;to&nbsp;<a href="#FSM-process">process</a>().&nbsp;The&nbsp;list&nbsp;may<br>
+be&nbsp;a&nbsp;string&nbsp;or&nbsp;any&nbsp;iterable&nbsp;object.</tt></dd></dl>
+
+<dl><dt><a name="FSM-reset"><strong>reset</strong></a>(self)</dt><dd><tt>This&nbsp;sets&nbsp;the&nbsp;current_state&nbsp;to&nbsp;the&nbsp;initial_state&nbsp;and&nbsp;sets<br>
+input_symbol&nbsp;to&nbsp;None.&nbsp;The&nbsp;initial&nbsp;state&nbsp;was&nbsp;set&nbsp;by&nbsp;the&nbsp;constructor<br>
+<a href="#FSM-__init__">__init__</a>().</tt></dd></dl>
+
+<dl><dt><a name="FSM-set_default_transition"><strong>set_default_transition</strong></a>(self, action, next_state)</dt><dd><tt>This&nbsp;sets&nbsp;the&nbsp;default&nbsp;transition.&nbsp;This&nbsp;defines&nbsp;an&nbsp;action&nbsp;and<br>
+next_state&nbsp;if&nbsp;the&nbsp;<a href="#FSM">FSM</a>&nbsp;cannot&nbsp;find&nbsp;the&nbsp;input&nbsp;symbol&nbsp;and&nbsp;the&nbsp;current<br>
+state&nbsp;in&nbsp;the&nbsp;transition&nbsp;list&nbsp;and&nbsp;if&nbsp;the&nbsp;<a href="#FSM">FSM</a>&nbsp;cannot&nbsp;find&nbsp;the<br>
+current_state&nbsp;in&nbsp;the&nbsp;transition_any&nbsp;list.&nbsp;This&nbsp;is&nbsp;useful&nbsp;as&nbsp;a&nbsp;final<br>
+fall-through&nbsp;state&nbsp;for&nbsp;catching&nbsp;errors&nbsp;and&nbsp;undefined&nbsp;states.<br>
+&nbsp;<br>
+The&nbsp;default&nbsp;transition&nbsp;can&nbsp;be&nbsp;removed&nbsp;by&nbsp;setting&nbsp;the&nbsp;attribute<br>
+default_transition&nbsp;to&nbsp;None.</tt></dd></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-BeginBuildNumber"><strong>BeginBuildNumber</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-BuildNumber"><strong>BuildNumber</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-DoEqual"><strong>DoEqual</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-DoOperator"><strong>DoOperator</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-EndBuildNumber"><strong>EndBuildNumber</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-Error"><strong>Error</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-main"><strong>main</strong></a>()</dt><dd><tt>This&nbsp;is&nbsp;where&nbsp;the&nbsp;example&nbsp;starts&nbsp;and&nbsp;the&nbsp;<a href="#FSM">FSM</a>&nbsp;state&nbsp;transitions&nbsp;are<br>
+defined.&nbsp;Note&nbsp;that&nbsp;states&nbsp;are&nbsp;strings&nbsp;(such&nbsp;as&nbsp;'INIT').&nbsp;This&nbsp;is&nbsp;not<br>
+necessary,&nbsp;but&nbsp;it&nbsp;makes&nbsp;the&nbsp;example&nbsp;easier&nbsp;to&nbsp;read.</tt></dd></dl>
+</td></tr></table>
+</body></html>

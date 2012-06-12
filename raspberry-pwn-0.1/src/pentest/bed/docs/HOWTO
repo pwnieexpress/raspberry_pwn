@@ -1,0 +1,25 @@
+
+ Howto use BED?
+
+
+Using BED is quit simple :) Decide which protocol you want to stress test
+and start bed using the commandline
+
+ perl bed.pl -s plugin -t 192.168.0.1
+
+BED will then run for a while, any maybe report to you that a connection attempt
+to the service failed. If this is the case you might have detected a bug. Next step
+is to run BED again with a higher timeout between the testcases, depending on the 
+duration of your coffee break, values of 5 to 30 seconds are fine. So restart the
+daemon or box and run BED again, using the -o switch. If BED reports a crash at the
+same place again, take a look at the module you where using ( in bedmod/xxxx.pm ) and
+search for the testcase, then run it by hand ( either using netcat and perl or write
+your own script ) agains the daemon, if you can reproduce the problem, its time to look
+at the sources, coredump or using a disassembler and debugger to find out whats really
+happening in there. If BED reports the crash at another test, just increase the timeout
+a bit more until you found the testcase which produces the crash, just do some trial and
+error stuff, because sometimes the crash happens much later than you sending the data.
+I had wait times up to 2 Minutes with a Lexmark T522 printer, until the box finally
+crashed and called for service :)
+
+Thats about it... enjoy

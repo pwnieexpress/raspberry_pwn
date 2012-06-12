@@ -1,0 +1,55 @@
+
+ [ Frequently Asked Questions ]
+
+ Bruteforce Exploit Detector
+ written by mjm ( www.codito.de ) and snakebyte ( www.kryptocrew.de/snakebyte/ )
+
+
+1.) Why test at all?
+
+    Security is necessary, I think we agree on that.
+    Due to the fact that there are other programs,
+    and ways to test software ( see question 2 ),
+    I think this one is the easiest. Simply sending
+    the stuff to a server, which is known to
+    cause problems. Verification of wheter a test failed
+    or not is also pretty simple.
+    So this collection of scripts does not verify that your
+    code has no problems at all, but it can make sure, that
+    you made your way around the most common ones.
+
+
+2.) Which other tools exists for security testing?
+
+    Splint ( www.splint.org )
+      checks the source code of a program for problems
+
+    BFBTester ( bfbtester.sourceforge.net )
+      checks command line and environment problems of binaries
+
+    l0phtwatch ( www.l0pht.com )
+      detects temp file problems
+
+    screamingcobra ( www.dachb0den.com )
+      checks php and perl scripts for problems, wich can lead to acces files on the server
+
+    wpoison ( wpoison.sourceforge.net )
+      checks websites for SQL injection problems
+
+    webtest ( martynov.org/webtest/ )
+      tests scripts on your website 
+
+    ...or you could hire a bunch of programmers, which check the code
+    manually :)
+
+
+3.) What is ''XAXAX''?
+
+    XAXAX is the result of Snakebyte drinking beer and thinking about
+    a good place-holder. XAXAX is replaced by the exploit string while
+    testing.
+
+
+4.) How can i write a plugin ?
+
+	Check 'dummy.pm' for details..

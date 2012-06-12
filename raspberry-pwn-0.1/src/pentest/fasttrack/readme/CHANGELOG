@@ -1,0 +1,132 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Fast-Track Version 4.0.1 Changelog
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+08-25-2010
+Added Nmap scripting engine interface!
+
+* Minor fixes for outdated packages
+* Removed update everything and some older tools from Fast-Track
+* Recoded certain portions of ftgui for code reuse (thanks j0fer)
+* Fixed a couple of outdated/old paths
+* Interactive mode menu navigation cleaned up.
+* Tutorials are dynamically generated from text files
+* Tutorials available in Web GUI
+* Added the ability to specify config path for framework3 (config/fasttrack_config)
+* Fixed a bug with the exploits section
+* Fixed SQLPWnage error where it would not propery identify websites
+* Reversed some changes in subversion that caused ftgui to break
+* Added more browser exploits to Fast-Track
+* Added the ability to import a host file of IP addresses for SQL brute in menu mode
+* Added more browser exploits to Fast-Track
+* Fixed a couple weird issues with pymills
+* Rehauled SQL Brute forcer a bit due to major changes in pymssql module syntax
+* Changed os.popen2 to subprocess.popen in ftgui.py
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Fast-Track Version 4 Changelog
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Welcome to the Version 4 Changelog, be sure to check back
+here frequently to identify what changes, bug fixes, and
+additions have been added to Fast-Track.
+
+~~~~~~~~~~~~~
+ Update 4.0
+~~~~~~~~~~~~~
+
+Welcome to Fast-Track Version 4.0, there has been a slew
+of changes between version 3 and version 4. This version
+is primarily focused on bug fixes, web interface rehaul,
+documentation, code cleanup, and a heavy focus on the
+exploits section. There are way to many changes to list
+with this version however, below are some of the major
+highlights.
+
+- Completely redesigned web interface. Web interface design
+by RBG.
+
+- Code cleanup, a lot of things are dynamically
+generated now and code reuse is becoming more and more
+common.
+
+- Better functionality of the web interface and allowing
+easier understanding.
+
+- Massive documentation campaign is underway to document
+all aspects of Fast-Track, customizations, and various
+other avenues.
+
+- Improved Metasploit Autopwn Automated, sleeps 15 seconds
+after exploiting the system(s) and then does a sessions -l
+to list all sessions active, and gives you friendly 
+reminders.
+
+- Rewrote Metasploit Mass Client Attack to dynamically 
+import all of the exploits now, much easier to update
+and includes every single browser exploit for Metasploit.
+
+- Bug fixes in SQL Injector Binary Payload GET and POST
+
+- Color changes on xterm launches for WebGUI
+
+- Additional login_bypasses for SQLPwnage
+
+- Added multiple exploits to the exploit menu
+
+- Added about, credits, and changelog to command-line
+mode.
+
+- Added XML Parsing Exploit to Fast-Track Client Side,
+rewrote large portion of the exploit for heap spray +
+bind shell.
+
+- Added XML Parsing Exploit to Fast-Track Exploits 
+section.
+
+- Code optimization in SQL Bruter
+
+- Fast-Track update now utilizes SVN, not a custom update
+script that was used in the past. Much more efficent and
+reliable.
+
+- Added a new tool called PayloadGenerator, just a simple
+tie in to the Metasploit Framework to simplify some 
+Metasploit payload creation.
+
+- Used Metasploit's SQLPing functionality and incorporated
+it into Fast-Track to allow UDP identification of SQL
+Servers that may not be running on the standard 1433.
+
+- Rewrote the interactive menu to look more like the web GUI.
+
+- Added MS09-002 IE Universal Exploit published by SecureState R&D
+team.
+
+- Added auto Metasploit installation for Ubuntu.
+
+- Added Kismet-NewCore in the updates menu.
+
+- Updated Metasploit Mass Client Attacks
+
+- Adding a configuration and customization file for Fast-Track. Coming soon.
+
+- Removed milw0rm :( Sad day today..
+
+- Added the zero-day IE DirectShow heap spray into Fast-Track
+
+- Milw0rm is back up!!! Added to Fast-Track again.
+
+- Added the latest FireFox 3.5 Heap Spray
+
+- Thanks to j0fer some code cleanup in ftgui
+
+- Added tutorials directory for text verbiage
+
+- Tutorials, credits, and changelog are now dynamically generated
+  in all modes.
+
+- Modified interactive mode behavior for usability
+~~~~~~~~~~~~~~
+END CHANGELOG
+~~~~~~~~~~~~~~

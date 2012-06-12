@@ -1,0 +1,67 @@
+UTF-8 issues: http://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-test.txt
+    - add our msft IE issue too.
+    - file:///C:/Documents%20and%20Settings/pamini/Desktop/fuzzing/info/00007056.html
+
+examine these codenomicon test cases and add to my heuristics:
+    - file:///C:/Documents%20and%20Settings/pamini/Desktop/fuzzing/info/00002677.html
+    - file:///C:/Documents%20and%20Settings/pamini/Desktop/fuzzing/info/00002678.html
+    - file:///C:/Documents%20and%20Settings/pamini/Desktop/fuzzing/info/00002703.html
+    - file:///C:/Documents%20and%20Settings/pamini/Desktop/fuzzing/info/00026092.html
+
+general
+    - examine codenomicon VoIP fuzzer test cases and see if we are missing anything important
+    - review codenomicon whitepaper
+    - build VoIP fuzzer and compare with codenomicon (would make for a great talk slide, code coverage comparison)
+    - add SPIKE aliases and test if it's actually SPIKE compatible.
+    - write a PDML -> sulley parser
+    - change all class/function definitions to utilize "kwargs.get()"
+    - replace XDR legos with wrapper around xdrlib (built into python)
+
+blocks/primitives
+    - implement fixed length padded strings
+    - implement string size reduction for UDP protocol?? (or does it just span multiple packets)?
+    - delim primitive: are there more space substitutions?
+    - ONCE A BLOCK IS CLOSED IT CAN NOT BE UPDATED! ex: this is invalid:
+            block a:
+                int
+                str
+                size block b
+            block b:
+                int
+                int
+        the sizer in block a that applies to block b will never get rendered in the above scenario this is due to the
+        fact that when a block is closed all the renders for the primitives are bubbled up to the block. so when block b
+        closes and updates the sizer, it doesn't actually bubble up. now the question is. do i want to fix this? or
+        just leave it as a limitation. in the above scenario simply putting the sizer outside of block a will address
+        the situation.
+
+expector
+    - add binning of pcaps, maybe as an outside tool instead of built into network monitor?
+    - add mkdir calls to prefix of pcap path
+
+debugger (aka nanny)
+    - how will i implement the feedback loop?
+
+sessions
+    - implement "honing", subsets of mutation ranges to locate the actual source of the crash
+        - this will likely have to be written as a new tool
+    - extend class to allow distributed fuzzing (complete parallel fuzzing)
+    - fuzz() should be generic. all socket operations moved into .connect(), .transmit() . recv() that way session ca
+      be overloaded to do other transports such as mailslots, named pipes, etc..
+
+legos
+    - ip address (with limited entries from string / delim fuzz libraries) values.
+        - multiple dots
+        - dots with interspersed spaces (file:///C:/Documents%20and%20Settings/pamini/Desktop/fuzzing/info/00000524.html)
+        - file:///C:/Documents%20and%20Settings/pamini/Desktop/fuzzing/info/00000526.html
+        - file:///C:/Documents%20and%20Settings/pamini/Desktop/fuzzing/info/00000527.html
+        - file:///C:/Documents%20and%20Settings/pamini/Desktop/fuzzing/info/00000529.html
+        - negative numbers!
+        - big numbers
+        - long zero prefixes (check out the fuzz cases after 530)
+        - *** automatically revert to valid target ip address *** (how will i implement this!)
+    - dns hostname
+        - for fuzzing, try and create infinite recursion
+    - complete tag (open, data, close)
+    - datetime lego
+        - file:///C:/Documents%20and%20Settings/pamini/Desktop/fuzzing/info/00007134.html

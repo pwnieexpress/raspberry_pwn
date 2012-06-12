@@ -1,0 +1,38 @@
+[ 0.5 ]
+- fixed port for smtp module
+- added a check for some "random" numbers
+- added some more misc strings
+- added some commands to ftp, pop and imap
+
+[ 0.42 ]
+- added unicode testing ( untested! )
+- added some stuff to the ftp directory traversal,  inspired by Dennis Rand Platinum FTP Advisory
+- started to write a socks5 plugin but then realized this is pretty boring, because
+        you have to provide the nessecairy lengths on your own... 
+        so only buffer underuns are checked here...
+- Added a new option -o to specify the timeOut... this is useful if a server bans
+        for too fast connection retries, or when simply sending the latest two testcases
+        after crashing dont reproduce the crash
+- new module, socks4... yeah I _am_ bored :)
+- new module: lpd ( unfinished... )
+- new, lame module: finger :)
+- Beautified the code
+- New module: PJL
+- Added a status bar ( pls, dont look how i did it... )
+- Fixed some errors with udp
+- reniced some output... :)
+- local tcp/udp port can now be specified too
+
+
+[ 0.3 ]
+
+- New modules: HTTP, IRC
+- A new method to check whether server is still alive
+- Possibility to use udp and tcp
+
+
+[ 0.2 ]
+
+- New structure of bed, simple modules for each service
+- New services support: SMTP, POP
+

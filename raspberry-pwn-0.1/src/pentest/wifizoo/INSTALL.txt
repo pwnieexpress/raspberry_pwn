@@ -1,0 +1,26 @@
+WifiZoo v1.3
+by Hernan Ochoa (hernan@gmail.com)
+
+For more information about WifiZoo go to
+
+http://community.corest.com/~hochoa/wifizoo/index.html
+
+How to use it?
+==============
+
+python wifizoo.py
+
+and that's it! the help will be displayed!.
+
+Remember, you must have scapy.py installed!.
+
+Don't use the scapy.py version available from your Linux distribution (such as the 'apt-get version' available from debian or ubuntu), go to scapy's website and download the latest version!. Otherwise WifiZoo will not function correctly!.
+
+Once you have the latest scapy.py, copy the file to the same directory where wifizoo.py is located, and that's it!.
+
+
+
+
+
+
+

@@ -1,0 +1,73 @@
+What follows are a couple of scenarios for usage of VoIPER and the corresponding command lines to achieve them. The should also be easily achievable using the GUI (Windows only). 
+
+Run `python fuzzer.py -h` to get an explanation of any of the command line options. To get a list of valid fuzzer names run `python fuzzer.py -l` and for information on what a particular fuzzer does run `python fuzzer.py -l FUZZERNAME`
+
+Check out the wiki at http://www.unprotectedhex.com/voiper-wiki/ for links to other help documents and video tutorials.
+
+Run the fuzzer with the -h option to see the meaning of the command line paramaters.
+
+See 'voiper.config' to view other options you can specify to the fuzzer.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Scenario #1
+
+In this scenario we will simply bombard a SIP device with fuzz tests without any crash detection or target management. It is the most basic and primitive form of testing that VoIPER provides. This could be useful in a situation where a number of competing VoIP products have to be decided on and a robustness check to determine which, if any, survive is required rather than logs and other information to debug the actual crashes.
+
+python fuzzer.py -f SIPInviteCommonFuzzer -i 192.168.3.101 -p 5060 -a sessions/scen1 -c 0
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Scenario #2
+
+In this scenario we will use process based crash detection to monitor the target application. I will use level 2 which will pause the fuzzer if a crash is detected. False positives are unfortunately common with this method of detection but that should be resolved in the next release. We also use the -m option to limit the maximum size of fuzz strings used to 1024. Many routers have a UDP MTU of 1500 bytes so when searching for vulnerabilities that can be exploited by external attackers it often makes sense to limit the fuzz string size which reduces the overall length of the test.
+
+The steps in this scenario are applicable to the testing of any SIP device where the auditor cannot run the process monitoring scripts on the target device or would prefer not to. A typical example is a SIP hardphone and some proprietary gateway/proxy devices.
+
+python fuzzer.py -f SIPInviteCommonFuzzer -c 2 -i 192.168.3.101 -p 5060 -a sessions/scen2 -m 1024
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Scenario #3
+
+In this scenario we will test a SIP software phone running on Windows. As we are using process based crash detection we will have to set up both the process monitoring script and the fuzzer. The process monitoring script is contained in the 'sulley' subdirectory so copy the entire VoIPER folder to the target machine. The target machine will require Python 2.4 and the ctypes library. Check 'INSTALL.txt' for further information.
+
+On the computer that will run the target application run the following command:
+
+python sulley/win_process_monitor.py -c sessions/APP.crashbin -p APP.exe
+
+Then on the fuzzing machine run:
+
+python fuzzer.py -f SDPFuzzer -i 192.168.3.102 -p 5060 -c 3 -S "C:\Program Files\APP\APP.exe" -R 50 -a sessions\scen3
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Post testing - Recreating crashes
+
+Once testing is completed there are a variety of options available to determine the root cause of crashes depending on the options used during testing. Assuming level 1-3 was used then any crashes should have produced .crashlog files in the session directory. These can be replayed or turned into self contained proof of concept scripts with the crash_replay.py tool.  
+
+python crash_replay.py -d directoryWithCrashlogs -i 192.168.3.101 -p 5060 -c 2
+
+Here we have provided the directory containing the '.crashlog' files, the target host/port and then '-c 2'. What '-c 2' tells the tool is to create the corresponding 'CANCEL' requests for the 'INVITE' requests contained in the crash logs and to wait 2 seconds before sending them. Obviously use this only when the crash logs were created by a fuzzer containing the term INVITE. 
+
+Using -f instead of -d you can specify a specific file to replay instantly. The rest of the options would be unchanged. 
+
+As mentioned you can also use crash_replay.py to create a self contained python script that will replay the specific .crashlog file. You would do this as follows
+
+python crash_replay.py -r -f session/1_134.crashlog -o poc.py
+
+Which will create poc.py. This can then be used as follows
+
+python poc.py 192.168.3.101 -p 5060
+
+This is useful when filing bug reports and a proof of concept is often useful in getting your point across. Currently this POC does not include any other requests, e.g. CANCEL, that could have been sent alongside the request in the .crashlog.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+Post testing - Debugging crashes
+
+If you used level 3 crash detection you also have some extra information at your disposal courtesy of the SFF. On the target machine, running the following command will give you a list of all the tests that caused crashes plus the locations they crashed at. The file name is the same one you provided to the process monitor script '-c' option.
+
+python sulley/s_utils/crashbin_explorer.py sessions/APP.crashbin
+
+You can also view information about the processes state when it crashed, such as registers, stack unwinds and so on, by providing the above command with the number of a test from the output of the above.
+
+python sulley/s_utils/crashbin_explorer.py sessions/APP.crashbin -t 5337
+
+The combination of this information should hopefully make tracking down any bugs far easier.
+

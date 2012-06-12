@@ -1,0 +1,180 @@
+
+<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module screen</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>screen</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/noah/pexpect/trunk/pexpect/screen.py">/home/noah/pexpect/trunk/pexpect/screen.py</a></font></td></tr></table>
+    <p><tt>This&nbsp;implements&nbsp;a&nbsp;virtual&nbsp;<a href="#screen">screen</a>.&nbsp;This&nbsp;is&nbsp;used&nbsp;to&nbsp;support&nbsp;ANSI&nbsp;terminal<br>
+emulation.&nbsp;The&nbsp;<a href="#screen">screen</a>&nbsp;representation&nbsp;and&nbsp;state&nbsp;is&nbsp;implemented&nbsp;in&nbsp;this&nbsp;class.<br>
+Most&nbsp;of&nbsp;the&nbsp;methods&nbsp;are&nbsp;inspired&nbsp;by&nbsp;ANSI&nbsp;<a href="#screen">screen</a>&nbsp;control&nbsp;codes.&nbsp;The&nbsp;ANSI&nbsp;class<br>
+extends&nbsp;this&nbsp;class&nbsp;to&nbsp;add&nbsp;parsing&nbsp;of&nbsp;ANSI&nbsp;escape&nbsp;codes.<br>
+&nbsp;<br>
+$Id:&nbsp;<a href="#screen">screen</a>.py&nbsp;486&nbsp;2007-07-13&nbsp;01:04:16Z&nbsp;noah&nbsp;$</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="copy.html">copy</a><br>
+</td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="screen.html#screen">screen</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="screen">class <strong>screen</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>This&nbsp;object&nbsp;maintains&nbsp;the&nbsp;state&nbsp;of&nbsp;a&nbsp;virtual&nbsp;text&nbsp;<a href="#screen">screen</a>&nbsp;as&nbsp;a<br>
+rectangluar&nbsp;array.&nbsp;This&nbsp;maintains&nbsp;a&nbsp;virtual&nbsp;cursor&nbsp;position&nbsp;and&nbsp;handles<br>
+scrolling&nbsp;as&nbsp;characters&nbsp;are&nbsp;added.&nbsp;This&nbsp;supports&nbsp;most&nbsp;of&nbsp;the&nbsp;methods&nbsp;needed<br>
+by&nbsp;an&nbsp;ANSI&nbsp;text&nbsp;<a href="#screen">screen</a>.&nbsp;Row&nbsp;and&nbsp;column&nbsp;indexes&nbsp;are&nbsp;1-based&nbsp;(not&nbsp;zero-based,<br>
+like&nbsp;arrays).<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="screen-__init__"><strong>__init__</strong></a>(self, r<font color="#909090">=24</font>, c<font color="#909090">=80</font>)</dt><dd><tt>This&nbsp;initializes&nbsp;a&nbsp;blank&nbsp;scree&nbsp;of&nbsp;the&nbsp;given&nbsp;dimentions.</tt></dd></dl>
+
+<dl><dt><a name="screen-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>This&nbsp;returns&nbsp;a&nbsp;printable&nbsp;representation&nbsp;of&nbsp;the&nbsp;<a href="#screen">screen</a>.&nbsp;The&nbsp;end&nbsp;of<br>
+each&nbsp;<a href="#screen">screen</a>&nbsp;line&nbsp;is&nbsp;terminated&nbsp;by&nbsp;a&nbsp;newline.</tt></dd></dl>
+
+<dl><dt><a name="screen-clear_all_tabs"><strong>clear_all_tabs</strong></a>(self)</dt><dd><tt>Clears&nbsp;all&nbsp;tabs.</tt></dd></dl>
+
+<dl><dt><a name="screen-clear_tab"><strong>clear_tab</strong></a>(self)</dt><dd><tt>Clears&nbsp;tab&nbsp;at&nbsp;the&nbsp;current&nbsp;position.</tt></dd></dl>
+
+<dl><dt><a name="screen-cr"><strong>cr</strong></a>(self)</dt><dd><tt>This&nbsp;moves&nbsp;the&nbsp;cursor&nbsp;to&nbsp;the&nbsp;beginning&nbsp;(col&nbsp;1)&nbsp;of&nbsp;the&nbsp;current&nbsp;row.</tt></dd></dl>
+
+<dl><dt><a name="screen-crlf"><strong>crlf</strong></a>(self)</dt><dd><tt>This&nbsp;advances&nbsp;the&nbsp;cursor&nbsp;with&nbsp;CRLF&nbsp;properties.<br>
+The&nbsp;cursor&nbsp;will&nbsp;line&nbsp;wrap&nbsp;and&nbsp;the&nbsp;<a href="#screen">screen</a>&nbsp;may&nbsp;scroll.</tt></dd></dl>
+
+<dl><dt><a name="screen-cursor_back"><strong>cursor_back</strong></a>(self, count<font color="#909090">=1</font>)</dt></dl>
+
+<dl><dt><a name="screen-cursor_constrain"><strong>cursor_constrain</strong></a>(self)</dt><dd><tt>This&nbsp;keeps&nbsp;the&nbsp;cursor&nbsp;within&nbsp;the&nbsp;<a href="#screen">screen</a>&nbsp;area.</tt></dd></dl>
+
+<dl><dt><a name="screen-cursor_down"><strong>cursor_down</strong></a>(self, count<font color="#909090">=1</font>)</dt></dl>
+
+<dl><dt><a name="screen-cursor_force_position"><strong>cursor_force_position</strong></a>(self, r, c)</dt><dd><tt>Identical&nbsp;to&nbsp;Cursor&nbsp;Home.</tt></dd></dl>
+
+<dl><dt><a name="screen-cursor_forward"><strong>cursor_forward</strong></a>(self, count<font color="#909090">=1</font>)</dt></dl>
+
+<dl><dt><a name="screen-cursor_home"><strong>cursor_home</strong></a>(self, r<font color="#909090">=1</font>, c<font color="#909090">=1</font>)</dt></dl>
+
+<dl><dt><a name="screen-cursor_restore_attrs"><strong>cursor_restore_attrs</strong></a>(self)</dt><dd><tt>Restores&nbsp;cursor&nbsp;position&nbsp;after&nbsp;a&nbsp;Save&nbsp;Cursor.</tt></dd></dl>
+
+<dl><dt><a name="screen-cursor_save"><strong>cursor_save</strong></a>(self)</dt><dd><tt>Save&nbsp;current&nbsp;cursor&nbsp;position.</tt></dd></dl>
+
+<dl><dt><a name="screen-cursor_save_attrs"><strong>cursor_save_attrs</strong></a>(self)</dt><dd><tt>Save&nbsp;current&nbsp;cursor&nbsp;position.</tt></dd></dl>
+
+<dl><dt><a name="screen-cursor_unsave"><strong>cursor_unsave</strong></a>(self)</dt><dd><tt>Restores&nbsp;cursor&nbsp;position&nbsp;after&nbsp;a&nbsp;Save&nbsp;Cursor.</tt></dd></dl>
+
+<dl><dt><a name="screen-cursor_up"><strong>cursor_up</strong></a>(self, count<font color="#909090">=1</font>)</dt></dl>
+
+<dl><dt><a name="screen-cursor_up_reverse"><strong>cursor_up_reverse</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="screen-dump"><strong>dump</strong></a>(self)</dt><dd><tt>This&nbsp;returns&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;<a href="#screen">screen</a>&nbsp;as&nbsp;a&nbsp;string.&nbsp;This&nbsp;is&nbsp;similar&nbsp;to<br>
+__str__&nbsp;except&nbsp;that&nbsp;lines&nbsp;are&nbsp;not&nbsp;terminated&nbsp;with&nbsp;line&nbsp;feeds.</tt></dd></dl>
+
+<dl><dt><a name="screen-erase_down"><strong>erase_down</strong></a>(self)</dt><dd><tt>Erases&nbsp;the&nbsp;<a href="#screen">screen</a>&nbsp;from&nbsp;the&nbsp;current&nbsp;line&nbsp;down&nbsp;to&nbsp;the&nbsp;bottom&nbsp;of&nbsp;the<br>
+<a href="#screen">screen</a>.</tt></dd></dl>
+
+<dl><dt><a name="screen-erase_end_of_line"><strong>erase_end_of_line</strong></a>(self)</dt><dd><tt>Erases&nbsp;from&nbsp;the&nbsp;current&nbsp;cursor&nbsp;position&nbsp;to&nbsp;the&nbsp;end&nbsp;of&nbsp;the&nbsp;current<br>
+line.</tt></dd></dl>
+
+<dl><dt><a name="screen-erase_line"><strong>erase_line</strong></a>(self)</dt><dd><tt>Erases&nbsp;the&nbsp;entire&nbsp;current&nbsp;line.</tt></dd></dl>
+
+<dl><dt><a name="screen-erase_screen"><strong>erase_screen</strong></a>(self)</dt><dd><tt>Erases&nbsp;the&nbsp;<a href="#screen">screen</a>&nbsp;with&nbsp;the&nbsp;background&nbsp;color.</tt></dd></dl>
+
+<dl><dt><a name="screen-erase_start_of_line"><strong>erase_start_of_line</strong></a>(self)</dt><dd><tt>Erases&nbsp;from&nbsp;the&nbsp;current&nbsp;cursor&nbsp;position&nbsp;to&nbsp;the&nbsp;start&nbsp;of&nbsp;the&nbsp;current<br>
+line.</tt></dd></dl>
+
+<dl><dt><a name="screen-erase_up"><strong>erase_up</strong></a>(self)</dt><dd><tt>Erases&nbsp;the&nbsp;<a href="#screen">screen</a>&nbsp;from&nbsp;the&nbsp;current&nbsp;line&nbsp;up&nbsp;to&nbsp;the&nbsp;top&nbsp;of&nbsp;the<br>
+<a href="#screen">screen</a>.</tt></dd></dl>
+
+<dl><dt><a name="screen-fill"><strong>fill</strong></a>(self, ch<font color="#909090">=' '</font>)</dt></dl>
+
+<dl><dt><a name="screen-fill_region"><strong>fill_region</strong></a>(self, rs, cs, re, ce, ch<font color="#909090">=' '</font>)</dt></dl>
+
+<dl><dt><a name="screen-get"><strong>get</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="screen-get_abs"><strong>get_abs</strong></a>(self, r, c)</dt></dl>
+
+<dl><dt><a name="screen-get_region"><strong>get_region</strong></a>(self, rs, cs, re, ce)</dt><dd><tt>This&nbsp;returns&nbsp;a&nbsp;list&nbsp;of&nbsp;lines&nbsp;representing&nbsp;the&nbsp;region.</tt></dd></dl>
+
+<dl><dt><a name="screen-insert"><strong>insert</strong></a>(self, ch)</dt></dl>
+
+<dl><dt><a name="screen-insert_abs"><strong>insert_abs</strong></a>(self, r, c, ch)</dt><dd><tt>This&nbsp;inserts&nbsp;a&nbsp;character&nbsp;at&nbsp;(r,c).&nbsp;Everything&nbsp;under<br>
+and&nbsp;to&nbsp;the&nbsp;right&nbsp;is&nbsp;shifted&nbsp;right&nbsp;one&nbsp;character.<br>
+The&nbsp;last&nbsp;character&nbsp;of&nbsp;the&nbsp;line&nbsp;is&nbsp;lost.</tt></dd></dl>
+
+<dl><dt><a name="screen-lf"><strong>lf</strong></a>(self)</dt><dd><tt>This&nbsp;moves&nbsp;the&nbsp;cursor&nbsp;down&nbsp;with&nbsp;scrolling.</tt></dd></dl>
+
+<dl><dt><a name="screen-newline"><strong>newline</strong></a>(self)</dt><dd><tt>This&nbsp;is&nbsp;an&nbsp;alias&nbsp;for&nbsp;<a href="#screen-crlf">crlf</a>().</tt></dd></dl>
+
+<dl><dt><a name="screen-pretty"><strong>pretty</strong></a>(self)</dt><dd><tt>This&nbsp;returns&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;<a href="#screen">screen</a>&nbsp;as&nbsp;a&nbsp;string&nbsp;with&nbsp;an&nbsp;ASCII&nbsp;text&nbsp;box<br>
+around&nbsp;the&nbsp;<a href="#screen">screen</a>&nbsp;border.&nbsp;This&nbsp;is&nbsp;similar&nbsp;to&nbsp;__str__&nbsp;except&nbsp;that&nbsp;it<br>
+adds&nbsp;a&nbsp;box.</tt></dd></dl>
+
+<dl><dt><a name="screen-put"><strong>put</strong></a>(self, ch)</dt><dd><tt>This&nbsp;puts&nbsp;a&nbsp;characters&nbsp;at&nbsp;the&nbsp;current&nbsp;cursor&nbsp;position.</tt></dd></dl>
+
+<dl><dt><a name="screen-put_abs"><strong>put_abs</strong></a>(self, r, c, ch)</dt><dd><tt>Screen&nbsp;array&nbsp;starts&nbsp;at&nbsp;1&nbsp;index.</tt></dd></dl>
+
+<dl><dt><a name="screen-scroll_constrain"><strong>scroll_constrain</strong></a>(self)</dt><dd><tt>This&nbsp;keeps&nbsp;the&nbsp;scroll&nbsp;region&nbsp;within&nbsp;the&nbsp;<a href="#screen">screen</a>&nbsp;region.</tt></dd></dl>
+
+<dl><dt><a name="screen-scroll_down"><strong>scroll_down</strong></a>(self)</dt><dd><tt>Scroll&nbsp;display&nbsp;down&nbsp;one&nbsp;line.</tt></dd></dl>
+
+<dl><dt><a name="screen-scroll_screen"><strong>scroll_screen</strong></a>(self)</dt><dd><tt>Enable&nbsp;scrolling&nbsp;for&nbsp;entire&nbsp;display.</tt></dd></dl>
+
+<dl><dt><a name="screen-scroll_screen_rows"><strong>scroll_screen_rows</strong></a>(self, rs, re)</dt><dd><tt>Enable&nbsp;scrolling&nbsp;from&nbsp;row&nbsp;{start}&nbsp;to&nbsp;row&nbsp;{end}.</tt></dd></dl>
+
+<dl><dt><a name="screen-scroll_up"><strong>scroll_up</strong></a>(self)</dt><dd><tt>Scroll&nbsp;display&nbsp;up&nbsp;one&nbsp;line.</tt></dd></dl>
+
+<dl><dt><a name="screen-set_tab"><strong>set_tab</strong></a>(self)</dt><dd><tt>Sets&nbsp;a&nbsp;tab&nbsp;at&nbsp;the&nbsp;current&nbsp;position.</tt></dd></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-constrain"><strong>constrain</strong></a>(n, min, max)</dt><dd><tt>This&nbsp;returns&nbsp;a&nbsp;number,&nbsp;n&nbsp;constrained&nbsp;to&nbsp;the&nbsp;min&nbsp;and&nbsp;max&nbsp;bounds.</tt></dd></dl>
+</td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>BEL</strong> = 7<br>
+<strong>BS</strong> = 8<br>
+<strong>CAN</strong> = 24<br>
+<strong>CR</strong> = 13<br>
+<strong>DEL</strong> = 127<br>
+<strong>ENQ</strong> = 5<br>
+<strong>ESC</strong> = 27<br>
+<strong>FF</strong> = 12<br>
+<strong>HT</strong> = 9<br>
+<strong>LF</strong> = 10<br>
+<strong>NUL</strong> = 0<br>
+<strong>SI</strong> = 15<br>
+<strong>SO</strong> = 14<br>
+<strong>SPACE</strong> = ' '<br>
+<strong>SUB</strong> = 26<br>
+<strong>VT</strong> = 11<br>
+<strong>XOFF</strong> = 19<br>
+<strong>XON</strong> = 17</td></tr></table>
+</body></html>

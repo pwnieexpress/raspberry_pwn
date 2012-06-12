@@ -1,0 +1,316 @@
+
+<!doctype html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: module ANSI</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>ANSI</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial"><a href=".">index</a><br><a href="file:/home/noah/pexpect/trunk/pexpect/ANSI.py">/home/noah/pexpect/trunk/pexpect/ANSI.py</a></font></td></tr></table>
+    <p><tt>This&nbsp;implements&nbsp;an&nbsp;<a href="#ANSI">ANSI</a>&nbsp;terminal&nbsp;emulator&nbsp;as&nbsp;a&nbsp;subclass&nbsp;of&nbsp;<a href="screen.html#screen">screen</a>.<br>
+&nbsp;<br>
+$Id:&nbsp;<a href="#ANSI">ANSI</a>.py&nbsp;491&nbsp;2007-12-16&nbsp;20:04:57Z&nbsp;noah&nbsp;$</tt></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#fffff" face="helvetica, arial"><big><strong>Modules</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top><a href="FSM.html">FSM</a><br>
+</td><td width="25%" valign=top><a href="copy.html">copy</a><br>
+</td><td width="25%" valign=top><a href="screen.html">screen</a><br>
+</td><td width="25%" valign=top><a href="string.html">string</a><br>
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="screen.html#screen">screen.screen</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="ANSI.html#term">term</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="ANSI.html#ANSI">ANSI</a>
+</font></dt></dl>
+</dd>
+</dl>
+</dd>
+</dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="ANSI">class <strong>ANSI</strong></a>(<a href="ANSI.html#term">term</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>This&nbsp;class&nbsp;encapsulates&nbsp;a&nbsp;generic&nbsp;terminal.&nbsp;It&nbsp;filters&nbsp;a&nbsp;stream&nbsp;and<br>
+maintains&nbsp;the&nbsp;state&nbsp;of&nbsp;a&nbsp;<a href="screen.html#screen">screen</a>&nbsp;object.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%"><dl><dt>Method resolution order:</dt>
+<dd><a href="ANSI.html#ANSI">ANSI</a></dd>
+<dd><a href="ANSI.html#term">term</a></dd>
+<dd><a href="screen.html#screen">screen.screen</a></dd>
+</dl>
+<hr>
+Methods defined here:<br>
+<dl><dt><a name="ANSI-__init__"><strong>__init__</strong></a>(self, r<font color="#909090">=24</font>, c<font color="#909090">=80</font>)</dt></dl>
+
+<dl><dt><a name="ANSI-flush"><strong>flush</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="ANSI-process"><strong>process</strong></a>(self, c)</dt></dl>
+
+<dl><dt><a name="ANSI-process_list"><strong>process_list</strong></a>(self, l)</dt></dl>
+
+<dl><dt><a name="ANSI-write"><strong>write</strong></a>(self, s)</dt></dl>
+
+<dl><dt><a name="ANSI-write_ch"><strong>write_ch</strong></a>(self, ch)</dt><dd><tt>This&nbsp;puts&nbsp;a&nbsp;character&nbsp;at&nbsp;the&nbsp;current&nbsp;cursor&nbsp;position.&nbsp;cursor<br>
+position&nbsp;if&nbsp;moved&nbsp;forward&nbsp;with&nbsp;wrap-around,&nbsp;but&nbsp;no&nbsp;scrolling&nbsp;is&nbsp;done&nbsp;if<br>
+the&nbsp;cursor&nbsp;hits&nbsp;the&nbsp;lower-right&nbsp;corner&nbsp;of&nbsp;the&nbsp;<a href="screen.html#screen">screen</a>.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="screen.html#screen">screen.screen</a>:<br>
+<dl><dt><a name="ANSI-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>This&nbsp;returns&nbsp;a&nbsp;printable&nbsp;representation&nbsp;of&nbsp;the&nbsp;<a href="screen.html#screen">screen</a>.&nbsp;The&nbsp;end&nbsp;of<br>
+each&nbsp;<a href="screen.html#screen">screen</a>&nbsp;line&nbsp;is&nbsp;terminated&nbsp;by&nbsp;a&nbsp;newline.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-clear_all_tabs"><strong>clear_all_tabs</strong></a>(self)</dt><dd><tt>Clears&nbsp;all&nbsp;tabs.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-clear_tab"><strong>clear_tab</strong></a>(self)</dt><dd><tt>Clears&nbsp;tab&nbsp;at&nbsp;the&nbsp;current&nbsp;position.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-cr"><strong>cr</strong></a>(self)</dt><dd><tt>This&nbsp;moves&nbsp;the&nbsp;cursor&nbsp;to&nbsp;the&nbsp;beginning&nbsp;(col&nbsp;1)&nbsp;of&nbsp;the&nbsp;current&nbsp;row.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-crlf"><strong>crlf</strong></a>(self)</dt><dd><tt>This&nbsp;advances&nbsp;the&nbsp;cursor&nbsp;with&nbsp;CRLF&nbsp;properties.<br>
+The&nbsp;cursor&nbsp;will&nbsp;line&nbsp;wrap&nbsp;and&nbsp;the&nbsp;<a href="screen.html#screen">screen</a>&nbsp;may&nbsp;scroll.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-cursor_back"><strong>cursor_back</strong></a>(self, count<font color="#909090">=1</font>)</dt></dl>
+
+<dl><dt><a name="ANSI-cursor_constrain"><strong>cursor_constrain</strong></a>(self)</dt><dd><tt>This&nbsp;keeps&nbsp;the&nbsp;cursor&nbsp;within&nbsp;the&nbsp;<a href="screen.html#screen">screen</a>&nbsp;area.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-cursor_down"><strong>cursor_down</strong></a>(self, count<font color="#909090">=1</font>)</dt></dl>
+
+<dl><dt><a name="ANSI-cursor_force_position"><strong>cursor_force_position</strong></a>(self, r, c)</dt><dd><tt>Identical&nbsp;to&nbsp;Cursor&nbsp;Home.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-cursor_forward"><strong>cursor_forward</strong></a>(self, count<font color="#909090">=1</font>)</dt></dl>
+
+<dl><dt><a name="ANSI-cursor_home"><strong>cursor_home</strong></a>(self, r<font color="#909090">=1</font>, c<font color="#909090">=1</font>)</dt></dl>
+
+<dl><dt><a name="ANSI-cursor_restore_attrs"><strong>cursor_restore_attrs</strong></a>(self)</dt><dd><tt>Restores&nbsp;cursor&nbsp;position&nbsp;after&nbsp;a&nbsp;Save&nbsp;Cursor.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-cursor_save"><strong>cursor_save</strong></a>(self)</dt><dd><tt>Save&nbsp;current&nbsp;cursor&nbsp;position.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-cursor_save_attrs"><strong>cursor_save_attrs</strong></a>(self)</dt><dd><tt>Save&nbsp;current&nbsp;cursor&nbsp;position.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-cursor_unsave"><strong>cursor_unsave</strong></a>(self)</dt><dd><tt>Restores&nbsp;cursor&nbsp;position&nbsp;after&nbsp;a&nbsp;Save&nbsp;Cursor.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-cursor_up"><strong>cursor_up</strong></a>(self, count<font color="#909090">=1</font>)</dt></dl>
+
+<dl><dt><a name="ANSI-cursor_up_reverse"><strong>cursor_up_reverse</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="ANSI-dump"><strong>dump</strong></a>(self)</dt><dd><tt>This&nbsp;returns&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;<a href="screen.html#screen">screen</a>&nbsp;as&nbsp;a&nbsp;string.&nbsp;This&nbsp;is&nbsp;similar&nbsp;to<br>
+__str__&nbsp;except&nbsp;that&nbsp;lines&nbsp;are&nbsp;not&nbsp;terminated&nbsp;with&nbsp;line&nbsp;feeds.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-erase_down"><strong>erase_down</strong></a>(self)</dt><dd><tt>Erases&nbsp;the&nbsp;<a href="screen.html#screen">screen</a>&nbsp;from&nbsp;the&nbsp;current&nbsp;line&nbsp;down&nbsp;to&nbsp;the&nbsp;bottom&nbsp;of&nbsp;the<br>
+<a href="screen.html#screen">screen</a>.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-erase_end_of_line"><strong>erase_end_of_line</strong></a>(self)</dt><dd><tt>Erases&nbsp;from&nbsp;the&nbsp;current&nbsp;cursor&nbsp;position&nbsp;to&nbsp;the&nbsp;end&nbsp;of&nbsp;the&nbsp;current<br>
+line.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-erase_line"><strong>erase_line</strong></a>(self)</dt><dd><tt>Erases&nbsp;the&nbsp;entire&nbsp;current&nbsp;line.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-erase_screen"><strong>erase_screen</strong></a>(self)</dt><dd><tt>Erases&nbsp;the&nbsp;<a href="screen.html#screen">screen</a>&nbsp;with&nbsp;the&nbsp;background&nbsp;color.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-erase_start_of_line"><strong>erase_start_of_line</strong></a>(self)</dt><dd><tt>Erases&nbsp;from&nbsp;the&nbsp;current&nbsp;cursor&nbsp;position&nbsp;to&nbsp;the&nbsp;start&nbsp;of&nbsp;the&nbsp;current<br>
+line.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-erase_up"><strong>erase_up</strong></a>(self)</dt><dd><tt>Erases&nbsp;the&nbsp;<a href="screen.html#screen">screen</a>&nbsp;from&nbsp;the&nbsp;current&nbsp;line&nbsp;up&nbsp;to&nbsp;the&nbsp;top&nbsp;of&nbsp;the<br>
+<a href="screen.html#screen">screen</a>.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-fill"><strong>fill</strong></a>(self, ch<font color="#909090">=' '</font>)</dt></dl>
+
+<dl><dt><a name="ANSI-fill_region"><strong>fill_region</strong></a>(self, rs, cs, re, ce, ch<font color="#909090">=' '</font>)</dt></dl>
+
+<dl><dt><a name="ANSI-get"><strong>get</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="ANSI-get_abs"><strong>get_abs</strong></a>(self, r, c)</dt></dl>
+
+<dl><dt><a name="ANSI-get_region"><strong>get_region</strong></a>(self, rs, cs, re, ce)</dt><dd><tt>This&nbsp;returns&nbsp;a&nbsp;list&nbsp;of&nbsp;lines&nbsp;representing&nbsp;the&nbsp;region.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-insert"><strong>insert</strong></a>(self, ch)</dt></dl>
+
+<dl><dt><a name="ANSI-insert_abs"><strong>insert_abs</strong></a>(self, r, c, ch)</dt><dd><tt>This&nbsp;inserts&nbsp;a&nbsp;character&nbsp;at&nbsp;(r,c).&nbsp;Everything&nbsp;under<br>
+and&nbsp;to&nbsp;the&nbsp;right&nbsp;is&nbsp;shifted&nbsp;right&nbsp;one&nbsp;character.<br>
+The&nbsp;last&nbsp;character&nbsp;of&nbsp;the&nbsp;line&nbsp;is&nbsp;lost.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-lf"><strong>lf</strong></a>(self)</dt><dd><tt>This&nbsp;moves&nbsp;the&nbsp;cursor&nbsp;down&nbsp;with&nbsp;scrolling.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-newline"><strong>newline</strong></a>(self)</dt><dd><tt>This&nbsp;is&nbsp;an&nbsp;alias&nbsp;for&nbsp;<a href="#ANSI-crlf">crlf</a>().</tt></dd></dl>
+
+<dl><dt><a name="ANSI-pretty"><strong>pretty</strong></a>(self)</dt><dd><tt>This&nbsp;returns&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;<a href="screen.html#screen">screen</a>&nbsp;as&nbsp;a&nbsp;string&nbsp;with&nbsp;an&nbsp;ASCII&nbsp;text&nbsp;box<br>
+around&nbsp;the&nbsp;<a href="screen.html#screen">screen</a>&nbsp;border.&nbsp;This&nbsp;is&nbsp;similar&nbsp;to&nbsp;__str__&nbsp;except&nbsp;that&nbsp;it<br>
+adds&nbsp;a&nbsp;box.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-put"><strong>put</strong></a>(self, ch)</dt><dd><tt>This&nbsp;puts&nbsp;a&nbsp;characters&nbsp;at&nbsp;the&nbsp;current&nbsp;cursor&nbsp;position.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-put_abs"><strong>put_abs</strong></a>(self, r, c, ch)</dt><dd><tt>Screen&nbsp;array&nbsp;starts&nbsp;at&nbsp;1&nbsp;index.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-scroll_constrain"><strong>scroll_constrain</strong></a>(self)</dt><dd><tt>This&nbsp;keeps&nbsp;the&nbsp;scroll&nbsp;region&nbsp;within&nbsp;the&nbsp;<a href="screen.html#screen">screen</a>&nbsp;region.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-scroll_down"><strong>scroll_down</strong></a>(self)</dt><dd><tt>Scroll&nbsp;display&nbsp;down&nbsp;one&nbsp;line.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-scroll_screen"><strong>scroll_screen</strong></a>(self)</dt><dd><tt>Enable&nbsp;scrolling&nbsp;for&nbsp;entire&nbsp;display.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-scroll_screen_rows"><strong>scroll_screen_rows</strong></a>(self, rs, re)</dt><dd><tt>Enable&nbsp;scrolling&nbsp;from&nbsp;row&nbsp;{start}&nbsp;to&nbsp;row&nbsp;{end}.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-scroll_up"><strong>scroll_up</strong></a>(self)</dt><dd><tt>Scroll&nbsp;display&nbsp;up&nbsp;one&nbsp;line.</tt></dd></dl>
+
+<dl><dt><a name="ANSI-set_tab"><strong>set_tab</strong></a>(self)</dt><dd><tt>Sets&nbsp;a&nbsp;tab&nbsp;at&nbsp;the&nbsp;current&nbsp;position.</tt></dd></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="term">class <strong>term</strong></a>(<a href="screen.html#screen">screen.screen</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>This&nbsp;is&nbsp;a&nbsp;placeholder.&nbsp;<br>
+In&nbsp;theory&nbsp;I&nbsp;might&nbsp;want&nbsp;to&nbsp;add&nbsp;other&nbsp;terminal&nbsp;types.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="term-__init__"><strong>__init__</strong></a>(self, r<font color="#909090">=24</font>, c<font color="#909090">=80</font>)</dt></dl>
+
+<hr>
+Methods inherited from <a href="screen.html#screen">screen.screen</a>:<br>
+<dl><dt><a name="term-__str__"><strong>__str__</strong></a>(self)</dt><dd><tt>This&nbsp;returns&nbsp;a&nbsp;printable&nbsp;representation&nbsp;of&nbsp;the&nbsp;<a href="screen.html#screen">screen</a>.&nbsp;The&nbsp;end&nbsp;of<br>
+each&nbsp;<a href="screen.html#screen">screen</a>&nbsp;line&nbsp;is&nbsp;terminated&nbsp;by&nbsp;a&nbsp;newline.</tt></dd></dl>
+
+<dl><dt><a name="term-clear_all_tabs"><strong>clear_all_tabs</strong></a>(self)</dt><dd><tt>Clears&nbsp;all&nbsp;tabs.</tt></dd></dl>
+
+<dl><dt><a name="term-clear_tab"><strong>clear_tab</strong></a>(self)</dt><dd><tt>Clears&nbsp;tab&nbsp;at&nbsp;the&nbsp;current&nbsp;position.</tt></dd></dl>
+
+<dl><dt><a name="term-cr"><strong>cr</strong></a>(self)</dt><dd><tt>This&nbsp;moves&nbsp;the&nbsp;cursor&nbsp;to&nbsp;the&nbsp;beginning&nbsp;(col&nbsp;1)&nbsp;of&nbsp;the&nbsp;current&nbsp;row.</tt></dd></dl>
+
+<dl><dt><a name="term-crlf"><strong>crlf</strong></a>(self)</dt><dd><tt>This&nbsp;advances&nbsp;the&nbsp;cursor&nbsp;with&nbsp;CRLF&nbsp;properties.<br>
+The&nbsp;cursor&nbsp;will&nbsp;line&nbsp;wrap&nbsp;and&nbsp;the&nbsp;<a href="screen.html#screen">screen</a>&nbsp;may&nbsp;scroll.</tt></dd></dl>
+
+<dl><dt><a name="term-cursor_back"><strong>cursor_back</strong></a>(self, count<font color="#909090">=1</font>)</dt></dl>
+
+<dl><dt><a name="term-cursor_constrain"><strong>cursor_constrain</strong></a>(self)</dt><dd><tt>This&nbsp;keeps&nbsp;the&nbsp;cursor&nbsp;within&nbsp;the&nbsp;<a href="screen.html#screen">screen</a>&nbsp;area.</tt></dd></dl>
+
+<dl><dt><a name="term-cursor_down"><strong>cursor_down</strong></a>(self, count<font color="#909090">=1</font>)</dt></dl>
+
+<dl><dt><a name="term-cursor_force_position"><strong>cursor_force_position</strong></a>(self, r, c)</dt><dd><tt>Identical&nbsp;to&nbsp;Cursor&nbsp;Home.</tt></dd></dl>
+
+<dl><dt><a name="term-cursor_forward"><strong>cursor_forward</strong></a>(self, count<font color="#909090">=1</font>)</dt></dl>
+
+<dl><dt><a name="term-cursor_home"><strong>cursor_home</strong></a>(self, r<font color="#909090">=1</font>, c<font color="#909090">=1</font>)</dt></dl>
+
+<dl><dt><a name="term-cursor_restore_attrs"><strong>cursor_restore_attrs</strong></a>(self)</dt><dd><tt>Restores&nbsp;cursor&nbsp;position&nbsp;after&nbsp;a&nbsp;Save&nbsp;Cursor.</tt></dd></dl>
+
+<dl><dt><a name="term-cursor_save"><strong>cursor_save</strong></a>(self)</dt><dd><tt>Save&nbsp;current&nbsp;cursor&nbsp;position.</tt></dd></dl>
+
+<dl><dt><a name="term-cursor_save_attrs"><strong>cursor_save_attrs</strong></a>(self)</dt><dd><tt>Save&nbsp;current&nbsp;cursor&nbsp;position.</tt></dd></dl>
+
+<dl><dt><a name="term-cursor_unsave"><strong>cursor_unsave</strong></a>(self)</dt><dd><tt>Restores&nbsp;cursor&nbsp;position&nbsp;after&nbsp;a&nbsp;Save&nbsp;Cursor.</tt></dd></dl>
+
+<dl><dt><a name="term-cursor_up"><strong>cursor_up</strong></a>(self, count<font color="#909090">=1</font>)</dt></dl>
+
+<dl><dt><a name="term-cursor_up_reverse"><strong>cursor_up_reverse</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="term-dump"><strong>dump</strong></a>(self)</dt><dd><tt>This&nbsp;returns&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;<a href="screen.html#screen">screen</a>&nbsp;as&nbsp;a&nbsp;string.&nbsp;This&nbsp;is&nbsp;similar&nbsp;to<br>
+__str__&nbsp;except&nbsp;that&nbsp;lines&nbsp;are&nbsp;not&nbsp;terminated&nbsp;with&nbsp;line&nbsp;feeds.</tt></dd></dl>
+
+<dl><dt><a name="term-erase_down"><strong>erase_down</strong></a>(self)</dt><dd><tt>Erases&nbsp;the&nbsp;<a href="screen.html#screen">screen</a>&nbsp;from&nbsp;the&nbsp;current&nbsp;line&nbsp;down&nbsp;to&nbsp;the&nbsp;bottom&nbsp;of&nbsp;the<br>
+<a href="screen.html#screen">screen</a>.</tt></dd></dl>
+
+<dl><dt><a name="term-erase_end_of_line"><strong>erase_end_of_line</strong></a>(self)</dt><dd><tt>Erases&nbsp;from&nbsp;the&nbsp;current&nbsp;cursor&nbsp;position&nbsp;to&nbsp;the&nbsp;end&nbsp;of&nbsp;the&nbsp;current<br>
+line.</tt></dd></dl>
+
+<dl><dt><a name="term-erase_line"><strong>erase_line</strong></a>(self)</dt><dd><tt>Erases&nbsp;the&nbsp;entire&nbsp;current&nbsp;line.</tt></dd></dl>
+
+<dl><dt><a name="term-erase_screen"><strong>erase_screen</strong></a>(self)</dt><dd><tt>Erases&nbsp;the&nbsp;<a href="screen.html#screen">screen</a>&nbsp;with&nbsp;the&nbsp;background&nbsp;color.</tt></dd></dl>
+
+<dl><dt><a name="term-erase_start_of_line"><strong>erase_start_of_line</strong></a>(self)</dt><dd><tt>Erases&nbsp;from&nbsp;the&nbsp;current&nbsp;cursor&nbsp;position&nbsp;to&nbsp;the&nbsp;start&nbsp;of&nbsp;the&nbsp;current<br>
+line.</tt></dd></dl>
+
+<dl><dt><a name="term-erase_up"><strong>erase_up</strong></a>(self)</dt><dd><tt>Erases&nbsp;the&nbsp;<a href="screen.html#screen">screen</a>&nbsp;from&nbsp;the&nbsp;current&nbsp;line&nbsp;up&nbsp;to&nbsp;the&nbsp;top&nbsp;of&nbsp;the<br>
+<a href="screen.html#screen">screen</a>.</tt></dd></dl>
+
+<dl><dt><a name="term-fill"><strong>fill</strong></a>(self, ch<font color="#909090">=' '</font>)</dt></dl>
+
+<dl><dt><a name="term-fill_region"><strong>fill_region</strong></a>(self, rs, cs, re, ce, ch<font color="#909090">=' '</font>)</dt></dl>
+
+<dl><dt><a name="term-get"><strong>get</strong></a>(self)</dt></dl>
+
+<dl><dt><a name="term-get_abs"><strong>get_abs</strong></a>(self, r, c)</dt></dl>
+
+<dl><dt><a name="term-get_region"><strong>get_region</strong></a>(self, rs, cs, re, ce)</dt><dd><tt>This&nbsp;returns&nbsp;a&nbsp;list&nbsp;of&nbsp;lines&nbsp;representing&nbsp;the&nbsp;region.</tt></dd></dl>
+
+<dl><dt><a name="term-insert"><strong>insert</strong></a>(self, ch)</dt></dl>
+
+<dl><dt><a name="term-insert_abs"><strong>insert_abs</strong></a>(self, r, c, ch)</dt><dd><tt>This&nbsp;inserts&nbsp;a&nbsp;character&nbsp;at&nbsp;(r,c).&nbsp;Everything&nbsp;under<br>
+and&nbsp;to&nbsp;the&nbsp;right&nbsp;is&nbsp;shifted&nbsp;right&nbsp;one&nbsp;character.<br>
+The&nbsp;last&nbsp;character&nbsp;of&nbsp;the&nbsp;line&nbsp;is&nbsp;lost.</tt></dd></dl>
+
+<dl><dt><a name="term-lf"><strong>lf</strong></a>(self)</dt><dd><tt>This&nbsp;moves&nbsp;the&nbsp;cursor&nbsp;down&nbsp;with&nbsp;scrolling.</tt></dd></dl>
+
+<dl><dt><a name="term-newline"><strong>newline</strong></a>(self)</dt><dd><tt>This&nbsp;is&nbsp;an&nbsp;alias&nbsp;for&nbsp;<a href="#term-crlf">crlf</a>().</tt></dd></dl>
+
+<dl><dt><a name="term-pretty"><strong>pretty</strong></a>(self)</dt><dd><tt>This&nbsp;returns&nbsp;a&nbsp;copy&nbsp;of&nbsp;the&nbsp;<a href="screen.html#screen">screen</a>&nbsp;as&nbsp;a&nbsp;string&nbsp;with&nbsp;an&nbsp;ASCII&nbsp;text&nbsp;box<br>
+around&nbsp;the&nbsp;<a href="screen.html#screen">screen</a>&nbsp;border.&nbsp;This&nbsp;is&nbsp;similar&nbsp;to&nbsp;__str__&nbsp;except&nbsp;that&nbsp;it<br>
+adds&nbsp;a&nbsp;box.</tt></dd></dl>
+
+<dl><dt><a name="term-put"><strong>put</strong></a>(self, ch)</dt><dd><tt>This&nbsp;puts&nbsp;a&nbsp;characters&nbsp;at&nbsp;the&nbsp;current&nbsp;cursor&nbsp;position.</tt></dd></dl>
+
+<dl><dt><a name="term-put_abs"><strong>put_abs</strong></a>(self, r, c, ch)</dt><dd><tt>Screen&nbsp;array&nbsp;starts&nbsp;at&nbsp;1&nbsp;index.</tt></dd></dl>
+
+<dl><dt><a name="term-scroll_constrain"><strong>scroll_constrain</strong></a>(self)</dt><dd><tt>This&nbsp;keeps&nbsp;the&nbsp;scroll&nbsp;region&nbsp;within&nbsp;the&nbsp;<a href="screen.html#screen">screen</a>&nbsp;region.</tt></dd></dl>
+
+<dl><dt><a name="term-scroll_down"><strong>scroll_down</strong></a>(self)</dt><dd><tt>Scroll&nbsp;display&nbsp;down&nbsp;one&nbsp;line.</tt></dd></dl>
+
+<dl><dt><a name="term-scroll_screen"><strong>scroll_screen</strong></a>(self)</dt><dd><tt>Enable&nbsp;scrolling&nbsp;for&nbsp;entire&nbsp;display.</tt></dd></dl>
+
+<dl><dt><a name="term-scroll_screen_rows"><strong>scroll_screen_rows</strong></a>(self, rs, re)</dt><dd><tt>Enable&nbsp;scrolling&nbsp;from&nbsp;row&nbsp;{start}&nbsp;to&nbsp;row&nbsp;{end}.</tt></dd></dl>
+
+<dl><dt><a name="term-scroll_up"><strong>scroll_up</strong></a>(self)</dt><dd><tt>Scroll&nbsp;display&nbsp;up&nbsp;one&nbsp;line.</tt></dd></dl>
+
+<dl><dt><a name="term-set_tab"><strong>set_tab</strong></a>(self)</dt><dd><tt>Sets&nbsp;a&nbsp;tab&nbsp;at&nbsp;the&nbsp;current&nbsp;position.</tt></dd></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#eeaa77">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Functions</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#eeaa77"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl><dt><a name="-BuildNumber"><strong>BuildNumber</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-DoBack"><strong>DoBack</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-DoBackOne"><strong>DoBackOne</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-DoCursorRestore"><strong>DoCursorRestore</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-DoCursorSave"><strong>DoCursorSave</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-DoDown"><strong>DoDown</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-DoDownOne"><strong>DoDownOne</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-DoEnableScroll"><strong>DoEnableScroll</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-DoErase"><strong>DoErase</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-DoEraseDown"><strong>DoEraseDown</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-DoEraseEndOfLine"><strong>DoEraseEndOfLine</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-DoEraseLine"><strong>DoEraseLine</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-DoForward"><strong>DoForward</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-DoForwardOne"><strong>DoForwardOne</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-DoHome"><strong>DoHome</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-DoHomeOrigin"><strong>DoHomeOrigin</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-DoMode"><strong>DoMode</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-DoScrollRegion"><strong>DoScrollRegion</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-DoUp"><strong>DoUp</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-DoUpOne"><strong>DoUpOne</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-DoUpReverse"><strong>DoUpReverse</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-Emit"><strong>Emit</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-Log"><strong>Log</strong></a>(fsm)</dt></dl>
+ <dl><dt><a name="-StartNumber"><strong>StartNumber</strong></a>(fsm)</dt></dl>
+</td></tr></table>
+</body></html>

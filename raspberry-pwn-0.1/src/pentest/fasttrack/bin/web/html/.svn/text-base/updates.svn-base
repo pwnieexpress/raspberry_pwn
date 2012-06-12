@@ -1,0 +1,62 @@
+  </td>
+  <td width="537" align="left" valign="top">  
+
+<!--Body Content Here-->
+
+<table width="100%" border="0" cellspacing="8" cellpadding="0">
+ <tr>
+  <td class="page_title">Fast-Track Updates Page</td>
+ </tr>
+ <tr>
+  <td><p>
+<br><br>
+This page allows you to update various security tools, some of which
+are used within Fast-Track. Fast-Track will pull the latest revisions
+of the various software packages listed below and automatically install
+them for you. You can also specify if you want to update Fast-Track only.
+<br><br>
+It is highly recommended that updates are performed to Fast-Track on a 
+continious basis due to the frequent nature of changes towards this suite.
+<br><br>
+Following tools updated in the "Update Everything" submit option.<br>
+<br>
+Fast-Track, Metasploit, AirCrack-NG, Nikto Plugins, W3AF, SQLMap, and Milw0rm.
+<br><br>
+</p></td>
+ </tr>
+ <tr>
+  <td bgcolor="#2A2A2A">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+     <tr>
+      <td class="box_bg">
+        <table width="100%" border="0" cellspacing="15" cellpadding="0">
+         <tr>
+          <td></b>
+           <p class="box_text">Select which option to perform, the update everything will update all tools mentioned above however, the update Fast-Track only will only update Fast-Track to the latest version. Fast-Track utilizes MD5 hashes in order to establish current versioning, subversion is soon to replace this update method.</p><br>
+           <FORM action="/updateftpost" method="post">
+           <p align=center><INPUT type="image" name="updateft" src="images/btn_updateft.jpg" value="Launch" />
+           </FORM><br><p>
+           <FORM action="/updatepost" method="post">
+           <p align=center><INPUT type="image" name="updateall" src="images/btn_updateall.jpg" value="Launch" />
+           </FORM><p>
+
+
+          </td>
+         </tr>
+        </table>
+      </td>
+     </tr>
+     <tr>
+      <td><img src="images/fast_track_21.jpg" width="537" height="13" alt=""></td>
+     </tr>
+    </table>
+  </td>
+ </tr>
+</table>
+<p>&nbsp;</p>
+
+<!--Body Content End-->
+
+  <p>&nbsp;</p></td>
+ </tr>
+</table>    

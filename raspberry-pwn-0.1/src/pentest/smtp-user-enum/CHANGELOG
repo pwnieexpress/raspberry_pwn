@@ -1,0 +1,14 @@
+
+2008-04-20 smtp-user-enum v1.2
+
+* Bug fix: -p option works now.
+
+2008-01-16 smtp-user-enum v1.1
+
+* Added support for enumerating email addresses instead
+  of just usernames.  See help for -D option.
+  Cheers to Guy Harper for the patch.
+
+2007-01-21 smtp-user-enum v1.0
+
+* Initial public release

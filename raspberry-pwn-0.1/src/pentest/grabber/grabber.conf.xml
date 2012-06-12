@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!-- Grabber configuration file -->
+<grabber version="0.1">
+	<site>
+		<url>http://192.168.1.2/bank</url>
+		<spider>0</spider> <!-- Depth of the spider -->
+		<scan>
+			<!--
+				If the action is in the list... it will be done...
+				tags:
+					session
+					javascript
+					crystal
+					xss
+					sql
+					bsql
+					include
+					backup
+			-->
+			<crystal />
+		</scan>
+	</site>
+</grabber>

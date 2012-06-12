@@ -1,0 +1,513 @@
+Below is a change log since Fast-Track's original creation and goes through version 3, check the latest CHANGELOG for more information on version 4 changes.
+
+~~~~~~~~~~~~~
+version 0.9
+~~~~~~~~~~~~~
+* Added control-c or delete exception to not error out (keyboard interrupts)
+* Added auto load Mozilla in port 55555 when launching msfweb, has a 10 second wait before loading
+* Changed the Milw0rm updates to do cvs instead of the update script for Back|Track 3
+* Added SQLite3 compiling with AirCrack-NG
+* Fixed some typo's...
+* Added actual brute force word when performing dictionary attack against SQL server
+* Added the changelog menu :P
+~~~~~~~~~~~~~
+version 1.0
+~~~~~~~~~~~~~
+* Worked out all the kinks in beta!!! 
+* Added "Enable XP_Cmdshell" under SQL Menu..works on Windows 2000, and Windows 2005
+* You can now enable XP_Cmdshell if its turned off *woot*
+* Fixed SQLite3 from not extracting in the right directory
+~~~~~~~~~~~~~
+version 1.1
+~~~~~~~~~~~~~
+* Added an auto-update module when you open Fast-Track so it auto-updates upon entering!
+* Fixed some spelling goofs and slimmed down the intro text
+~~~~~~~~~~~~~
+version 1.2
+~~~~~~~~~~~~~
+* Removed the Kismet update, can't get it to compile right at this point..Will add when I get more time.
+* Changed the Milw0rm update to call the update-milw0rm script in the /pentest/exploits/ directory.
+~~~~~~~~~~~~~
+version 1.3
+~~~~~~~~~~~~~
+* Added WinExe installation on main menu as well as "Spawn Command Shell" in the internal menu..
+* It's pretty slick, just enter your username, ip, and pw, and you have a full shell on the box.
+~~~~~~~~~~~~~
+version 1.4
+~~~~~~~~~~~~~
+* Added a small FTP brute forcer, its not threaded yet, will work on that later
+* Added some more description to the WinExe section that I added in version 1.3
+~~~~~~~~~~~~~
+version 1.5
+~~~~~~~~~~~~~
+* Fixed some small stuff, moved the changelog menu around
+* Fixed a couple issues with FTP brute
+* Removed the Update FastTrack menu in the Update Menu..no need for it now.
+~~~~~~~~~~~~~
+version 1.6
+~~~~~~~~~~~~~
+* Big changes in this one guys..Added an auto sql injector, check out the external
+menu for more information. Basically, enter a url thats susceptible, load up an ftp
+server, and have netcat listen on a specific port and it drops a shell for ya. Don't
+need to install anything for this one, uses built in python libs for everything.
+* I also added in a module that sets up everything for you...All you need to do is install
+ProFTPD from the install menu and watch it go.
+~~~~~~~~~~~~~
+version 1.7
+~~~~~~~~~~~~~
+* Cleaned up some of the code, killed like 30 lines, made it look better
+* Added Control-C to previous menu option, just hit Control C and it'll
+bring you back to the previous menu.
+* Added four more passwords for the "quick brute" option in the SQL 1433
+brute forcer
+* Broke out the Help/Creds and added a TON of new tutorials in the tutorial
+menu on how to use this thing! Check it out!!!
+* Wow, Fast-Track is 1500+ lines of code now, who would have ever thought?!
+* Added an "exploits" menu...plan on adding a lot of exploits through here
+eventually...its kinda small atm, will add more later.
+~~~~~~~~~~~~~
+version 1.8
+~~~~~~~~~~~~~
+* Moved the auto-update feature to the menu now, no longer updates when
+first starting Fast-Track.
+* Slimmed down the Metasploit Automation questions, defaults to sqlite3.
+* Removed check for update on Metasploit, can do that through update menu.
+~~~~~~~~~~~~~
+version 1.9
+~~~~~~~~~~~~~
+* Wow it works! Added binary payload delivery for the SQL Injector..Fast-Track
+now uploads a reverse shell through an actual HTTP request now instead of relying
+off of FTP to transfer a from our server. I kept the FTP portion in there incase
+anyone still needed to use that specific function or for some reason the binary
+upload wasn't working, but this new addition rocks!
+* Broke everything up into multiple menus in SQL Injector, now has four different
+menues ranging from binary payload auto, ftp auto, binary payload manual, ftp manual,
+and string generator.
+* Fixed a small bug in auto update.
+* Changed a few issues with the FTP brute forcer
+* Cleaned up some code
+* Changed the wordlist brute forcer for SQL to use rstrip() instead of [:-1] in case of
+spaces. Much more efficient and was causing inconsistencies with wordlists that had
+spaces at the end of them.
+* Changed some menu handling
+* Changed the mass brute forcer in SQL to add a couple more passwords
+* Changed some stuff in the service menu that was messed up
+* Changed some of the tutorials to reflect changes
+* Added a "mass" option in the sql brute forcer, you can now scan any subnet you want
+and run brute force attacks with dictionaries on them automatically. As soon as one 
+successfully is brute forced, it jumps you right into a shell. Nice!!
+* Fixed where you couldn't enter /cidr notations in the ip ranges in the sql brute forcer,
+you can now specify 192.168.1.1/16 or /24, or whatever.
+* Added it so when you do the mass wordlist brute, or the small wordlist brute, it
+automatically spawns you a shell if guessed, no longer have to go to the seperate menu
+to enter the shell.
+* Cleaned up the small sql brute quite a bit
+* Cleaned up some of the "look and feel" on the menus
+* Added a return to previous menu in the exploits section
+* This really should be a new release with all the changes/additions, but for now going
+to release it as 1.9 and not 2.0 yet until it goes through bug testing.
+~~~~~~~~~~~~~
+version 2.0
+~~~~~~~~~~~~~
+* Another big update!
+* Changed slapt-get to 0.9.10.e, should install fine now (thanks Nate)
+* Added an update to Nikto plugins (requested)
+* Bug fixes from previous version, fixed couple issues on mass brute
+* Re-Arranged the update menu a bit..Fast-Track should naturally be 1 right? :P
+* Added a binary to hex copy and paste generator in the external menu..just copy and paste
+the output into a windows shell and it'll create a reverse.exe for ya..obviously need your
+own executable reverse payload...
+* Also added a binary to hex copy and paste generator for Illwill's reverse command shell. 
+Its an extremely small executable (checked thoroughly, its clean).. Check the tutorial for
+more information.
+* Fixed a couple small bugs with the binary to hex binary payload injection where it wasn't
+renaming the file properly on some operating systems.
+* Removed portions of the tool from mkdir reports, got annoying to see directory already exists, 
+etc.
+* Added updater for W3AF (Web Application Attack and Audit Framework)
+* Broke out the update menu in fast-track, the first screen is updates only, there is now
+an installation sub-menu in updates...
+* Added "Install Everything" menu, can do bulk install of everything if you want, don't 
+need to install each individual one anymore.
+* Added "Update Everything" menu, update metasploit, aircrack, nikto, w3af, and milw0rm
+with a touch of a button...Does not install all the prereqs, thats what the install menu
+is for..
+* Added db_destroy pentest for autopwn (thanks n3cre0)
+* Added an about menu...just some more info and stuff
+* Added a tutorial for Binary to Hex payload generator
+* Since its compiled, ./fast-track.py no longer works, so in order to fix this without
+hosing everyones start menu and creating mass-chaos...I created a new fast-track.py that
+pulls fast-track.pyc if its not there. So fast-track.py is now just a launcher, and 
+fast-track.pyc is actually Fast-Track now..If you want to run it straight for some
+reason just type python fast-track.pyc. Everything will work fine by still launching
+./fast-track.py, no worries. Theres also a README about Fast-Track now in the /pentest/misc.
+~~~~~~~~~~~~~
+version 2.0.1
+~~~~~~~~~~~~~
+* Fixed a small bug on the "Update everything" for the Fast-Track update..
+* Added more of a description on the autopwn section on using other
+commands for NMAP like -PN, -P0, -v etc.
+~~~~~~~~~~~~~
+version 2.0.2
+~~~~~~~~~~~~~
+* Upgraded install PExpect to version 2.3
+* Fixed some binary payload issues with the SQL Injector
+* Fixed SQL Injector FTP..strange bugs with PEXPECT..workaround
+found and fixed.
+* Added anti-virus disabling on the binary payload injector
+~~~~~~~~~~~~~
+version 2.0.3
+~~~~~~~~~~~~~
+* Added some more anti-virus disables
+* Sped up the time on FTP Injector + Binary Payload Injector
+~~~~~~~~~~~~~
+version 2.1
+~~~~~~~~~~~~~
+* Updated to include SQLMap in the updates menu, nice tool for extracting tables on various
+platforms.
+* Took out the prompt for correct IP address in the SQL Injectors..if the IP address isn't
+right, then use the manual inject.
+~~~~~~~~~~~~~
+version 2.2
+~~~~~~~~~~~~~
+* Completely redid the binary to hex "Your own" portion, more stable and puts in restrictions
+if filesize is over 64kb.
+* Added more description around the Metasploit Autopwn to make sure I didn't violate any 
+licensing agreements!
+* Redid the auto update stuff, now it only downloads a md5.txt file to compare if updates
+are ready.
+* Read the new licensing agreement about modifying fast-track and such
+* Decided to reopen the source up with some limited licensing... feel free to make modifations
+just notify me and get approval for public releases of the code...
+~~~~~~~~~~~~~
+version 2.3
+~~~~~~~~~~~~~
+* Came up with a kinda cool concept, check out the tutorials and look under the "Mass Client-
+Side attacks"... Theres a new tool under External Hacking...Basically its simple, launches
+a ton of metasploit client-side attacks on different ports, starts apache, and loads a new
+index.html file embedded with iframes with the correlating metasploit client side ports. When
+someone connects to your web server, it launches a slew of exploits against them.
+* Added a binary to hex payload generator tutorial
+~~~~~~~~~~~~~
+version 3.0
+~~~~~~~~~~~~~
+* As you can tell, theres been a lot of changes... Got bored at an airport and wrote some nifty
+stuff. First thing, theres now a command line interface and a menu driven interface, when loading
+Fast-Track, type ./fast-track -i for interactive mode (menu) and -c for command prompt.
+* I split up all the menus into separate files and import them as modules now, this is done for more
+modularity and make it start looking like a real program here.
+* Added the Metasploit Autopwn, SQL Injector, Binary to Hex Gen, remote command shell and SQL Bruter 
+so far to the command line, as time goes on, I'll convert the other tools as well.
+* Fixed a bug with sql bruter where it calls os.popen and doesn't have enough time to close the
+file and may miss the first password attempt if not properly closed. Added a time lag in there to fix
+the issue, tested and works as it should now.
+* Fast-Track is now going to be distributed in the form of a tarball and md5's done based on that. 
+* Rewrote some of the update script to pull the tarball now instead of individual files
+* Added psyco binary optimization, did some benchmarking, looks like it increases menu loading by
+twelve percent, not bad.
+* The Metasploit Mass Client attack has been rewritten a bit and does everything within msfconsole
+(thanks HDM for the help) and is much more efficent.
+* Changed the SVN on aircrack-ng repository to the latest
+* Added Metasploit Mass Client Attack to the command line
+* Fixed two minor bugs with mass client attack
+* Fixed a minor bug in the binary payload injector that caused an internal server error on the
+victim site
+* Sped up the binary payload injection by ten seconds
+* Shaved about 600 lines off of the sql brute forcer!! wayyyyyyyyyyyyy more efficient now...wrote
+the initial sql bruter when I was first started writing this...always cringed when looking back 
+at it :P
+* Wow! It's done..finished the Fast-Track web front-end GUI....You can run the GUI by specifying the 
+-g (./fast-track.py -g). It boots on localhost port 44444, so fire up a browser and take a peek!!
+* Added most of the tools to the web front end, its kind of a plane looking 
+front end right now...Plan on spicing it up a bit.
+* Added a dependency check when loading the Fast-Track GUI to check for proper modules to run the
+tools on Fast-Track..will let you know which ones your missing and which ones you need to install..
+* In the SQL Injector tools, I added a timeout if you aren't connected to the internet and have to
+specify an IP address if not connected to the internet instead of not working at all.
+* Recoded the Mass Client Attack to use the BaseHTTPServer module in python instead of relying off
+of Apache to launch the attacks, much more efficient and keeps the dependencies for other third
+party apps to a minimal.
+* I added a dependency check when you load the FTGUI, Menu, or Command line mode, it checks for
+PYMMSQL, PEXPECT, and Psyco modules, if your missing it will prompt you to install it if you 
+wish. It does NOT check for ProFTP, WinEXE, or SQLite3.
+* Created a setup.py file for initial install for Fast-Track, if you want to port Fast-Track
+to something other than Back|Track, this should help you..additionally, it installs the
+required dependancies for you.
+* Fast-Track now has configuration files for defining the metasploit path, run setup.py
+to define the metasploit path, if you don't it will use the standard /pentest/exploits/
+framework3/ as the metasploit folder.
+* Changed the changelog in menus/gui to pull from the changelog.txt under readme instead of
+hard-coding it.
+* Rewrote the mass client attack and autopwn in both menu and commandline to reflect the
+configuration file changes during setup.
+* Added Mass Client Attack to Web GUI.
+* Added tutorials to Web GUI.
+* Changed/Added the credits in menus and gui to pull from the credits.txt under readme instead
+of hard-coding it.
+* Fast-Track, around 5000 lines now, wow!
+* Added descriptions to each tool on the Web GUI.
+* Modified the binary to hex payload generator to output better paste results
+* Added a -g <portnum> flag to specify your own port number when launching Fast-Track Web GUI
+* More exciting news, with some help from Leroy, got the autoform post to work, just enter a
+website and it will identify all forms on that page and automatically try SQL injection on 
+each one and give you a command shell. New library called ClientForm required.
+* Added the ClientForm module to dependency check in GUI, Menu, and Commandline. Additionally
+added it to the installation menu under menu mode.
+* Updated Installation SQLite 3.5.1 to 3.5.7 (latest)
+* Removed WinEXE installation, takes FOREVER to compile, you can go to the installation menu in
+menu mode and do it if you want. Only thing your loosing is the remote shell capability with
+user creds.
+* Added Muts latest HP Openview NNM Exploit to the Exploits Menu
+* Added the Exploits menu to command line, and moved all exploits to the exploits folder and have
+both the command line and menu import the exploits instead of having to code them seperately for
+each one.
+* Added the Exploits menu to the web gui.
+* Added Update Metasploit under Menu Mode Autopwn Section and under the Fast-Track Autopwn Web GUI.
+(thanks Phoenix)
+* Fixed the config.txt error in updating Nikto (thanks theprez)
+* Added the config file during initial setup to the overall metasploit path for updating.
+* Fixed an issue in web gui where it did not allow cidr notation (thanks pure|hate)
+* Fixed the warning messages when using web GUI and on the command line (thanks muts)
+~~~~~~~~~~~~~
+version 3.0.1
+~~~~~~~~~~~~~
+* Fixed the updating continious cycle loop bug
+* Added a detection in setup.py for Ubuntu, will install fine on Ubuntu now.
+~~~~~~~~~~~~~
+version 3.0.2
+~~~~~~~~~~~~~
+* Fixed update everything would still try to update everything with no inet connection
+* Added an "Update Fast-Track Only" on command line and web gui
+* Added a check to make sure FT is running as root, if not it will exit
+* Added a "Return to Previous Menu" in the interactive mode Metasploit autopwn
+~~~~~~~~~~~~~
+version 3.1
+~~~~~~~~~~~~~
+* Rewrote huge portions of the SQL Bruter, it now detects all vulnerable servers within a subnet and
+allows you to jump between various shells that it identified instead of one at a time. This is pretty
+sweet and is similar to the autopwn feature that allows you to have multiple shells and jump between
+them.
+* I've started to create one central repository for both the command line mode and menu mode so there
+isn't two seperate code sets for each, makes things alot easier for me and more conform through the
+entire application.
+* Ran into a client that had SQL Server 2005, by default the xp_cmdshell stored proc is turned off. I 
+added a custom attack that if SQL Server 2005 is detected and the XP_Cmdshell is turned off, it will
+automatically detect and re-enable it for you automatically. Prettttttttttttty slick.
+* Updated SQLite3 to 3.5.9 instead of 3.5.7
+* Fixed a small issue in setup.py when not detecting clientforms properly
+* Removed Milw0rm updating since its taken out in BT3
+* Fixed W3AF svn updating, it does W3AF a svn co and then svn update now
+* Rewrote a bit in the menu mode updates menu to pull from a central location for updates
+* Rewrote the Installation menu to run setup.py install instead of custom code
+* Updated Slapt-Get to 0.9.12.d
+* Rewrote update script to not delete the metasploit config path file when updating
+* Removed WinEXE from Fast-Track, to much of a pain and buggy, may include later
+* Fixed Binary to Hex Payload, it wasn't loading the text file properly
+* Fixed a small bug where it would state "active.txt" not found when running update
+~~~~~~~~~~~~~
+version 3.2
+~~~~~~~~~~~~~
+* Some major updates, two of the guys here from SecureState "Leroy" and "Sasquatch"  and myself wrote 
+some pretty awesome stuff and added a new tool called SQLPwnage. It's pretty amazing, auto crawl an 
+entire site or subnet, identify SQL Injection, both error based and blind based, and drop a payload. 
+Even better, we bypass the debug 64kb limit by dropping a tiny payload that is essentially just a straight
+hex to raw binary converter that allows us to bypass the filesize limit we ran into before. So now theres 
+multiple payloads i.e. Metasploit reverse tcp VNC Injection, Meterpreter, our own newly customized Reverse 
+TCP Payload which has a custom packer by Whipsmack of SecureState and doesn't get picked up by AV yet, all 
+through SQL Injection.  It has been added to all menus,  including the web GUI. This is the tool we are demoing
+at Defcon and not releasing until after. So if your reading this, its in the future!
+* Just note that SQLPwnage is SUPER buggy, we have spent a long time developing this but it still may have
+massive bugs. 
+~~~~~~~~~~~~~
+version 3.2.1
+~~~~~~~~~~~~~
+* Fixed keyboard interrupt errors when crawling in SQLPwnage
+* Fixed major bug when converting using debug
+* Rewrote how the web front-end handles menus and displays it
+dynamically now so I don't have to manually go through each web
+page and change the menus when I add a new tool. 
+* Converted menu mode autopwn to use ftsrc centralized source code
+* Converted SQL Injector Binary Payload Menu Mode to centralized source code
+* Converted SQL FTP Payload Menu Mode to centralized source code
+* Converted SQL Manual Setup Menu Mode to centralized source code
+* Converted SQL Injector Binary Payload POST Menu Mode to centralized source code
+* Converted Metasploit Mass Client Attack Menu Mode to centralized source code
+* Converted BinaryPayloadGen Menu Mode to centralized source code
+* Set Socket Connect timeouts when trying to get interface IP address to 2 seconds
+instead of default 15 seconds.
+* Set H2B 64KB Bypass and Payload Delivery through SQLInjector to split chunks every
+100 chars to fix GET methods when attacking form parameters.
+* Added a breakpoint after exploitation for cleanup in SQLPwnage
+* Rewrote changelog in web gui to dynamically pull changes from changelog.txt in README
+instead of having to enter in two spots.
+* Update script extracts tarball into a fasttrack folder instead of extracting all
+files inside the same folder.
+* Fixed a small error message in SQLPwnage when files were not there
+* Fixed version info in setup.py for pymills 3.4, thanks jgor!
+* Removed the update script from extracting to a different folder, people had issues
+~~~~~~~~~~~~~
+version 3.2.2
+~~~~~~~~~~~~~
+* Changed dependency check to include PyMills and BeautifulSoup
+* Added BeautifulSoup installation to setup.py install script
+* Changed setup.py install script around a bit, cleaned it up, etc.
+* Added a dependency check on SQLPwnage to check for PyMills and BeautifulSoup or it will exit.
+* Changed some things around in SQLPwnage, added some more information.
+~~~~~~~~~~~~~
+version 3.2.3
+~~~~~~~~~~~~~
+* Removed the killing of anti-virus during SQL Injection, all of our attacks get past any AV
+anyways so no need to kill something that doesn't block us ;)
+* Fixed a bug with SQL Bruter if the IP address was completely full  like 192.168.233.232 it would
+attack .23 instead of .232.
+* Fixed a bug where SQL Bruter would display a blank "sa" account twice, in the small brute
+force list I had two spaces specified instead of one.
+* Fixed a bug in SQLPwnage where strange characters being passed in the URL field would cause
+SQLPwange to crash and throw an exception. 
+* Fixed a bug in SQLPwnage where unhandled parameters would cause an exception string error and
+cause SQLPwnage to crash.
+* Added some cool stuff with the Metasploit Mass Client Attack, added payloads so you can now
+specify meterpreter, reverse vnc injects, reverse tcp shells, and bind shells, really cool stuff.
+Its all in the interactive mode, command line mode and web gui now, enjoy and test out.
+~~~~~~~~~~~~~
+version 3.2.4
+~~~~~~~~~~~~~
+* Fixed an UnIndexed Error exception in SQLPwnage that would cause a crash.
+* Fixed once SQLPwnage was finished in menu mode, by hitting enter, would cause Fast-Track to hang.
+* Fixed in menu mode where if you ran one of the tools in the menu, you would have to exit out and
+restart Fast-Track to use the same tool again. 
+* Added better error handling in SQLPwnage
+* Fixed in SQL Bruter where if no SQL Servers were found, it would exit the menu mode completely and
+the user would be required to restart Fast-Track.
+* Cleaned up menu mode some more and moved some code to centralized ftsrc library
+~~~~~~~~~~~~~
+version 3.3
+~~~~~~~~~~~~~
+* Well, considering this a major revision since I added Ettercap custom filters to the mass client
+attack. You can now specify if you want to poison a specific victim, when they go to a site, it
+replaces all hrefs and when they click a link it launches a slew of exploits at the victim. Its 
+pretty slick. Special thanks to "BigMac" from the remote-exploit forum, he did all the hard work, 
+I just incorporated it into this.
+* Added the Ettercap Mass Client Attack to interactive, command line, and GUI mode.
+* Beware, it may be a little bit buggy, I scratch coded this after getting back from a poker game
+and a few beers, I'll clean everything up next release.
+* Added a quick ftgui executable, simply ./ftgui and you should be rocking and rolling in the
+Fast-Track gui in the root folder. 
+* Changed the licensing agreement, thanks HDM for turning me to the dark side on the licensing ;)
+Fast-Track now uses the BSD licensing for everything.
+* Changed the main index page around a little bit.
+* Added an apt-get install for ettercap in the setup.py file, only for Ubuntu installations only
+so far. If your using BT3, its already in there, no worries.
+~~~~~~~~~~~~~
+version 3.4
+~~~~~~~~~~~~~
+* Well, had a nice nine hour flight to Italy for business, figured this was as good of a time as
+any to finally tackle the horrible looking output from a shell generated through SQL bruter. In
+older versions the output from the shell was spitting out raw SQL data from the underlying operating
+system. It looked pretty bad, almost unreadable. I finally cleaned it up and looks like a normal
+shell now. This wasn't an easy feat, I had to break up the array to a string then use regular
+expressions to parse through each line and replace bogus characters and do normal formatting. This
+has been a known issue since the birth of Fast-Track, I'm very excited that its finally looking 
+great. Enjoy.
+* Small change, I dynamically generate the version numbers now in menu and command line mode, before
+you may have noticed it said Version 3 and never changed with different versions. Now its showing
+the correct version numbers every update.
+* Changed the changelog.txt and credits.txt to CREDITS and CHANGELOG. Also modified credits to be
+up to date.
+* Fixed a bug where going to About in menu mode would cause Fast-Track to crash.
+* Added error handling if Fast-Track Web GUI if the port was already in use.
+* Removed the Shikata Ga Nai encoding from Fast-Track's SQLPWNAGE, it was causing issues
+on some systems with corruptable executabls. 
+* Added better cleanup in SQLPwnage to remove H2B files as soon as the conversion to binary
+is completed.
+* Added a "browse" button to the wordlist specification in sql bruter and in binary to hex generator.
+Before you had to manually specify the wordlist or file to convert, now you just hit the browse button
+and navigate to it.
+* Changed the timeout with no internet connection for identifying an IP address to 2 seconds instead of
+the default of 8 on SQLPwnage.
+* Changed the directories where SQLPwnage does its conversions from binary to hex to the appdata folder.
+My plan is to make all information go into the appdata folder and noowhere else. A lot easier for cleanup.
+* Created a "version" directory in bin that handles what version number Fast-Track is on for the menu mode
+and command line mode.
+* Added some cool stuff to the SQL Bruter, once a system gets popped with the "sa" account, Fast-Track will
+now allow you to specify what type of payload you want. For example, you can use the normal command shell
+but we also incorporated the 64kb debug bypass attack that uploads a metasploit reverse vnc or reverse
+meterpreter to the system without having to upload anything. Pretty slick feature that I haven't seen in
+any SQL bruters before.
+~~~~~~~~~~~~~
+version 3.4.1
+~~~~~~~~~~~~~
+* Fixed a small issue in SQLPwnage when PyMills and BeautifulSoup was not installed it would throw
+an exception and wasn't properly being handled correctly.
+* Fixed a small issue where when running setup to install pymills would cause Fast-Track to throw an
+error stated it wasn't installed properly when it was.
+* Removed an old SQLPing backup file in ftsrc
+~~~~~~~~~~~~~
+version 3.4.2
+~~~~~~~~~~~~~
+* Fixed a small issue with PyMills and SetupTools not properly installing.
+* Added auto metasploit installation for Ubuntu that will get metasploit + autopwn working (experimental)
+* Added MS08-053 (mediaencoder) to the metasploit mass client attack
+* Added better error handling around depend checks.
+~~~~~~~~~~~~~
+version 3.4.3
+~~~~~~~~~~~~~
+* Added a --force-yes in apt-get install for Ubuntu systems
+* Added rails and rubygems to the experimental metasploit ubuntu install
+* Added more detailed instructions to the setup.py file
+* Moved the md5.txt hashing to bin/setup, no need for it to be in root dir
+~~~~~~~~~~~~~
+version 3.4.4
+~~~~~~~~~~~~~
+* Added a tcp bind shell to SQLPwnage per request (HDD)
+~~~~~~~~~~~~~
+version 3.4.5
+~~~~~~~~~~~~~
+* Added SSL support for SQLPwnage, the subnet scan DOES NOT support SSL yet,
+but the crawlers for both blind and error based do. This is experimental, code
+cleanup is needed in the future.
+~~~~~~~~~~~~~
+version 3.4.6
+~~~~~~~~~~~~~
+* Fixed a bug in SQL Injector manual setup causes a crash
+~~~~~~~~~~~~~
+version 3.4.7
+~~~~~~~~~~~~~
+* Added so if a dependency is missing you could hit yes or y instead of just yes.
+* Added a quick fix in to fix a bug in the above mentioned change.
+~~~~~~~~~~~~~
+version 3.4.8
+~~~~~~~~~~~~~
+* Added Meterpreter Reflective DLL Injection payload to SQL Bruter
+* Added Windows Bind Shell as payload option in SQLPwnage in FTGUI
+* Fixed error message when exiting autopwn (ioerror)
+* Added Meterpreter Reflective DLL Injection payloads for Meterpreter and VNC in
+SQLPwnage command line, menu, and webgui. 
+* Added bind shell payload to command line mode for SQLPwnage
+* Cleaned up SQL wordlist bruter code a bit, had some test code in there from awhile
+back.
+* Added Reflective DLL VNC/Meterpreter Payloads to SQL Bruter
+* Added more common passwords on the quick brute on SQL Bruter
+~~~~~~~~~~~~~
+version 3.4.9
+~~~~~~~~~~~~~
+* Fixed spacing in FTGUI for SQLPwnage and payload delivery
+* Fixed setup.py a bit to include older versions of Ubuntu like hardy/gutsy, there was
+an issue where some packages that existed in intrepid but not in the older versions.
+* Removed the ettercap package from installing through apt.
+* Added a check to see if msfconsole was actually in /pentest/exploits/framework3 or
+/tools/exploits/framework*/, if not it will exit that option.
+* Added some extra carriage returns to fix confusion around some exploits with autopwn.
+* Fixed a bug where in SQL Bruter it would say there was no internet connection detected
+and you had an internet connection.
+* Fixed where the Fast-Track GUI wasn't mapping correctly to the "exploits" section.
+* Added two exploits I wrote when focusing on buffer overflows, the two new ones are
+the Goodtech, rewritten as universal, and the Quicktime RTSP exploit.
+* Kept same version, minor bug fix (thanks rbg) with metasploit mass client
+* Fixed a quick bug in error handling in SQL bruter
+~~~~~~~~~~~~~
+version 3.5
+~~~~~~~~~~~~~
+* Moved the output from SQLPwnage to appdata instead of the sqlpwnage folder.
+* Fixed an issue in SQLPwnage with Reflective Meterpreter
+* Fixed an issue with the Goodtech SSH buffer overflow and not properly executing

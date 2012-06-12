@@ -1,0 +1,7 @@
+s_string("GET /index.html HTTP/1.1\r\n");
+s_string("Host: 192.168.1.65\r\n");
+s_string("Content-Type: application/x-www-form-urlencoded\r\n");
+s_string("Content-Length: ");
+s_string_variable("800");
+s_string("\r\n\r\n");
+usleep(200000);

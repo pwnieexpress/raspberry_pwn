@@ -1,0 +1,236 @@
+#!/usr/bin/perl
+#
+
+use lib './lib';
+use Getopt::Std;
+$|=1;
+
+require './plugins/usage';
+require './plugins/brute';
+require './plugins/snmp';
+require './plugins/ihist';
+
+getopts("h:f:p:w:a:l:iq", \%args);
+if(!%args)
+{
+	usage();
+	exit;
+}
+#if(!defined $args{l}) {
+#$logfile = "$args{h}.log";
+#} else {
+#$logfile  = $args{l};
+
+elsif(!defined $args{h} && !defined $args {f})
+{
+	usage();
+	exit;
+}
+
+if(defined $args{f})
+{
+	@hosts = `cat $args{f}`;
+}
+else
+{
+	@hosts = $args{h};
+}
+
+if(defined $args{p})
+{
+	$port = $args{p};
+}
+else
+{
+	$port = 23;
+}
+
+if(defined $args{w})
+{
+	@community = `cat $args{w}`;
+}
+else
+{
+	@community = ( "public", "private" );
+}
+
+if(defined $args{a})
+{
+	@wordlist = `cat $args{a}`;
+}
+else
+{	
+	@wordlist = ( "cisco", "ciscos", "cisco1", "router", "router1", "admin", "Admin" ) ;
+}
+
+if(defined $args{i})
+{
+	$ioshist = 1;
+}
+
+if(defined $args{l})
+{
+	$logfile = $args{l};
+	open LOG, ">$logfile";
+}
+
+if(defined $args{q})
+{
+	$quiet = 1;
+}
+
+if (!defined $quiet)
+{
+	print "\nCisco Auditing Tool - g0ne [null0]\n\n";
+}
+if (defined $logfile)
+{
+	print LOG "\nCisco Auditing Tool - g0ne [null0]\n\n";
+}
+
+foreach(@hosts)
+{
+
+	$hostname = $_;
+	chomp $hostname;
+
+	if (!defined $quiet)
+	{
+		print "Checking Host: $hostname\n\n\n";
+		print "Guessing passwords: \n\n";
+	}
+
+	if (defined $logfile)
+	{
+		print LOG "Checking Host: $hostname\n\n\n";
+		print LOG "Guessing passwords: \n\n";
+	}
+
+	foreach(@wordlist)
+	{
+		$password = $_;
+		chomp $password;
+
+		$ret = brute($hostname, $port, $password);
+		if ($ret eq 1)
+		{
+			if (!defined $quiet)
+			{
+				print "Password Found: $password\n";
+			}
+			if (defined $logfile)
+			{
+				print LOG "Password Found: $password\n";
+			}
+		}
+		else
+		{
+			if (!defined $quiet)
+			{
+				print "Invalid Password: $password\n";
+			}
+			if (defined $logfile)
+			{
+				print LOG "Invalid Password: $password\n";
+			}
+		}
+		sleep 2;
+	}
+
+	if (!defined $quiet)
+	{
+		print "\n\nGuessing Community Names: \n\n";
+	}
+
+	if (defined $logfile)
+	{
+		print LOG "\n\nGuessing Community Names: \n\n";
+	}
+
+	foreach(@community)
+	{
+		$community = $_;
+		chomp $community;
+
+		$ret = snmp($hostname, $community);
+		if ($ret eq 1)
+		{
+			if (!defined $quiet)
+			{
+				print "Community Name Found: $community\n";
+			}
+			if (defined $logile)
+			{
+				#print to log file
+			}
+		}
+		else
+		{
+			if (!defined $quiet)
+			{
+				print "Invalid Community Name: $community\n";
+			}
+			if (defined $logfile)
+			{
+				print LOG "Invalid Community Name: $community\n";
+			}
+		}
+	}
+
+	if (defined $ioshist)
+	{
+		if (!defined $quiet)
+		{
+			print "\n\nChecking for IOS History Bug: \n\n";
+		}
+		if (defined $logfile)
+		{
+			print LOG "\n\nChecking for IOS History Bug: \n\n";
+		}
+
+		($users, $history) = ihist($hostname, $port);
+
+		if (!defined $quiet)
+		{
+			print "Users Currently Logged In: \n";
+			print $users;
+			print "\n\n";
+			print "History Log: \n";
+			print $history;
+			print "\n";
+		}
+
+		if (defined $logfile)
+		{
+			print LOG "Users Currently Logged In: \n";
+			print LOG $users;
+			print LOG "\n\n";
+			print LOG "History Log: \n";
+			print LOG $history;
+			print LOG "\n";
+		}
+	}
+
+	if (!defined $quiet)
+	{
+		print "\n---------------------------------------------------\n\n";
+	}
+	if (defined $logfile)
+	{
+		print LOG "\n---------------------------------------------------\n\n";
+	}
+	
+}
+
+if (!defined $quiet)
+{
+	print "Audit Complete\n\n";
+}
+
+if (defined $logfile)
+{
+	print LOG "Audit Complete\n\n";
+	close LOG;
+}
+
+exit;

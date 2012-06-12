@@ -1,0 +1,86 @@
+  </td>
+  <td width="537" align="left" valign="top">  
+
+<!--Body Content Here-->
+
+<table width="100%" border="0" cellspacing="8" cellpadding="0">
+ <tr>
+  <td class="page_title">Fast-Track Main Page</td>
+ </tr>
+ <tr>
+  <td><p>Welcome to Fast-Track version 4, this version is primarily focused on the web interface, bug-fixes, documentation, exploit rewrites into Fast-Track. A lot has changed, be sure to check the changelog for the latest information and updates. Additionally below will be upcoming tasks scheduled for the next release or milestones for new versions.</p></td>
+ </tr>
+ <tr>
+  <td bgcolor="#2A2A2A">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+     <tr>
+      <td class="box_bg">
+        <table width="100%" border="0" cellspacing="15" cellpadding="0">
+         <tr>
+          <td>
+           <p class="box_text">For those of you new to Fast-Track, it is a compliation of custom developed tools that allow penetration testers the ease of advanced penetration techniques in a relatively easy manner. Some of these tools utilize the Metasploit framework in order to successfully create payloads, exploit systems, or interface within compromised systems. During a penetration test on a Fortune 500, I realized that there wasn't many tools out there that did what I needed them to do, or they were just really horrible. Fast-Track tries to fill the void in some of the techniques I would normally use in a given penetration test. It is always good to learn how to do all of these attacks manually.</p>
+          </td>
+         </tr>
+        </table>
+      </td>
+     </tr>
+     <tr>
+      <td><img src="images/fast_track_21.jpg" width="537" height="13" alt=""></td>
+     </tr>
+    </table>
+  </td>
+ </tr>
+ <tr>
+  <td>
+    <p>I would like to take the time to thank everything that has contributed to Fast-Track, if you have some spare time please check the Fast-Track Credits for more info on everyone that has helped make this possible. I would like to thank rBg for doing a ton of work helping out with the design of Fast-Track, and especially Fast-Track version 4. 
+<br><br>Feedback is always welcome, feel free to email me with bugs, feature requests, or if you want to contribute to Fast-Track. Be sure to visit Remote Exploit for the latest <a href="http://www.remote-exploit.org">Back|Track</a> information and <a href="http://www.offensive-security.com">Offensive-Security</a> for one wicked pentesting class. <br>
+
+  </td>
+ </tr>
+</table>
+<table width="100%" border="0" cellspacing="8" cellpadding="0">
+ <tr>
+  <td class="page_title">Latest News </td>
+ </tr>
+ <tr>
+  <td>
+    <p>The latest news section will keep you guys informed of any major changes that has occured to Fast-Track since previous releases, this could be additional modules needed, new tools, major bug fixes, etc.</p>
+  </td>
+ </tr>
+ <tr>
+  <td bgcolor="#2A2A2A">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+     <tr>
+      <td class="box_bg">
+        <table width="100%" border="0" cellspacing="15" cellpadding="0">
+         <tr>
+          <td>
+            <p class="box_text">NEW: Added the new IE7 DirectShow 0-Day.</p>
+            <p class="box_text">OLD: Added MS09-002 Universal Exploit for IE</p>
+            <p class="box_text">OLD: UDP port discovery through SQL</p>
+            <p class="box_text">OLD: Web interface design by rBg</p>
+            <p class="box_text">OLD: Selectable Payload Delivery in web interface</p>
+            <p class="box_text">OLD: Rewrite of Mass Client Attack.</p>
+              </td>
+         </tr>
+        </table>
+      </td>
+     </tr>
+     <tr>
+      <td><img src="images/fast_track_21.jpg" width="537" height="13" alt=""></td>
+     </tr>
+    </table>
+  </td>
+ </tr>
+ <tr>
+  <td><p>
+Please read the LICENSE agreement before using Fast-Track. Fast-Track is to only be used strictly for legal purposes. Any mis-use, abuse, or illegal activities performed with this software is prohibited and not endorsed in any fashion. The creators of Fast-Track take no responsibility for any mis-use of this software.
+</p></td>
+ </tr>
+</table>
+
+<!--Body Content End-->
+
+  <p>&nbsp;</p></td>
+ </tr>
+</table>    

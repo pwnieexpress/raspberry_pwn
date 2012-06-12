@@ -1,0 +1,9 @@
+s_string("GET /index.html HTTP/1.1\r\n");
+s_string("Host: 192.168.1.65\r\n");
+s_string("Authorization: ");
+s_string_variable("sickness");
+s_string("\r\n");
+s_string("Keep-Alive: 300\r\n");
+s_string("Connection: keep-alive");
+s_string("\r\n\r\n");
+usleep(200000);

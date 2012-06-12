@@ -1,0 +1,36 @@
+use Net::SNMP;
+
+sub snmp {
+
+	my ($hostname, $community) = @_;
+	my $port = 161;
+
+
+	my ($session, $error) = Net::SNMP->session(
+			Hostname	=> $hostname,
+			Community	=> $community,
+			Port		=> $port
+			);
+
+	if (!defined($session))
+	{
+		return 0;
+	}
+
+	my $uptime='1.3.6.1.2.1.1.3.0';
+
+	$session->timeout(2);
+	$session->retries(2);
+	my $response='';
+
+	if (!defined($response = $session->get_request($uptime)))
+	{
+		$session->close;
+		return 0;
+	}
+
+	$session->close;
+
+	return 1;
+
+} print;

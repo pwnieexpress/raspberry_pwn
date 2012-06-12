@@ -1,0 +1,4 @@
+s_string_variable("AAAA");
+s_string("\r\n\r\n");
+usleep(200000);
+

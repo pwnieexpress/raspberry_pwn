@@ -1,0 +1,190 @@
+#!/usr/bin/env python
+
+#GoodFET SPI Flash Client
+#by Travis Goodspeed
+
+#N.B.,
+#Might be Winbond W25x80-specific.
+
+import sys;
+import binascii;
+import array;
+
+from GoodFETSPI import GoodFETSPIFlash;
+from intelhex import IntelHex;
+
+if(len(sys.argv)==1):
+    print "Usage: %s verb [objects]\n" % sys.argv[0];
+    print "%s info" % sys.argv[0];
+    print "%s dump $foo.rom [0x$start 0x$stop]" % sys.argv[0];
+    print "%s erase" % sys.argv[0];
+    print "%s flash $foo.rom [0x$start 0x$stop]" % sys.argv[0];
+    print "%s verify $foo.rom [0x$start 0x$stop]" % sys.argv[0];
+    print "%s peek 0x$start [0x$stop]" % sys.argv[0];
+    print "%s poke 0x$adr 0x$val" % sys.argv[0];
+    sys.exit();
+
+#Initialize FET and set baud rate
+client=GoodFETSPIFlash();
+client.serInit()
+
+
+client.SPIsetup();
+
+#Dummy read.
+#Might read as all ones if chip has a startup delay.
+client.SPIjedec();
+
+if(sys.argv[1]=="test"):
+    result="";
+    dropped=0;
+    for i in range(40):
+        data=client.SPIjedec();
+        if ord(data[1])==0xFF:
+            result+="-";
+            dropped=dropped+1;
+        else:
+            result+="+";
+    print "Connection Test: (- is bad)\n%s" % result;
+    print "%i misreads" % dropped;
+    if(dropped==40):
+        print "No successful reads.  Is the chip wired correctly?";
+    elif(dropped>0):
+        print "Some success, some failures.  Is a wire loose?";
+    else:
+        print "All reads succeeded.  Wiring is probably good.";
+    print "Erasing.";
+    client.SPIchiperase();
+    print "Testing erase.";
+    data=client.SPIpeekblock(0);
+    for i in data:
+        if ord(i)!=0xFF:
+            print "ERROR not properly erased!";
+    data=range(0,10);
+    client.SPIpokebytes(0,data);
+    print "Testing flash write.";
+    for i in data:
+        if(client.SPIpeek(i)!=i):
+            print "%06x not properly poked to %02x" % (i,i);
+    print "Test complete.";
+if(sys.argv[1]=="info"):
+    data=client.SPIjedec();
+    print "Ident as %s\nManufacturer: %02x %s\nType: %02x\nCapacity: %02x (%i bytes)" % (
+        client.SPIjedecstr(),
+        ord(data[1]),client.SPIjedecmanstr(),
+        ord(data[2]),
+        ord(data[3]),
+        client.JEDECsize);
+
+if(sys.argv[1]=="dump"):
+    f = sys.argv[2];
+    start=0x0000;
+    stop=client.JEDECsize;
+    if(len(sys.argv)>3):
+        start=int(sys.argv[3],16);
+    if(len(sys.argv)>4):
+        stop=int(sys.argv[4],16);
+    
+    print "Dumping code from %06x to %06x as %s." % (start,stop,f);
+    file = open(f, mode='wb')
+    
+    i=start;
+    while i<=stop:
+        data=client.SPIpeekblock(i);
+        #if(i%0x1000==0):
+        print "Dumped %06x."%i;
+        for j in data:
+            if i<stop: file.write(j);
+            i+=1;
+    file.close()
+
+if(sys.argv[1]=="verify"):
+    f = sys.argv[2];
+    start=0x0000;
+    stop=client.JEDECsize;
+    if(len(sys.argv)>3):
+        start=int(sys.argv[3],16);
+    if(len(sys.argv)>4):
+        stop=int(sys.argv[4],16);
+    
+    print "Verifying code from %06x to %06x as %s." % (start,stop,f);
+    file = open(f, mode='rb')
+    
+    i=start;
+    bytes=0;
+    while i<=stop:
+        data=client.SPIpeekblock(i);
+        print "Verified %06x." % i;
+        for j in data:
+            if i<stop:
+                #bits|=ord(file.read(1))^ord(j);
+                a=ord(file.read(1));
+                b=ord(j);
+                if a!=b:
+                    print "%06x: %02x/%02x" % (i,a,b);
+                    bytes+=1;
+            i+=1;
+        if bytes!=0:
+            print "%i bytes don't match." % bytes
+
+    file.close()
+
+if(sys.argv[1]=="flash"):
+    f = sys.argv[2];
+    start=0x0000;
+    stop=client.JEDECsize;
+    
+    if(len(sys.argv)>3):
+        start=int(sys.argv[3],16);
+    if(len(sys.argv)>4):
+        stop=int(sys.argv[4],16);
+    
+    print "Flashing code from %06x to %06x with %s." % (start,stop,f);
+    file = open(f, mode='rb')
+
+    i=start;
+    chars=list(file.read());
+    chunksize=0x100;
+    
+    while i<=stop:
+        bytes=range(0,chunksize);
+        for j in range(0,chunksize):
+            bytes[j]=ord(chars[i+j]);
+        client.SPIpokebytes(i,bytes);
+        
+        i+=chunksize;
+        if(i%0x1000==0):
+            print "Flashed %06x."%i;
+    
+    
+    file.close()
+
+
+if(sys.argv[1]=="erase"):
+  client.SPIchiperase();
+
+if(sys.argv[1]=="peek"):
+    start=0x0000;
+    if(len(sys.argv)>2):
+        start=int(sys.argv[2],16);
+    stop=start;
+    if(len(sys.argv)>3):
+        stop=int(sys.argv[3],16);
+    print "Peeking from %06x to %06x." % (start,stop);
+    while start<=stop:
+        print "%06x: %02x" % (start,client.SPIpeek(start));
+        start=start+1;
+
+if(sys.argv[1]=="poke"):
+    start=0x0000;
+    val=0x00;
+    if(len(sys.argv)>2):
+        start=int(sys.argv[2],16);
+    if(len(sys.argv)>3):
+        val=int(sys.argv[3],16);
+    print "Poking %06x to become %02x." % (start,val);
+    
+    while client.SPIpeek(start)!=val:
+        client.SPIpokebyte(start,val);
+        print "Poked to %02x" % client.SPIpeek(start);
+

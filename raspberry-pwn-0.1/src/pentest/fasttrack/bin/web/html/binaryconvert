@@ -1,0 +1,73 @@
+  </td>
+  <td width="537" align="left" valign="top">  
+
+<!--Body Content Here-->
+
+<table width="100%" border="0" cellspacing="8" cellpadding="0">
+ <tr>
+  <td class="page_title">Fast-Track Binary to Hex Payload Converter</td>
+ </tr>
+ <tr>
+<td><p>
+<br>
+Binary to Hex conversion techniques utilize a method that allows you to delivery payloads on a remote operating
+system without a "stager". The basic concept is this: Convert an executable to a specific hexadecimal format and
+use the windows debug (built in by default) to convert our payloads from hex back to a binary. It is actually a
+pretty easy technique to accomplish.
+<br><br>
+In most compromises a FTP answer file, or TFTP is used to grab our executables from the remote systems. What if
+egress filtering becomes problematic? UDP isn't allowed and either is FTP. We need a way to get our payload onto
+the system without executing an "egress" or outbound connection to the internet. That's where the conversion
+technique comes into play. We echo a file on the operating system, this can be done through various methods,
+Fast-Track utilizes this technique through SQL Injection, SQL queries, and various other methods but if you 
+currently have write access to the operating system, you can use this method. 
+<br><br>
+There are some restrictions to this method, for one the payload has to be under 64KB. That is pretty big in
+most cases however popular payloads like Meterpreter, reverse vnc payloads, and various others can tend to
+be pretty big. You can use the stager version of these which is quite a bit smaller and will fit under the
+64KB limit, but again, this relies off of egress connections to transfer our files.
+<br><br>
+The way this tool works within Fast-Track is it takes your executable, whatever it may be and puts it into
+the right format to echo onto the operating system. It then uses the windows debug technique to convert our
+hex back to a proper executable. You simply need to execute it now. Simply browse to your executbale, hit
+convert, and check the Fast-Track root directory for the text file. Then if you have a command shell, or
+write access to the operating system, paste the information in that text file onto the operating system
+and watch the magic work.
+</p></td>
+ </tr>
+ <tr>
+ <tr>
+  <td class="page_title">Binary Payload Conversion Options</td>
+ </tr>
+  <td bgcolor="#2A2A2A">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+     <tr>
+      <td class="box_bg">
+        <table width="100%" border="0" cellspacing="15" cellpadding="0">
+         <tr>
+          <td>
+           <FORM NAME="bruter" FORM action="/binaryconvertpost" method="post">
+           <p class="box_text">Simply browse to your executable. REMEBER: this will output a text file in the root Fast-Track directory. Paste this into the windows system that you have write access to and watch the magic happen.</p>
+           <p class="box_text"><b>NOTE: When you get to the post page, its finished. Navigate to the Fast-Track folder and in the root will be a text file called binarypayload.txt, that is your converted file.</p>
+           <p class="box_text"><b>Executable Path:  <INPUT type="text" class="txtfield_35" name="exe"></p></b>
+           <br><br>
+           <p align=center><INPUT type="image" name="attack" src="images/btn_launch_3.jpg" value="Launch"> &nbsp;<a href="javascript:document.bruter.reset()"><img src="images/btn_reset.jpg" border=0 alt="Reset"></a>
+          </td>
+         </tr>
+        </table>
+      </td>
+     </tr>
+     <tr>
+      <td><img src="images/fast_track_21.jpg" width="537" height="13" alt=""></td>
+     </tr>
+    </table>
+  </td>
+ </tr>
+</table>
+<p>&nbsp;</p>
+
+<!--Body Content End-->
+
+  <p>&nbsp;</p></td>
+ </tr>
+</table>    

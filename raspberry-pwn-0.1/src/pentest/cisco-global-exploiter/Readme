@@ -1,0 +1,30 @@
+
+##
+#   Cisco Global Exploiter
+#
+#   Legal notes :
+#   The BlackAngels staff refuse all responsabilities 
+#   for an incorrect or illegal use of this software 
+#   or for eventual damages to others systems.
+#
+#   http://www.blackangels.it
+##
+
+
+
+Project's maintainers :
+Nemesis (nemesis[at]blackangels.it)
+E4m (e4m[at]blackangels.it)
+
+What is Cisco Global Exploiter :
+Cisco Global Exploiter (CGE), is an advanced, simple and fast security 
+testing tool, that is able to exploit the most dangerous vulnerabilities 
+of Cisco systems.
+
+How CGE works :
+CGE has an intuitive and simple user interface and it is executable from
+commands line, by inputting two simple parameters, like the target and the
+vulnerability to exploit.
+
+For more informations or a detailed description of all vulnerabilities
+and of their exploiting, read /doc/documentation.

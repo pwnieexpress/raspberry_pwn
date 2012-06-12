@@ -1,0 +1,383 @@
+
+ ##
+ #   Cisco Global Exploiter Documentation
+ #   Vulnerabilities description and exploiting impact
+ #
+ #   Legal notes :
+ #   The BlackAngels staff refuse all responsabilities 
+ #   for an incorrect or illegal use of this document 
+ #   or for eventual damages to others systems.
+ #
+ #   http://www.blackangels.it
+ ##
+
+
+
+             [ Table of contents ]
+   
+                    1 - Cisco 677/678 Telnet Buffer Overflow Vulnerability 
+                    2 - Cisco IOS Router Denial of Service Vulnerability 
+                    3 - Cisco IOS HTTP Auth Vulnerability & 
+                        Cisco IOS HTTP Configuration Arbitrary Administrative Access Vulnerability
+                    4 - Cisco Catalyst SSH Protocol Mismatch Denial of Service Vulnerability 
+                    5 - Cisco 675 Web Administration Denial of Service Vulnerability
+                    6 - Cisco Catalyst 3500 XL Remote Arbitrary Command Vulnerability
+                    7 - Cisco IOS Software HTTP Request Denial of Service Vulnerability 
+                    8 - CiscoSecure ACS for Windows NT Server Denial of Service Vulnerability
+                    9 - Cisco Catalyst Memory Leak Vulnerability
+                    10 - Cisco CatOS CiscoView HTTP Server Buffer Overflow Vulnerability
+                    11 - %u Encoding IDS Bypass Vulnerability (UTF)
+                    12 - Cisco IOS HTTP Denial of Service Vulnerability
+
+
+
+[1] Cisco 677/678 Telnet Buffer Overflow Vulnerability
+======================================================
+
+This vulnerability is identified in Cisco Broadband Operating System (CBOS), 
+an operating system for the Cisco 600 family of routers. 
+Each vulnerability can cause a Denial of Service by freezing the administrator 
+premises equipment (CPE). 
+Vulnerability can be exploited remotely. 
+
+All Cisco DSL CPE devices from the 600 family running CBOS software up to 
+and including 2.4.4 release are vulnerable. 
+The complete list of vulnerable hardware models is : 
+626, 627, 633, 673, 675, 675e, 676, 677, 677i and 678. 
+
+By sending a large packet to the Telnet port it is possible to freeze the CPE. 
+It is not necessary to be logged in or to authenticate in any way. 
+Telnet is enabled by default. 
+
+By repeatedly exploiting these vulnerabilities an attacker can cause a Denial
+of Service for an indeterminate period of time. 
+
+
+[2] Cisco IOS Router Denial of Service Vulnerability 
+====================================================
+
+A defect in multiple releases of Cisco IOS software will cause a Cisco router 
+or switch to halt and reload if the IOS HTTP service is enabled and browsing 
+to "http://<router-ip>/%%" is attempted. 
+This defect can be exploited to produce a Denial of Service attack.
+
+The vulnerability, affects virtually all mainstream Cisco routers and switches 
+running Cisco IOS software releases 11.1 through 12.1, inclusive. 
+The vulnerability can be mitigated by disabling the IOS HTTP server, using an 
+access-list on an interface in the path to the router to prevent unauthorized 
+network connections to the HTTP server, or applying an access-class option directly 
+to the HTTP server itself. 
+The IOS HTTP server is enabled by default only on Cisco 1003, 1004, and 1005 
+routers that are not configured. 
+In all other cases, the IOS HTTP server must be explicitly enabled in order 
+to exploit this defect. 
+Cisco devices that may be running affected releases include : 
+Cisco routers in the AGS/MGS/CGS/AGS+, IGS, RSM, 800, ubr900, 1000, 2500, 2600, 
+3000, 3600, 3800, 4000, 4500, 4700, AS5200, AS5300, AS5800, 6400, 7000, 7200, 
+ubr7200, 7500, 12000 series, LS1010 ATM switch, Catalyst 6000, 2900XL, 3500XL 
+LAN switches and Cisco DistributedDirector.  
+ 
+Any affected Cisco IOS device that is operating with the HTTP server enabled 
+and is not protected against unauthorized connections can be forced to halt 
+for a period of up to two minutes and then reload.
+
+The vulnerability can be exercised repeatedly, possibly creating a Denial 
+of Service attack, until such time as the HTTP server is disabled, the router 
+is protected against the attack, or the software on the router is upgraded to 
+an unaffected release of IOS. 
+In rare instances when a router at a remote location fails to reload, an 
+administrator must visit the physical device to recover from the defect.  
+
+
+[3] Cisco IOS HTTP Auth Vulnerability & Cisco IOS HTTP Configuration Arbitrary Administrative Access Vulnerability
+==================================================================================================================
+
+When the HTTP server is enabled and local authorization is used, it is possible, 
+under some circumstances, to bypass the authentication and execute any command 
+on the device. 
+In that case, the user will be able to exercise complete control over the device. 
+All commands will be executed with the highest privilege (level 15). 
+
+All releases of Cisco IOS software, starting with release 11.3 and later, are 
+vulnerable. 
+Virtually all mainstream Cisco routers and switches running Cisco IOS software 
+are affected by this vulnerability. 
+Products that are not running Cisco IOS software are not vulnerable.  
+Any device running Cisco IOS software release 11.3 and later is vulnerable. 
+Cisco devices that may be running with affected Cisco IOS software releases 
+include but are not limited to : 
+Cisco routers in the AGS/MGS/CGS/AGS+, IGS, RSM, 800, ubr900, 1000, 1400, 1500, 
+1600, 1700, 2500, 2600, 3000, 3600, 3800, 4000, 4500, 4700, AS5200, AS5300, 
+AS5800, 6400, 7000, 7100, 7200, ubr7200, 7500, 12000 series, LS1010 ATM switch, 
+Catalyst 6000, 5000, 2900XL, 3500XL, LAN switch and Cisco Distributed Director.
+
+By sending a crafted URL it is possible to bypass authentication and execute any 
+command on the router at level 15 (enable level, the most privileged level). 
+This will happen only if the user is using a local database for authentication 
+(usernames and passwords are defined on the device itself). 
+The same URL will not be effective against every Cisco IOS software release and 
+hardware combination. However, there are only 84 different combinations to try, 
+so it would be easy for an attacker to test them all in a short period of time. 
+The URL in question follows this format : 
+
+http://<device_addres>/level/n/exec/....
+
+where n is a number between 16 and 99. 
+
+An attacker can exercise complete control over the device. 
+By exploiting this vulnerability, the attacker can see and change the 
+configuration of the device.
+
+
+[4] Cisco Catalyst SSH Protocol Mismatch Denial of Service Vulnerability 
+========================================================================
+
+Non-Secure Shell (SSH) connection attempts to an enabled SSH service on a Cisco 
+Catalyst 6000, 5000, or 4000 switch might cause a "protocol mismatch" error, 
+resulting in a supervisor engine failure. 
+The supervisor engine failure causes the switch to fail to pass traffic and 
+reboots the switch.
+
+Only the following images are affected : 
+cat4000-k9.6-1-1.bin, cat5000-sup3cvk9.6-1-1a.bin, cat5000-sup3k9.6-1-1.bin, 
+cat5000-supgk9.6-1-1.bin, cat6000-sup2cvk9.6-1-1a.bin, cat6000-sup2k9.6-1-1a.bin,
+cat6000-supcvk9.6-1-1a.bin, cat6000-supk9.6-1-1a.bin, cat6000-sup2cvk9.6-1-1b.bin, 
+cat6000-sup2k9.6-1-1b.bin, cat6000-supcvk9.6-1-1b.bin and cat6000-supk9.6-1-1b.bin. 
+
+Non SSH protocol connection attempts to the SSH service cause a "protocol mismatch" 
+error, which causes a switch to reload. 
+SSH is not enabled by default, and must be configured by the administrator. 
+
+This vulnerability enables a Denial of Service attack on the Catalyst switch. 
+
+
+[5] Cisco 675 Web Administration Denial of Service Vulnerability 
+================================================================
+
+Any router in the Cisco 600 family that is configured to allow Web access can 
+be locked by sending a specific URL. 
+Web access is disabled by default, and it is usually enabled in order to 
+facilitate remote configuration.
+
+The affected models are : 
+627, 633, 673, 675, 675E, 677, 677i and 678.
+These models are vulnerable if they run any of the following, or earlier, 
+CBOS releases: 
+2.0.1, 2.1.0, 2.1.0a, 2.2.0, 2.2.1, 2.2.1a, 2.3, 2.3.2, 2.3.5, 2.3.7 and 2.3.8. 
+
+The behavior is caused by inadequate URL parsing in CBOS. 
+Each URL was expected to terminate with a minimum of a single space character 
+(ASCII code 32, decimal). 
+Sending a URL that does not terminate with a space causes CBOS to enter an 
+infinite loop. 
+It is necessary to power cycle the router to resume operation. 
+To exploit this vulnerability, a router must be configured to accept Web connections. 
+Having a Web access password configured does not provide protection against this 
+vulnerability.
+
+By sending a tailored URL to a router, it is possible to cause a Denial of Service. 
+Every affected router must be powered off and back on in order to restore its normal 
+functionality. 
+
+
+[6] Cisco Catalyst 3500 XL Remote Arbitrary Command Vulnerability 
+=================================================================
+
+The Catalyst 3500 XL series switches web configuration interface letsany user 
+execute any command on the system without logging in.
+
+Affected systems are :
+Cisco Catalyst 3500 XL series switches and all switches that uses similiar 
+softwares.
+
+Cisco Catalyst 3500 XL series switches have a webserver configuration interface. 
+This interface lets any anonymous web user execute any command without supplying 
+any authentication credentials by simply requesting the "/exec" location from the 
+webserver. 
+An example follows :
+
+http://target/exec/show/config/cr
+
+This URL will show the configuration file, with all user passwords.
+
+
+[7] Cisco IOS Software HTTP Request Denial of Service Vulnerability 
+===================================================================
+
+A defect in multiple releases of Cisco IOS software will cause a Cisco router or 
+switch to halt and reload if the IOS HTTP service is enabled, browsing to 
+"http://target/anytext?/" is attempted, and the enable password is supplied 
+when requested. 
+This defect can be exploited to produce a Denial of Service attack. 
+
+Cisco devices that may be running with affected IOS software releases include : 
+Cisco routers in the AGS/MGS/CGS/AGS+, IGS, RSM, 800, ubr900, 1000, 1400, 1500, 
+1600, 1700, 2500, 2600, 3000, 3600, 3800, 4000, 4500, 4700, AS5200, AS5300, AS5800, 
+6400, 7000, 7200, ubr7200, 7500, 12000 series, LS1010 ATM switch, Catalyst 6000, 
+2900XL, LAN switch 1900, 2800, 2900, 3000, and 5000 and Cisco Distributed Director.
+
+The HTTP server was introduced in IOS release 11.0 to extend router management to 
+the worldwide Web. 
+The "?" (question mark) character is defined in the HTML specifications as a 
+delimiter for CGI arguments. 
+It is also interpreted by the IOS command-line interface as a request for help. 
+As of Cisco IOS Software Release 12.0T, the meaning of a question mark when it 
+appears adjacent to a "/" (slash) character cannot be determined properly by the 
+URI parser in affected versions of Cisco IOS software. 
+When a URI containing "?/" is presented to the HTTP service on the router and a 
+valid enable password is supplied, the router enters an infinite loop. 
+A watchdog timer expires two minutes later and forces the router to crash and reload. 
+The router continues to be vulnerable to this defect as long as it is running an 
+affected IOS software release and the enable password is known. 
+This vulnerability may only be exploited if the enable password is not set, it is 
+well known, or it can be guessed. 
+In rare cases, an affected device fails to reload, which means an administrator must 
+physically cycle the power to resume operation. 
+The HTTP server is not enabled by default except on unconfigured Cisco model 1003, 
+1004 and 1005 routers. 
+Once initial access is granted to configure the router, the administrator may set an 
+enable password, and disable or limit access to the HTTP server by changing the 
+configuration. 
+Once the new configuration has been saved, the HTTP server will not be enabled when 
+the router restarts. 
+
+An affected Cisco IOS device that is operating with the HTTP service enabled and is 
+not protected by having the enable password configured can be forced to halt for up 
+to two minutes and then reload. 
+The vulnerability can be exercised repeatedly, possibly creating a Denial of Service 
+attack, unless the service is disabled, the enable password is set, or the router is 
+upgraded to a fixed release. 
+In instances in which a router at a remote location fails to reload, an administrator 
+must visit the site to enable the device to recover from the defect.
+
+
+[8] CiscoSecure ACS for Windows NT Server Denial of Service Vulnerability 
+=========================================================================
+
+Cisco Secure Access Control Server (ACS) for Windows contains two vulnerabilities. 
+One vulnerability can lead to the execution of an arbitrary code on an ACS server, 
+and the second can lead to an unauthorized disclosure of information.
+
+The affected product is :
+Cisco Secure Access Control Server for Windows 2.6.x and ACS 3.0.1.
+
+By connecting to port 2002 and sending a crafted URL, it is possible to, in a less 
+severe case, kill the CSADMIN module or, in a sever case, to execute an arbitrary 
+user-supplied code. 
+The functionality of authentication, authorization, and accounting (AAA) is not 
+affected by termination of the CSADMIN module. This means that users will be able to 
+authenticate normally. 
+Only the administration function will be affected. Port 2002 is used by the CSADMIN 
+module for remote administration.
+By providing a URL containing formatting symbols (for example, %s, %p), it is possible 
+to execute a user-provided code.
+
+By exploiting the format vulnerability, an attacker may execute arbitrary code on the 
+machine. 
+This code will be executed in the same context as the CSADMIN process, and that is as 
+administrator. 
+Executing arbitrary code will lead to a total compromise of the machine. 
+By exploiting the directory traversal vulnerability, an attacker can gain unauthorized 
+access to information in the following file types: html, htm, class, jpg, jpeg or gif. 
+The main issue may be html files with hardcoded passwords or other sensitive information. 
+
+
+[9] Cisco Catalyst Memory Leak Vulnerability
+============================================
+
+A series of failed telnet authentication attempts to the switch can cause the Catalyst 
+Switch to fail to pass traffic or accept management connections until the system is 
+rebooted or a power cycle is performed. 
+All types of telnet authentication are affected, including Kerberized telnet, and 
+AAA authentication. 
+
+Affected systems are :
+Catalyst 4000 and 5000 images running version 4.5(2) up to 5.5(4) and 5.5(4a) and 
+Catalyst 6000 images running version 5.3(1)CSX, up to and including 5.5(4) and 5.5(4a). 
+The Catalyst 4000 series is installed on the Catalyst 2948G, 2980G, 4003, 4006, and 
+4912G switches. 
+The Catalyst 6000 series is installed on the Catalyst 6009, 6006, 6509, 6509-NEB, and 
+6506 modular chassis switches. 
+
+The telnet process fails to release resources upon a failed authentication, or a 
+successful login of extremely short duration such as a telnet from within an automated 
+script. 
+This memory leak eventually results in the failure of the switch to perform any other 
+processes, such as forwarding traffic or management; a power cycle or reboot is required 
+for recovery. 
+The command "show process memory" will indicate increased "Holding" memory after failed 
+telnet authentication attempts. This value will not decrease over time except when a reboot, 
+reload, or power cycle occurs. This bug may be triggered over a period of time in the 
+course of normal operation by legitimate users that occasionally fail authentication. 
+
+This vulnerability enables a Denial of Service attack on the Catalyst switch.
+
+
+[10] Cisco CatOS CiscoView HTTP Server Buffer Overflow Vulnerability
+====================================================================
+
+Certain versions of Cisco CatOS ship with an embedded HTTP server. 
+Switches that run these versions of CatOS are prone to a denial of service, which is due to 
+a remote buffer overflow condition in the HTTP server. 
+This issue is reported to affect CatOS versions 5.4 through 7.4 which contain "cv" in the 
+image name. 
+
+Affected systems are :
+Cisco CatOS 5.4, 5.5(13a), 5.5, 6.1(2), 6.1, 7.3 and 7.4.
+
+This vulnerability could be exploited by performing a special "GET" request, with a really
+big argument; a shellcode could also be used, to get a shell on the remote system or to
+execute arbitrary commands.
+
+
+[11] %u Encoding IDS Bypass Vulnerability (UTF)
+===============================================
+
+Intrusion Detection Systems inspect network traffic for suspect or malicious packet formats, 
+data payloads and traffic patterns. 
+Intrusion detection systems typically implement obfuscation defense - ensuring that suspect 
+packets cannot easily be disguised with UTF and/or hex encoding and bypass the Intrusion
+Detection systems.
+
+The following products are affected : 
+Cisco Secure Intrusion Detection System, formerly known as NetRanger, Sensor component and
+Cisco Catalyst 6000 Intrusion Detection System Module.
+
+The %u encoding method is a different encoding method that is understood and parsed by the 
+IIS web server. 
+This encoding can be applied to other portions of the url to effectively obfuscate the 
+attack, preventing detection by many intrusion detection systems available. 
+Cisco Secure Intrusion Detection System Sensor decoding algorithms have been modified to 
+detect and parse this unicode form. 
+
+
+This method of obfuscation can allow malicious exploitation to bypass current intrusion 
+detection technology.
+
+
+[12] Cisco IOS HTTP Denial of Service Vulnerability
+===================================================
+
+The HTTP service facility in the Cisco IOS provides remote management capabilities using 
+any web browser as client. 
+It is commonly used to manage remote routers and switches with a simple and user-friendly 
+Web interface. A flaw in the HTTP server permits an attacker with access to the HTTP service 
+port to crash the device and force a software re-load. The service is enabled by default only 
+on Cisco 1003, 1004 and 1005 routers.
+
+Virtually all Cisco routers and switches running IOS versions 12.0 through 12.1 inclusive 
+are vulnerable.
+The following is list of products that are affected if they are running a release of Cisco 
+IOS software that has the defect :
+Cisco routers in the AGS/MGS/CGS/AGS+, IGS, RSM, 800, ubr900, 1000, 2500, 2600, 3000, 3600, 
+3800, 4000, 4500, 4700, AS5200, AS5300, AS5800, 6400, 7000, 7200, ubr7200, 7500, and 12000 
+series.
+
+By sending an HTTP request with the following URI:
+
+http://target/anytext?/
+
+The switch crashes and performs a software re-load, network connectivity is disrupted while 
+this is done. 
+Sending these HTTP requests repetitively can perform a Denial of Service attack against the 
+switch and the entire network connected to it.

@@ -1,0 +1,17 @@
+********************************************************************
+General Functionality and Movement in Fast-Track Tutorial
+********************************************************************
+
+Let's first start off with menus, if you've navigated to here, you
+probably already know how to enter each menu. If you are in a menu
+or are in the middle of a specific function in Fast-Track, you can
+hit Control-C, which will bring you to the main menu. You can do
+this anywhere in Fast-Track at anytime to return to the main menu.
+
+The menu driven style is fairly new to "hacking" tools out there,
+however, combining a ton of tools into one is always confusing on
+what to use how to use it and generally is frustrating. I decided
+to go more menu driven on this then a command line type deal that
+you generally see.
+
+*******************************************************************

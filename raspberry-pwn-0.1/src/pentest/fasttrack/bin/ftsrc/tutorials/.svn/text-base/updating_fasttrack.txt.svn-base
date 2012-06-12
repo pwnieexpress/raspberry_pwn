@@ -1,0 +1,19 @@
+********************************************************************
+How to update Fast-Track: Requirements: None
+********************************************************************
+
+When you initially start Fast-Track, it automatically contacts our
+servers and attempts to pull updates using MD5 hashing. If an
+update is available, it will prompt you to install the latest version
+or not. Once the update occurs, you will need to restart Fast-Track
+in order for the updates to take effect.
+
+Quite a few of the modules and tools that I've built into Fast-Track
+require specific modules that are not found in a default installation
+of Back|Track. As such, you will need to update Fast-Track in the
+updates menu in order to unlock the functionality of the other tools.
+
+These tools are generally designated (needed for such and such) to let
+you know you do need this if you want to use a specific function.
+
+********************************************************************

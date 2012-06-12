@@ -1,0 +1,30 @@
+**********************************************************************
+Automatic MetaSploit AutoPWN Function: Requirements: PExpect
+**********************************************************************
+
+Metasploit 3 allows you to use a function called db_autopwn.
+
+Autopwn in a basic nutshell port scans systems for open ports, based
+on which ports are open, Metasploit automatically launches exploits
+based on port numbers. It doesn't do advanced fingerprinting or launch
+exploits based on operating system or what is running on that port. It
+just launches a slew of exploits at a specific host if that port is 
+in-fact open.
+
+Generally, when using this, there is a series of commands you have to
+issue, for example db_load sqlite3, db_nmap ipaddy, db_autopwn -p -t -e
+and so on and so forth. I've made a quick script that automates all of
+this for you using a python module called PExpect. Basically, you only
+have to specific your database your using, and generally this is going
+to be sqlite3 (needs to be installed from the update menu!) and the ip
+addresses you want to attack, and it does everything for you. Remember,
+on the IP addresses, you can use a range, anything that is acceptable
+to NMap.
+
+Once all exploits have finished, you can use sessions -l to list any
+successful shells that were spawned on a specific exploit.
+
+To jump to a specific shell, type sessions -i <id> to jump to that 
+specific shell and into the machine you just popped.
+
+**********************************************************************

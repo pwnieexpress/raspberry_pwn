@@ -1,0 +1,24 @@
+
+Cisco Global Exploiter [ 13 Vulnerabilities ] - Released: 08/04/2004
+
+ + Fixed a bug of Cisco IOS HTTP Auth Vulnerability exploit
+ + Added CiscoSecure ACS for Windows NT Server Denial of Service Vulnerability
+ + Added Cisco Catalyst Memory Leak Vulnerability
+ + Added Cisco CatOS CiscoView HTTP Server Buffer Overflow Vulnerability
+ + Added %u Encoding IDS Bypass Vulnerability (UTF)
+ + Added Cisco IOS HTTP Denial of Service Vulnerability
+ + Added complete vulnerabilities documentation
+
+
+
+Cisco Global Exploiter [ 8 Vulnerabilities ] - Released: 20/03/2003
+
+ + Cisco 677/678 Telnet Buffer Overflow Vulnerability
+ + Cisco IOS Router Denial of Service Vulnerability
+ + Cisco IOS HTTP Auth Vulnerability
+ + Cisco IOS HTTP Configuration Arbitrary Administrative Access Vulnerability
+ + Cisco Catalyst SSH Protocol Mismatch Denial of Service Vulnerability
+ + Cisco 675 Web Administration Denial of Service Vulnerability
+ + Cisco Catalyst 3500 XL Remote Arbitrary Command Vulnerability
+ + Cisco IOS Software HTTP Request Denial of Service Vulnerability
+  

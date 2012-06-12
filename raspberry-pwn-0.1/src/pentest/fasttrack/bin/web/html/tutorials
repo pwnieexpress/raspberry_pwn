@@ -1,0 +1,54 @@
+  </td>
+  <td width="537" align="left" valign="top">  
+
+<!--Body Content Here-->
+
+<table width="100%" border="0" cellspacing="8" cellpadding="0">
+ <tr>
+  <td class="page_title">Fast-Track Tutorials Page</td>
+ </tr>
+ <tr>
+  <td><p>
+
+The Fast-Track tutorials section will help understand each individual tool and how it can be utilized. There is a comprehensive WIKI and Bug Tracker for potential issues or enhancements you would like to see.
+
+</p></td>
+ </tr>
+ <tr>
+  <td bgcolor="#2A2A2A">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+     <tr>
+      <td class="box_bg">
+        <table width="100%" border="0" cellspacing="15" cellpadding="0">
+         <tr>
+          <td>
+           <p class="box_text">The Wiki has a comprehensive list of tools, Fast-Track overview, preventative measures on stopping Fast-Track attacks, and a bunch of other information that will help you along. There are video tutorials coming soon to that site as well.</p>
+           <p class="box_text"><b><a href="/general_functionality">General Functionality and Movement in Fast-Track</p>
+           <p class="box_text"><b><a href="/update_fasttrack">How to Update Fast-Track</p>
+           <p class="box_text"><b><a href="/metaautopwn">MetaSploit AutoPwn</p>
+           <p class="box_text"><b><a href="/sql1433hacking">SQL 1433 Hacking</p>
+           <p class="box_text"><b><a href="/sqlihowto">SQL Injection HOWTO</p>
+           <p class="box_text"><b><a href="/ftpbruter">FTP Brute Forcer</p>
+           <p class="box_text"><b><a href="/spawnshell">Spawning a Shell</p>
+           <p class="box_text"><b><a href="/exploitstut">Exploits</p>
+           <p class="box_text"><b><a href="/massclienttut">Mass Client-Side Attacks</p>
+           <p class="box_text"><b><a href="/bintohex">Binary to Hex Payload Generator</p>
+           </td>
+         </tr>
+        </table>
+      </td>
+     </tr>
+     <tr>
+      <td><img src="images/fast_track_21.jpg" width="537" height="13" alt=""></td>
+     </tr>
+    </table>
+  </td>
+ </tr>
+</table>
+<p>&nbsp;</p>
+
+<!--Body Content End-->
+
+  <p>&nbsp;</p></td>
+ </tr>
+</table>    

@@ -1,0 +1,100 @@
+  </td>
+  <td width="537" align="left" valign="top">  
+
+<!--Body Content Here-->
+
+<table width="100%" border="0" cellspacing="8" cellpadding="0">
+ <tr>
+  <td class="page_title">Fast-Track Blind Based SQLPwnage</td>
+ </tr>
+<tr><td><p>
+<br>Option 1 Attack Method (Required):
+<br>
+<br>1. Crawl an entire URL
+<br>2. Scan an entire subnet and attack
+<br>3. Use the previous scan
+<br>
+<br>Option 2 IP Address(Required):
+<br>
+<br>IPADDR or Range to Attack:
+<br>
+<br>Example: 192.168.1.1 or 192.168.1.1-254
+<br>
+<br>NOTE: If you select option 1 do not add a range, only a single IP. On use previous scan, you do not need to specify an ip address or range.
+<br>
+<br>Option 3 Payload (Required):
+<br>
+<br>Payload Delivery
+<br>
+<br>1. Custom Packed Reverse TCP Shell (AV Safe)
+<br>2. Metasploit Reverse TCP VNC Injection (Metasploit Required)
+<br>3. Metasploit Meterpreter Reverse TCP (Metasploit Required)
+<br>4. Metasploit Windows Bind Shell (Metasploit Required)
+<br>5. Metasploit Reflective DLL Injection Reverse TCP Meterpreter (Metasploit Required)
+<br>6. Metasploit Reflective DLL Injection Reverse VNC (Metasploit Required)
+<br>
+<br>Option 4 Port Number(Required):
+<br>
+<br>Specify a port number for the payload to connect back to you on.
+<tr>
+<td><p>
+<br>
+</p></td>
+ </tr>
+ <tr>
+ <tr>
+  <td class="page_title">Fast-Track SQLPwnage Blind Based Options</td>
+ </tr>
+  <td bgcolor="#2A2A2A">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+     <tr>
+      <td class="box_bg">
+        <table width="100%" border="0" cellspacing="15" cellpadding="0">
+         <tr>
+          <td>
+           <FORM NAME="sqlpwnage" FORM action="/sqlpwnageblindpost" method="post">
+           <p class="box_text">First you need to select what method of attack you want to do. The first option is crawl the URL which will crawl the entire website for you, the second is scan an entire subnet for ports 443 and 80 and automatically crawl each site found, the third you can import a previous nmap scan and use those results as a crawl and attack method.</p>
+           <p class="box_text"><b>Select the method of attack: 
+           <select name="moattack"> 
+            <option value="1" selected> Crawl an entire URL </option>
+            <option value="2"> Scan an entire subnet and attack </option>
+            <option value="3"> Use a previous scan </option>
+           </select>
+           </p></b>
+           <p class="box_text">The next option you need to specify the IP address or URL that you want to attack, if you specified scan an entire subnet then specify a range, for now this has to be a Class C range. For example 192.168.1.1-254 would be the way you would crawl an entire subnet. If your only going after one site, you can do www.thisisafakesite.com/.</p>
+           <p class="box_text"><b>Enter the URL, IP address, or range: <INPUT type="text" class="txtfield_35" name="victim"></p></b>
+
+           <p class="box_text">The next option is the payload delivery, when successful attacks occured, a multitude of payloads can be specified. Please select one below.</p>
+           <p class="box_text"><b>Payload Options: 
+           <select name="cmbPayloads">
+            <option value="1" selected> Custom Packed Reverse TCP Shell (AV Safe) </option>
+            <option value="2"> Metasploit Reverse TCP VNC Injection </option>
+            <option value="3"> Metasploit Meterpreter Reverse TCP </option>
+            <option value="4"> Metasploit Windows Bind Shell </option>
+            <option value="5"> Metasploit Reflective DLL Reverse TCP Meterpreter </option>
+            <option value="6"> Metasploit Reflective DLL Reverse VNC </option>
+           </select></p></b>
+           <p class="box_text">Next simply select the port you want the reverse connection to connect back to you on. If you are doing just a bind shell, then ignore this field.</p>
+           <p class="box_text"><b>Payload Reverse Port Number: <INPUT type="text" class="txtfield_35" name="victim"></p></b>
+           <br>
+           <p align=center><INPUT type="image" name="attack" src="images/btn_launch_2.jpg" value="Launch"> &nbsp;<a href="javascript:document.sqlpwnage.reset()"><img src="images/btn_reset.jpg" border=0 alt="Reset"></a>
+           </form>
+          </td>
+         </tr>
+        </table>
+      </td>
+     </tr>
+     <tr>
+      <td><img src="images/fast_track_21.jpg" width="537" height="13" alt=""></td>
+     </tr>
+    </table>
+  </td>
+ </tr>
+</table>
+<p>&nbsp;</p>
+
+<!--Body Content End-->
+
+  <p>&nbsp;</p></td>
+ </tr>
+</table>    

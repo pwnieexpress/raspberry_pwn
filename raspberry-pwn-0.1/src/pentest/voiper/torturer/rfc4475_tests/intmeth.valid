@@ -1,0 +1,26 @@
+<allOneLine>
+!interesting-Method0123456789_*+`.%indeed'~
+ sip:1_unusual.URI~(to-be!sure)&isn't+it$/crazy?,/;;*
+:&it+has=1,weird!*pas$wo~d_too.(doesn't-it)
+@example.com SIP/2.0
+</allOneLine>
+Via: SIP/2.0/TCP host1.example.com;branch=z9hG4bK-.!%66*_+`'~
+<allOneLine>
+To: "BEL:\<hex>07</hex> NUL:\<hex>00</hex> DEL:\<hex>7F</hex>"
+ <sip:1_unusual.URI~(to-be!sure)&isn't+it$/crazy?,/;;*
+@example.com>
+</allOneLine>
+<allOneLine>
+From: token1~` token2'+_ token3*%!.- <sip:mundane@example.com>
+;fromParam''~+*_!.-%=
+"<hex>D180D0B0D0B1D0BED182D0B0D18ED189D0B8D0B9</hex>"
+;tag=_token~1'+`*%!-.
+</allOneLine>
+Call-ID: intmeth.word%ZK-!.*_+'@word`~)(><:\/"][?}{
+CSeq: 139122385 !interesting-Method0123456789_*+`.%indeed'~
+Max-Forwards: 255
+<allOneLine>
+extensionHeader-!.%*+_`'~:
+<hex>EFBBBFE5A4A7E5819CE99BBB</hex>
+</allOneLine>
+Content-Length: 0

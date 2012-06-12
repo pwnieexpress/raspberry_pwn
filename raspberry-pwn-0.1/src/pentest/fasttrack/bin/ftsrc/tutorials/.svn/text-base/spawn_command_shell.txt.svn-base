@@ -1,0 +1,11 @@
+***********************************************************************
+Spawn Command Shell: Requirements WinExe
+***********************************************************************
+
+If any of you are familar with PSExec, it is pretty much exactly the
+same thing for Windows as it is for Linux. You need to know the username
+and password in order to get a shell to the system. Once you have that
+Fast-Track inserts all the proper commands into a third party application
+called WinEXE. 
+
+***********************************************************************

@@ -1,0 +1,27 @@
+use Net::Telnet();
+
+sub ihist {
+
+	my ($host, $port) = @_;
+
+	$telnet = new Net::Telnet ( Port => $port,
+				    Host => $host,
+				    Timeout => 1,
+				    Errmode => 'die');
+
+	$telnet->waitfor('/password[: ]*$/i');
+
+	$users = `finger \@$host`;
+
+	$telnet->print("\x16\x00");
+	for ($i = 0; $i < 97; $i++)
+	{
+		$telnet->print("\x20");
+	}
+	$telnet->print("\n\n");
+	
+	$output = $telnet->get;
+
+	return $users, $output;
+
+} print;

@@ -1,0 +1,620 @@
+<html>
+<head>
+<style>
+	ul {
+		list-style-type: circle;
+	}
+
+	ul ul {
+		list-style-type: disc;
+	}
+
+	table {
+		border: 0;
+		font-size: 10pt;
+	}
+
+	p {
+		text-indent: 25px;
+	}
+
+	h3 {
+		text-align: center;
+		margin-left: auto;
+		margin-right: auto;
+		width: 60%;
+		border-bottom: thin solid black;
+	}
+
+	#body {
+		width: 90%;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	#footer {
+		text-align: center;
+		margin-left:auto;
+		margin-right:auto;
+		margin-top: 25px;
+		font-size: 8pt;
+	}
+	.topspace {
+		margin: 50px 0 0 0;
+		margin-right: auto;
+		margin-left: auto;
+	}
+</style>
+</head>
+<body>
+<div id="body">
+
+<h3>Description</h3>
+<p>
+	Despite the wide spread use of the Universal Plug-N-Play protocol in applications, operating systems and embedded devices, few tools exist that allow
+	simple discovery and interaction with UPNP-enabled devices. Further, of the tools that do exist, most or all are closed-source Windows binaries.
+	Miranda is a Python-based UPNP client application designed to discover, query and interact with UPNP devices, particularly Internet 
+	Gateway Devices (aka, routers). 
+</p>
+
+<h3>Features</h3>
+<p>
+<ul>
+	<li>Interactive shell with tab completion and command history</li>
+	<li>Passive and active discovery of UPNP devices</li>
+	<li>Customizable MSEARCH queries (query for specific devices/services)</li>
+	<li>Full control over application settings such as IP addresses, ports and headers</li>
+	<li>Simple enumeration of UPNP devices, services, actions and variables</li>
+	<li>Correlation of input/output state variables with service actions</li>
+	<li>Ability to send actions to UPNP services/devices</li>
+	<li>Ability to save data to file for later analysis and collaberation</li>
+	<li>Command logging</li>
+</ul>
+</p>
+
+<h3>System Requirements</h3>
+<p>
+	Miranda was built on and for a Linux system and has been tested on a Linux 2.6 kernel with Python 2.5.
+	However, since it is written in Python, most functionality *should* be available for any Python-supported
+	platform.
+</p>
+<p>
+	Miranda has been tested against IGDs from various vendors, including Linksys, D-Link, and ActionTec.
+	All Python modules came installed by default on a Linux Mint 5 (Ubuntu 8.04) test system.
+</p>
+	
+<h3>CLI Usage</h3>
+<p>
+<pre>
+	./miranda.py [OPTIONS]
+
+	        -s &lt;struct file&gt;        Load previous host data from struct file
+	        -l &lt;log file&gt;           Log user-supplied commands to log file
+		-i &lt;interface&gt;		Specify the name of the interface to use (Linux only, requires root)
+	        -u                      Disable show-uniq-hosts-only option
+		-v			Enable verbose mode
+	        -d                      Enable debug mode
+	        -h                      Show command line help
+
+	If run with no options, you will be dropped into the interactive shell with the default settings.
+</pre>
+</p>
+
+<h3>Shell Usage</h3>
+<p>
+<table cellspacing="10" align="center">
+<tr>
+	<td>msearch</td>
+        <td>Actively locate UPNP hosts</td>
+</tr><tr>	
+	<td>pcap</td>            
+	<td>Passively listen for UPNP hosts</td>
+</tr><tr>
+	<td>host</td>
+        <td>View host list and host information</td>
+</tr><tr>
+	<td>save</td>
+        <td>Save current host data to file</td>
+</tr><tr>
+	<td>load</td>
+        <td>Restore previous host data from file</td>
+</tr><tr>
+	<td>log</td>
+        <td>Logs user-supplied commands to a log file</td>
+</tr><tr>
+	<td>head</td>            
+	<td>Show/define HTTP headers</td>
+</tr><tr>
+	<td>seti</td>            
+	<td>Show/define application settings</td>
+</tr><tr>
+	<td>help</td>            
+	<td>Show program help</td>
+</tr><tr>
+	<td>quit</td>            
+	<td>Exit the shell</td>
+</tr><tr>
+	<td>exit</td>
+	<td>Exit the shell</td>
+</tr>
+</table>
+</p>
+<p>
+	Many of the shell commands support various sub-commands. Miranda is designed to be as self-documenting
+	as possible, so use '&lt;command&gt; help' for specific command usage, descriptions and examples.
+</p>
+
+<h3 class="topspace">Usage Tutorial</h3>
+
+<h4>Introduction</h4>
+<p>
+	While this tutorial will not cover every command and option available in Miranda, it will walk you through the basic
+	usage and demonstrate the tool's major capabilities.
+</p>
+
+<h4>Discovering UPNP Hosts</h4>
+<p>
+	Upon running Miranda, you will be greeted with a 'upnp>' prompt. You will likely wish to discover all UPNP hosts on your
+	network first; this can be done with the msearch or pcap commands. The difference is that pcap will passively listen
+	for SSDP notification messages sent out by UPNP hosts, while msearch will actively query the network for UPNP hosts. In
+	this example, we will use the msearch command:
+</p>
+<pre>
+			upnp> msearch 
+
+			Entering dicovery mode for 'upnp:rootdevice', Ctl+C to stop...
+
+			****************************************************************
+			SSDP reply message from 192.168.1.1:2869
+			XML file is located at http://192.168.1.1:2869/IGatewayDeviceDescDoc
+			Device is running VxWorks/5.4.2 UPnP/1.0 iGateway/1.1
+			****************************************************************
+
+			Discover mode halted...
+</pre>
+<p>
+	Here you can see that we found one host on the network (in this case, the network's Linksys router). When run without any
+	arguments, the msearch command will query the network for all UPNP root devices. However, if we had only been interested 
+	in UPNP hosts that are of a certian device type, or that offer a particular service, we could have queried the network 
+	for only hosts matching our criteria. For example, to search only for WANDevice UPNP devices, we could have run:
+</p>
+<pre>
+			upnp> msearch device WANDevice
+</pre>
+<p>
+	Likewise, if we only wanted to find hosts that support the WANIPConnection service, we could have run:
+</p>
+<pre>		
+			upnp> msearch service WANIPConnection
+</pre>
+
+<h4>Listing UPNP Hosts</h4>
+<p>
+	The 'host list' command will display all discovered hosts along with their host index number:
+</p>
+<pre>
+			upnp> host list 
+
+			[0] 192.168.1.1:2869
+</pre>
+<p>
+	Since the Linksys router was the first (and in this case, only) host discovered, it has a host index number of 0. This index
+	number will be used to reference this particular host in subsequent commands.
+</p>
+
+<h4>Viewing Host Info, Part 1</h4>
+<p>
+	Before moving on, let's look at a few other host commands that we can run. At this point it is important to note that all
+	of the 'host' commands feature full tab completion; if you're unsure of what options are available to you, or what values
+	are in a particular piece of the host data structure, pressing TAB twice will show you.
+</p>
+<p>
+	The first command we will look at is 'host summary'; this command will
+	display a summary of the host, along with the host's device type(s) and device info. Since we haven't enumerated any of the
+	device types and services supported by the Linksys router, this command will only display a couple lines of information that
+	identify the host and the location of the host's main UPNP XML file:
+</p>
+<pre>
+			upnp> host summary 0
+
+			Host: 192.168.1.1:2869
+			XML File: http://192.168.1.1:2869/IGatewayDeviceDescDoc
+</pre>
+<p>
+	Next, there is the 'host info' command that lets you walk through the entire data structure that holds information about
+	the hosts that we've discovered. Running 'host info 0' shows the following:
+</p>
+<pre>
+			upnp> host info 0
+
+			xmlFile : http://192.168.1.1:2869/IGatewayDeviceDescDoc
+			name : 192.168.1.1:2869
+			proto : http://
+			serverType : None
+			upnpServer : VxWorks/5.4.2 UPnP/1.0 iGateway/1.1
+			dataComplete : False
+			deviceList : {}
+</pre>
+<p>
+	You can see that the dataComplete field is set to false, indicating that we have not enumerated any detailed information about
+	this host. However, we do know a little bit about the host just from the results of running the msearch command, including the 
+	HTTP Server header that it is using, as indicated by the upnpServer field. Note thate the value of the deviceList field is '{}'. 
+	Any field with this value indicates that it contains data sub-sets which can be further displayed with the 'host info' command 
+	like so:
+</p>
+<pre>
+			upnp> host info 0 deviceList
+</pre>
+<p>
+	Because we have not discovered what type of UPNP device the Linksys router is, this command will return no data at this time.
+</p>
+<p>
+	There is also the 'host details' command that will display all devices, services, actions, arguments, etc, related to a 
+	particular host. Again, we have not discovered this information yet, and the 'host details' command tells us so:
+</p>
+<pre>
+			upnp> host details 0
+
+			Can't show host info because I don't have it. Please run 'host get 0'
+</pre>
+
+<h4>Getting Host Info</h4>
+<p>
+	We'll take the 'host details' suggestion and run the 'host get' command. This command will request and parse all device and service
+	XML files that are advertised by the host, and place the extracted data into the host data structure so that we can view it using the previously mentioned host commands:
+</p>
+<pre>
+			upnp> host get 0
+
+			Requesting device and service info for 192.168.1.1:2869 (this could take a few seconds)...
+
+			Host data enumeration complete!
+</pre>
+
+<h4>Viewing Host Info, Part 2</h4>
+<p>
+	Now, let's try running the 'host summary' command again and see what it reports:
+</p>
+<pre>
+			upnp> host summary 0
+
+			Host: 192.168.1.1:2869
+			XML File: http://192.168.1.1:2869/IGatewayDeviceDescDoc
+			WANConnectionDevice
+				manufacturerURL: http://www.linksys.com/
+				modelName: WTR54AG
+				UPC: IGateway-01
+				modelNumber: WTR54AG-01
+				presentationURL: None
+				fullName: urn:schemas-upnp-org:device:WANConnectionDevice:1
+				friendlyName: WANConnectionDevice1
+				modelURL: http://www.linksys.com/
+				modelDescription: WTR54AG
+				UDN: uuid:34bc065f-e59a-1612-9be5-c67e816b4bfb
+				manufacturer: Linksys
+			WANDevice
+				manufacturerURL: http://www.linksys.com/
+				modelName: WRT54G
+				UPC: IGateway-01
+				modelNumber: WRT54G-01
+				presentationURL: None
+				fullName: urn:schemas-upnp-org:device:WANDevice:1
+				friendlyName: WANDevice
+				modelURL: http://www.linksys.com/
+				modelDescription: WRT54G
+				UDN: uuid:28f8f50a-e59a-1612-9be4-c67e816b4bfb
+				manufacturer: Linksys
+			InternetGatewayDevice
+				manufacturerURL: http://www.linksys.com/
+				modelName: WRT54G
+				UPC: IGateway-01
+				modelNumber: WRT54G-01
+				presentationURL: http://192.168.1.1:80/
+				fullName : urn:schemas-upnp-org:device:InternetGatewayDevice:1
+				friendlyName: WRT54G
+				modelURL: http://www.linksys.com/
+				modelDescription: WRT54G
+				UDN: uuid:13814000-4ff1-11f2-9be3-c67e816b4bfb
+				manufacturer: Linksys
+</pre>
+<p>
+	If we hadn't known that this was a Linksys device before, we do now! The router is actually advertising itself as three
+	UPNP devices: a WANConnectionDevice, a WANDevice, and an InternetGatewayDevice.
+</p>
+
+<h4>Saving Your Data</h4>
+<p>
+	You can also try re-running the 'host details 0' command; for clarity and brevity, the output will not be shown here
+	as this command will spit out everything it knows about the host and its devices/services, which at this point is quite
+	a bit. You will probably want to save this output to disk in order to view it more easily; this can be done with the 
+	'save info' command:
+</p>
+<pre>
+			upnp> save info 0 wrt54g
+
+			Host info for '192.168.1.1:2869' saved to 'info_wrt54g.mir'
+</pre>
+<p>
+	The 'wrt54g' file name is an optional argument; if it had not been supplied, then the host index number would have been used ('info_0.mir').
+</p>
+
+<p>
+	If you wish to save your data to share with others or to view at a later date, you can
+	use the 'save data' command. This will save the entire host structure that contains all the information about all of the UPNP hosts
+	that you have discovered and enumerated during your session:
+</p>
+<pre>
+			upnp> save data wrt54g
+
+			Host data saved to 'struct_wrt54g.mir'
+</pre>
+<p>
+	This data can later be imported back into Miranda using the 'load' command:
+</p>
+<pre>
+			upnp> load struct_wrt54g.mir 
+
+			Host data restored:
+
+				[0] 192.168.1.1:2869
+</pre>
+<p>
+	Because this data structure is saved using Python's pickle module, any other Python script can load the file for analysis using pickle.
+</p>
+
+<h4>Analyzing Host Information</h4>
+<p>
+	Let's now see if we can view the deviceList values with the 'host info' command that we tried earlier:
+</p>
+<pre>
+			upnp> host info 0 deviceList
+
+			WANConnectionDevice : {}
+			WANDevice : {}
+			InternetGatewayDevice : {}
+</pre>
+<p>
+	The three device types are listed here, and they have additional information that can be enumerated. You can explore the various
+	fields and options as you like, but for brevity, we will examine only a couple of the most interesting; the first of these
+	is the 'services' field which exists for each device listed in the deviceList. Taking a look at the services field for the WANConnectionDevice
+	shows that it offers two services, WANIPConnection and WANEthernetLinkConfig:
+</p>
+<pre>
+			upnp> host info 0 deviceList WANConnectionDevice services
+
+			WANIPConnection : {}
+			WANEthernetLinkConfig : {}
+</pre>
+<p>
+	Each service also contains several sub-fields, but the one that we are most concerned with is the 'actions' field which shows
+	the actions that each service supports (if this command looks too long to type, don't worry; use the tab completion!):
+</p>
+<pre>
+			upnp> host info 0 deviceList WANConnectionDevice services WANIPConnection actions
+
+			AddPortMapping : {}
+			GetWarnDisconnectDelay : {}
+			GetGenericPortMappingEntry : {}
+			GetSpecificPortMappingEntry : {}
+			RequestTermination : {}
+			ForceTermination : {}
+			GetExternalIPAddress : {}
+			GetConnectionTypeInfo : {}
+			GetIdleDisconnectTime : {}
+			GetStatusInfo : {}
+			SetConnectionType : {}
+			DeletePortMapping : {}
+			GetAutoDisconnectTime : {}
+			RequestConnection : {}
+			GetNATRSIPStatus : {}
+</pre>
+
+<h4>Sending UPNP Commands</h4>
+<p>
+	Now that we know what devices, services, and actions exist, we can start sending UPNP commands to the Linksys router. We will try
+	running the GetExternalIPAddress action that is supported by the WANIPConnection service offered by the WANConnectionDevice device.
+	To send commands to a UPNP host, use the 'host send' command; you must specify the host index number, the device name, the service 
+	name, and the action name, in that order. If the action requires any input values, you will be prompted for them automatically, as
+	well as being informed of those value's type, allowed use, and default values/ranges, if any. The GetExternalIPAddress does not
+	require any input, so it runs immediately:
+</p>
+<pre>
+			upnp> host send 0 WANConnectionDevice WANIPConnection GetExternalIPAddress
+
+			NewExternalIPAddress : 69.123.45.678
+</pre>
+<p>
+	The NewExternalIPAddress is the name of the output service state variable associated with the GetExternalIPAddress (some actions have
+	several variables associated with them, but in this case there is only one), and 69.123.45.678 is the value that the UPNP host returned for that variable, which in this case is the IP address of the WAN interface.
+</p>
+
+<p>
+	Now let's look at a more complex request; we will attempt to forward data from port 8080 of the external WAN interface to port 80 of
+	the router via the AddPortMapping action, essentially enabling remote administration for the router:
+</p>
+<pre>
+			upnp> host send 0 WANConnectionDevice WANIPConnection AddPortMapping 
+
+			Required argument:
+				Argument Name:  NewPortMappingDescription
+				Data Type:      string
+				Allowed Values: []
+				Set NewPortMappingDescription value to: <b>Test Description</b>
+
+			Required argument:
+				Argument Name:  NewLeaseDuration
+				Data Type:      ui4
+				Allowed Values: []
+				Set NewLeaseDuration value to: <b>0</b>
+
+			Required argument:
+				Argument Name:  NewInternalClient
+				Data Type:      string
+				Allowed Values: []
+				Set NewInternalClient value to: <b>192.168.1.1</b>
+
+			Required argument:
+				Argument Name:  NewEnabled
+				Data Type:      boolean
+				Allowed Values: []
+				Set NewEnabled value to: <b>1</b>
+
+			Required argument:
+				Argument Name:  NewExternalPort
+				Data Type:      ui2
+				Allowed Values: []
+				Set NewExternalPort value to: <b>8080</b>
+
+			Required argument:
+				Argument Name:  NewRemoteHost
+				Data Type:      string
+				Allowed Values: []
+				Set NewRemoteHost value to: 
+
+			Required argument:
+				Argument Name:  NewProtocol
+				Data Type:      string
+				Allowed Values: ['TCP', 'UDP']
+				Set NewProtocol value to: <b>TCP</b>
+
+			Required argument:
+				Argument Name:  NewInternalPort
+				Data Type:      ui2
+				Allowed Values: []
+				Set NewInternalPort value to: <b>80</b>
+
+</pre>
+
+<p>
+	Note that several values were required to run this action, and that we were prompted for each one. Note that boolean values are
+	either '1' (true) or '0' (false). By leaving the NewRemoteHost value blank, we allow any remote host to use this port mapping.
+	Since this action does not return any values, there is no output (no news is good news). 
+</p>
+<p>
+	We can verify that the port mapping was successful by invoking the GetSpecificPortMappingEntry action; this action requires that
+	we input the external port number, external host, and protocol type of the port mapping entry we are interested in:
+</p>
+<pre>
+			upnp> host send 0 WANConnectionDevice WANIPConnection GetSpecificPortMappingEntry 
+
+			Required argument:
+				Argument Name:  NewExternalPort
+				Data Type:      ui2
+				Allowed Values: []
+				Set NewExternalPort value to: <b>8080</b>
+
+			Required argument:
+				Argument Name:  NewRemoteHost
+				Data Type:      string
+				Allowed Values: []
+				Set NewRemoteHost value to: 
+
+			Required argument:
+				Argument Name:  NewProtocol
+				Data Type:      string
+				Allowed Values: ['TCP', 'UDP']
+				Set NewProtocol value to: <b>TCP</b>
+
+			NewPortMappingDescription : Test Description
+			NewLeaseDuration : 0
+			NewInternalClient : 192.168.1.1
+			NewEnabled : 1
+			NewInternalPort : 80
+</pre>
+<p>
+	Finally, we can delete this port mapping entry using the DeletePortMapping action, which requires the same input parameters as the
+	GetSpecificPortMappingEntry action did:
+</p>
+<pre>
+			upnp> host send 0 WANConnectionDevice WANIPConnection DeletePortMapping 
+
+			Required argument:
+				Argument Name:  NewProtocol
+				Data Type:      string
+				Allowed Values: ['TCP', 'UDP']
+				Set NewProtocol value to: <b>TCP</b>
+
+			Required argument:
+				Argument Name:  NewExternalPort
+				Data Type:      ui2
+				Allowed Values: []
+				Set NewExternalPort value to: <b>8080</b>
+
+			Required argument:
+				Argument Name:  NewRemoteHost
+				Data Type:      string
+				Allowed Values: []
+				Set NewRemoteHost value to: 
+
+</pre>
+<p>
+	Again, no news is good news, and if we try to run GetSpecificPortMappingEntry after deleting the port mapping, we get 
+	an error indicating that the port mapping no longer exists:
+</p>
+<pre>
+			upnp> host send 0 WANConnectionDevice WANIPConnection GetSpecificPortMappingEntry 
+
+			Required argument:
+				Argument Name:  NewExternalPort
+				Data Type:      ui2
+				Allowed Values: []
+				Set NewExternalPort value to: <b>8080</b>
+
+			Required argument:
+				Argument Name:  NewRemoteHost
+				Data Type:      string
+				Allowed Values: []
+				Set NewRemoteHost value to: 
+
+			Required argument:
+				Argument Name:  NewProtocol
+				Data Type:      string
+				Allowed Values: ['TCP', 'UDP']
+				Set NewProtocol value to: <b>TCP</b>
+
+			Request for 'http://192.168.1.1:2869/WANIPConnCtrlUrl' failed with error code: 500
+			SOAP error message: NoSuchEntryInArray
+
+</pre>
+
+<h4>Conclusion</h4>
+<p>
+	Miranda has many other features, and is designed to be self-documenting; all of the shell commands have their own help information
+	that detail usage and sub-commands, and provide descriptions and examples. However, the above command set comprises 99% of what you
+	will probably want to use Miranda for, and details the steps to discover and interact with UPNP devices on your network.
+</p>
+
+<h3>General Notes</h3>
+<p>
+	<ul>
+		<li><b>Base64 Data Types</b>
+			<ul>
+				<li>If an input value's data type is bin.base64, you may enter the data in plain text; Miranda will base64 encode the string before sending it to the UPNP host.</li>
+				<li>If an output value's data type is bin.base64, Miranda will base64 decode the data before displaying it to you.</li>
+			</ul>
+		</li>
+		<li><b>Debug Mode</b>
+			<ul>
+				<li>By default the debug mode is disabled; it can be enabled by issuing the 'seti debug' command from the Miranda shell, or by specifying the -d option on the command line.</li>
+				<li>In debug mode, the debug command is enabled; this command will eval() whatever you pass to it, which makes it useful for viewing the contents of data structures and the like.</li>
+			</ul>
+		</li>
+		<li><b>Duplicate Host Entries</b>
+			<ul>
+				<li>If you run the pcap/msearch commands long enough, they will see the same UPNP hosts re-broadcasting themselves on the network. By default, a host is only reported once, and duplicate discoveries of that host are ignored.</li>
+				<li>If you wish for duplicate discoveries to be reported, disable the unique host option using the 'seti uniq' command from the Miranda shell, or by specifying the -u option on the command line.</li>
+			</ul>
+		</li>
+	</ul>
+</p>
+
+<h3>Contact</h3>
+<p>
+	Send all comments/suggestions/bugs/etc to Craig Heffner, dev [at] sourcesec.com.
+</p>
+
+<div id="footer">
+	Copyright &copy; 07/16/2008, Craig Heffner
+</div>
+</body>
+</html>

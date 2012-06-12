@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=svwar
+Encoding=UTF-8
+Exec=sh -c "cd /pentest/voip/sipvicious/ ; ./svwar.py --help ; sudo -s"
+Icon=btmenu.png
+StartupNotify=false
+Terminal=true
+Type=Application
+Categories=bt-network-analysis-identify-live-hosts;

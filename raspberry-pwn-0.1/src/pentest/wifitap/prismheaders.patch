@@ -1,0 +1,278 @@
+diff -u wifiarp.py wifiarp.py.new
+--- wifiarp.py		2006-10-08 18:45:17.000000000 +0200
++++ wifiarp.py.new	2006-10-08 18:48:32.000000000 +0200
+@@ -40,6 +40,7 @@
+ 
+ IN_IFACE  = "ath0"
+ OUT_IFACE = "ath0"
++HAS_PRISM = 0
+ WEP       = 0
+ KEYID     = 0
+ DEBUG     = 0
+@@ -50,12 +51,13 @@
+ 
+ 
+ def usage(status=0):
+-    print "Usage: wifitap -b <BSSID> -s <HWSRC> [-o <iface>] [-i <iface>]"
++    print "Usage: wifitap -b <BSSID> -s <HWSRC> [-o <iface>] [-i <iface>] [-p]"
+     print "                          [-w <WEP key> [-k <key id>]] [-d [-v]]"
+     print "                          [-h]"
+     print "     -b <BSSID>    specify BSSID for injection"
+     print "     -s <HWSRC>    specify source MAC address for 802.11 and ARP headers"
+     print "     -o <iface>    specify interface for injection (default: ath0)"
++    print "     -p            Prism Headers shift needed"
+     print "     -w <key>      WEP mode and key"
+     print "     -k <key id>   WEP key id (default: 0)"
+     print "     -d            activate debug"
+@@ -63,7 +65,7 @@
+     print "     -h            this so helpful output"
+     sys.exit(status)
+ 
+-opts = getopt.getopt(sys.argv[1:],"b:o:i:s:w:k:dvh")
++opts = getopt.getopt(sys.argv[1:],"b:o:i:s:w:k:pdvh")
+ 
+ for opt,optarg in opts[0]:
+     if opt == "-b":
+@@ -79,6 +81,8 @@
+ 	WEPKEY = optarg
+     elif opt == "-k":
+ 	KEYID = int(optarg)
++    elif opt == "-p":
++	HAS_PRISM = 1
+     elif opt == "-d":
+ 	DEBUG = 1
+     elif opt == "-v":
+@@ -149,8 +153,12 @@
+ conf.iface = OUT_IFACE
+ 
+ # Here we put a BPF filter so only 802.11 Data/to-DS frames are captured
+-s = conf.L2listen(iface = IN_IFACE,
+-    filter = "link[0]&0xc == 8 and link[1]&0xf == 1")
++if HAS_PRISM:
++    s = conf.L2listen(iface = IN_IFACE,
++	filter = "link[144]&0xc == 8 and link[145]&0xf == 1")
++else:
++    s = conf.L2listen(iface = IN_IFACE,
++	filter = "link[0]&0xc == 8 and link[1]&0xf == 1")
+ 
+ # Speed optimization si Scapy does not have to parse payloads
+ ARP.payload_guess=[]
+diff -u wifidns.py wifidns.py.new
+--- wifidns.py		2006-10-08 18:46:11.000000000 +0200
++++ wifidns.py.new	2006-10-08 18:48:32.000000000 +0200
+@@ -40,6 +40,7 @@
+ 
+ IN_IFACE  = "ath0"
+ OUT_IFACE = "ath0"
++HAS_PRIMS = 0
+ HAS_SMAC  = 0
+ SMAC      = ""
+ WEP       = 0
+@@ -53,7 +54,7 @@
+ 
+ 
+ def usage(status=0):
+-    print "Usage: wifidns -b <BSSID> -a <IP> [-o <iface>] [-i <iface>]"
++    print "Usage: wifidns -b <BSSID> -a <IP> [-o <iface>] [-i <iface>] [-p]"
+     print "                          [-s <SMAC>] [-t <TTL>] [-w <WEP key>]"
+     print "                          [-k <key id>]] [-d [-v]] [-h]"
+     print "     -b <BSSID>    specify BSSID for injection"
+@@ -61,6 +62,7 @@
+     print "     -t <TTL>      Set TTL (default: 64)"
+     print "     -o <iface>    specify interface for injection (default: ath0)"
+     print "     -i <iface>    specify interface for listening (default: ath0)"
++    print "     -p            Prism Headers shift needed"
+     print "     -s <SMAC>     specify source MAC address for injected frames"
+     print "     -w <key>      WEP mode and key"
+     print "     -k <key id>   WEP key id (default: 0)"
+@@ -81,19 +83,21 @@
+     elif opt == "-i":
+ 	IN_IFACE = optarg
+     elif opt == "-s":
+-	HAS_SMAC += 1
++	HAS_SMAC = 1
+ 	SMAC = optarg
+     elif opt == "-w":
+-	WEP += 1
++	WEP = 1
+ 	WEPKEY = optarg
+     elif opt == "-k":
+ 	KEYID = int(optarg)
+     elif opt == "-t":
+ 	TTL = int(optarg)
++    elif opt == "-p":
++	HAS_PRISM = 1
+     elif opt == "-d":
+-	DEBUG += 1
++	DEBUG = 1
+     elif opt == "-v":
+-	VERB += 1
++	VERB = 1
+     elif opt == "-h":
+ 	usage()
+ 
+@@ -173,8 +177,12 @@
+ conf.iface = OUT_IFACE
+ 
+ # Here we put a BPF filter so only 802.11 Data/to-DS frames are captured
+-s = conf.L2listen(iface = IN_IFACE,
+-    filter = "link[0]&0xc == 8 and link[1]&0xf == 1")
++if HAS_PRISM:
++    s = conf.L2listen(iface = IN_IFACE,
++	filter = "link[144]&0xc == 8 and link[145]&0xf == 1")
++else:
++    s = conf.L2listen(iface = IN_IFACE,
++	filter = "link[0]&0xc == 8 and link[1]&0xf == 1")
+ 
+ # Speed optimization si Scapy does not have to parse payloads
+ DNS.payload_guess=[]
+diff -u wifiping.py wifiping.py.new
+--- wifiping.py		2006-09-11 13:53:48.000000000 +0200
++++ wifiping.py.new	2006-10-08 18:48:32.000000000 +0200
+@@ -40,6 +40,7 @@
+ 
+ IN_IFACE  = "ath0"
+ OUT_IFACE = "ath0"
++HAS_PRISM = 0
+ HAS_SMAC  = 0
+ SMAC      = ""
+ WEP       = 0
+@@ -52,13 +53,14 @@
+ 
+ 
+ def usage(status=0):
+-    print "Usage: wifitap -b <BSSID> [-t <TTL>] [-o <iface>] [-i <iface>]"
++    print "Usage: wifitap -b <BSSID> [-t <TTL>] [-o <iface>] [-i <iface>] [-p]"
+     print "                          [-s <SMAC>] [-w <WEP key> [-k <key id>]]"
+     print "                          [-d [-v]] [-h]"
+     print "     -b <BSSID>    specify BSSID for injection"
+     print "     -t <TTL>      Set TTL (default: 64)"
+     print "     -o <iface>    specify interface for injection (default: ath0)"
+     print "     -i <iface>    specify interface for listening (default: ath0)"
++    print "     -p            Prism Headers shift needed"
+     print "     -s <SMAC>     specify source MAC address for injected frames"
+     print "     -w <key>      WEP mode and key"
+     print "     -k <key id>   WEP key id (default: 0)"
+@@ -67,7 +69,7 @@
+     print "     -h            this so helpful output"
+     sys.exit(status)
+ 
+-opts = getopt.getopt(sys.argv[1:],"b:o:i:s:w:k:t:dvh")
++opts = getopt.getopt(sys.argv[1:],"b:o:i:s:w:k:t:pdvh")
+ 
+ for opt,optarg in opts[0]:
+     if opt == "-b":
+@@ -77,19 +79,21 @@
+     elif opt == "-i":
+ 	IN_IFACE = optarg
+     elif opt == "-s":
+-	HAS_SMAC += 1
++	HAS_SMAC = 1
+ 	SMAC = optarg
+     elif opt == "-w":
+-	WEP += 1
++	WEP = 1
+ 	WEPKEY = optarg
+     elif opt == "-k":
+ 	KEYID = int(optarg)
+     elif opt == "-t":
+ 	TTL = int(optarg)
++    elif opt == "-p":
++	HAS_PRISM = 1
+     elif opt == "-d":
+-	DEBUG += 1
++	DEBUG = 1
+     elif opt == "-v":
+-	VERB += 1
++	VERB = 1
+     elif opt == "-h":
+ 	usage()
+ 
+@@ -159,8 +163,12 @@
+ conf.iface = OUT_IFACE
+ 
+ # Here we put a BPF filter so only 802.11 Data/to-DS frames are captured
+-s = conf.L2listen(iface = IN_IFACE,
+-    filter = "link[0]&0xc == 8 and link[1]&0xf == 1")
++if HAS_PRISM:
++    s = conf.L2listen(iface = IN_IFACE,
++	filter = "link[144]&0xc == 8 and link[145]&0xf == 1")
++else:
++    s = conf.L2listen(iface = IN_IFACE,
++	filter = "link[0]&0xc == 8 and link[1]&0xf == 1")
+ 
+ # Speed optimization si Scapy does not have to parse payloads
+ ICMP.payload_guess=[]
+diff -u wifitap.py wifitap.py.new
+--- wifitap.py		2006-10-08 18:46:39.000000000 +0200
++++ wifitap.py.new	2006-10-08 18:48:32.000000000 +0200
+@@ -39,6 +39,7 @@
+ 
+ IN_IFACE  = "ath0"
+ OUT_IFACE = "ath0"
++HAS_PRISM = 0
+ HAS_SMAC  = 0
+ SMAC      = ""
+ WEP       = 0
+@@ -50,11 +51,12 @@
+ 
+ 
+ def usage(status=0):
+-    print "Usage: wifitap -b <BSSID> [-o <iface>] [-i <iface>] [-s <SMAC>]"
++    print "Usage: wifitap -b <BSSID> [-o <iface>] [-i <iface>] [-s <SMAC>] [-p]"
+     print "                          [-w <WEP key> [-k <key id>]] [-d [-v]] [-h]"
+     print "     -b <BSSID>    specify BSSID for injection"
+     print "     -o <iface>    specify interface for injection (default: ath0)"
+     print "     -i <iface>    specify interface for listening (default: ath0)"
++    print "     -p            Prism Headers shift needed"
+     print "     -s <SMAC>     specify source MAC address for injected frames"
+     print "     -w <key>      WEP mode and key"
+     print "     -k <key id>   WEP key id (default: 0)"
+@@ -63,7 +65,7 @@
+     print "     -h            this so helpful output"
+     sys.exit(status)
+ 
+-opts = getopt.getopt(sys.argv[1:],"b:o:i:s:w:k:dvh")
++opts = getopt.getopt(sys.argv[1:],"b:o:i:s:w:k:pdvh")
+ 
+ for opt,optarg in opts[0]:
+     if opt == "-b":
+@@ -73,17 +75,19 @@
+     elif opt == "-i":
+ 	IN_IFACE = optarg
+     elif opt == "-s":
+-	HAS_SMAC += 1
++	HAS_SMAC = 1
+ 	SMAC = optarg
+     elif opt == "-w":
+-	WEP += 1
++	WEP = 1
+ 	WEPKEY = optarg
+     elif opt == "-k":
+ 	KEYID = int(optarg)
++    elif opt == "-p":
++	HAS_PRISM = 1
+     elif opt == "-d":
+-	DEBUG += 1
++	DEBUG = 1
+     elif opt == "-v":
+-	VERB += 1
++	VERB = 1
+     elif opt == "-h":
+ 	usage()
+ 
+@@ -152,8 +156,12 @@
+ conf.iface = OUT_IFACE
+ 
+ # Here we put a BPF filter so only 802.11 Data/to-DS frames are captured
+-s = conf.L2listen(iface = IN_IFACE,
+-    filter = "link[0]&0xc == 8 and link[1]&0xf == 1")
++if HAS_PRISM:
++    s = conf.L2listen(iface = IN_IFACE,
++	filter = "link[144]&0xc == 8 and link[145]&0xf == 1")
++else:
++    s = conf.L2listen(iface = IN_IFACE,
++	filter = "link[0]&0xc == 8 and link[1]&0xf == 1")
+ 
+ # Open /dev/net/tun in TAP (ether) mode
+ f = os.open("/dev/net/tun", os.O_RDWR)

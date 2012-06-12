@@ -1,0 +1,56 @@
+  </td>
+  <td width="537" align="left" valign="top">  
+
+<!--Body Content Here-->
+
+<table width="100%" border="0" cellspacing="8" cellpadding="0">
+ <tr>
+  <td class="page_title">mIRC 6.34 Remote Buffer Overflow Exploit</td>
+ </tr>
+ <tr>
+<td><p>
+<br>
+<br>mIRC 6.34 Remote Buffer Overflow Exploit
+<br>Original Exploit by SkD (skdrat <at> hotmail <.> com)
+<br>Rewritten by: ReL1K for Fast-Track (perl to python convert)
+<br>
+<br>Credits to securfrog for publishing the PoC.
+<br>
+<br>Targets:
+<br>XP Service Pack 3
+<br>Vista<br>
+</p></td>
+ </tr>
+ <tr>
+ <tr>
+  <td class="page_title">Exploit Options</td>
+ </tr>
+  <td bgcolor="#2A2A2A">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+     <tr>
+      <td class="box_bg">
+        <table width="100%" border="0" cellspacing="15" cellpadding="0">
+         <tr>
+          <td>
+           <FORM action="/mircpost" method="post">
+           <p align=center><INPUT type="image" name="attack" src="images/btn_launch_1.jpg" value="Launch">
+           </FORM><p>
+          </td>
+         </tr>
+        </table>
+      </td>
+     </tr>
+     <tr>
+      <td><img src="images/fast_track_21.jpg" width="537" height="13" alt=""></td>
+     </tr>
+    </table>
+  </td>
+ </tr>
+</table>
+<p>&nbsp;</p>
+
+<!--Body Content End-->
+
+  <p>&nbsp;</p></td>
+ </tr>
+</table>    

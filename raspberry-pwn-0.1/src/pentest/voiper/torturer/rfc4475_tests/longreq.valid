@@ -1,0 +1,80 @@
+INVITE sip:user@example.com SIP/2.0
+<allOneLine>
+To: "I have a user name of
+ <repeat count=10>extreme</repeat> proportion"
+<sip:user@example.com:6000;
+unknownparam1=very<repeat count=20>long</repeat>value;
+longparam<repeat count=25>name</repeat>=shortvalue;
+very<repeat count=25>long</repeat>ParameterNameWithNoValue>
+</allOneLine>
+<allOneLine>
+F: sip:
+<repeat count=5>amazinglylongcallername</repeat>@example.net
+;tag=12<repeat count=50>982</repeat>424
+;unknownheaderparam<repeat count=20>name</repeat>=
+unknowheaderparam<repeat count=15>value</repeat>
+;unknownValueless<repeat count=10>paramname</repeat>
+</allOneLine>
+Call-ID: longreq.one<repeat count=20>really</repeat>longcallid
+CSeq: 3882340 INVITE
+<allOneLine>
+Unknown-<repeat count=20>Long</repeat>-Name:
+ unknown-<repeat count=20>long</repeat>-value;
+ unknown-<repeat count=20>long</repeat>-parameter-name =
+ unknown-<repeat count=20>long</repeat>-parameter-value
+</allOneLine>
+Via: SIP/2.0/TCP sip33.example.com
+v: SIP/2.0/TCP sip32.example.com
+V: SIP/2.0/TCP sip31.example.com
+Via: SIP/2.0/TCP sip30.example.com
+ViA: SIP/2.0/TCP sip29.example.com
+VIa: SIP/2.0/TCP sip28.example.com
+VIA: SIP/2.0/TCP sip27.example.com
+via: SIP/2.0/TCP sip26.example.com
+viA: SIP/2.0/TCP sip25.example.com
+vIa: SIP/2.0/TCP sip24.example.com
+vIA: SIP/2.0/TCP sip23.example.com
+V :  SIP/2.0/TCP sip22.example.com
+v :  SIP/2.0/TCP sip21.example.com
+V  : SIP/2.0/TCP sip20.example.com
+v  : SIP/2.0/TCP sip19.example.com
+Via : SIP/2.0/TCP sip18.example.com
+Via  : SIP/2.0/TCP sip17.example.com
+Via: SIP/2.0/TCP sip16.example.com
+Via: SIP/2.0/TCP sip15.example.com
+Via: SIP/2.0/TCP sip14.example.com
+Via: SIP/2.0/TCP sip13.example.com
+Via: SIP/2.0/TCP sip12.example.com
+Via: SIP/2.0/TCP sip11.example.com
+Via: SIP/2.0/TCP sip10.example.com
+Via: SIP/2.0/TCP sip9.example.com
+Via: SIP/2.0/TCP sip8.example.com
+Via: SIP/2.0/TCP sip7.example.com
+Via: SIP/2.0/TCP sip6.example.com
+Via: SIP/2.0/TCP sip5.example.com
+Via: SIP/2.0/TCP sip4.example.com
+Via: SIP/2.0/TCP sip3.example.com
+Via: SIP/2.0/TCP sip2.example.com
+Via: SIP/2.0/TCP sip1.example.com
+<allOneLine>
+Via: SIP/2.0/TCP
+ host.example.com;received=192.0.2.5;
+branch=very<repeat count=50>long</repeat>branchvalue
+</allOneLine>
+Max-Forwards: 70
+<allOneLine>
+Contact: <sip:
+<repeat count=5>amazinglylongcallername</repeat>
+@host5.example.net>
+</allOneLine>
+Content-Type: application/sdp
+l: 150
+
+v=0
+o=mhandley 29739 7272939 IN IP4 192.0.2.1
+s=-
+c=IN IP4 192.0.2.1
+t=0 0
+m=audio 49217 RTP/AVP 0 12
+m=video 3227 RTP/AVP 31
+a=rtpmap:31 LPC

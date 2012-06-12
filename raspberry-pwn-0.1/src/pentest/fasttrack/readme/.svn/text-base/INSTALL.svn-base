@@ -1,0 +1,19 @@
+Fast-Track installation guide:
+
+To install Fast-Track simply check out the SVN repository at:
+
+svn co http://svn.thepentest.com/fasttrack 
+
+This will check out the latest Fast-Track revision. After that
+you will need to install the necessary requirements for Fast-Track.
+
+To do this, go to the Fast-Track root and type:
+
+python setup.py install
+
+Follow the instructions and you should be all set. If there is error
+messages when loading Fast-Track saying you don't have the right
+requirements, hit y or yes in order to attempt to automatically
+install those. If that doesn't work you will need to manually
+install the required packages in order for Fast-Track to work 
+properly.

@@ -1,0 +1,4 @@
+s_string("GET /");
+s_string_variable("index.html");
+s_string("\r\n\r\n");
+usleep(200000);

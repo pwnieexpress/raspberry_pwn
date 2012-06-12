@@ -1,0 +1,45 @@
+- = todo
++ = in progress/done in dev branch
+
+(sulley) - Issues relating to the Sulley fuzzing framework
+
+Patches and suggestions relating to any of these (or other features) 
+are more than welcome
+
+Check out http://voiper.wiki.sourceforge.net for info on the development of these
+features
+
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+Functionality
+- Allow a range of test cases to be specified
+- Use call backs to insert valid IPs into fields where they are currently static e.g. TO and FROM
+- All a timeout to be specified between test cases
++ Add a function to allow VoIPER to register with a registrar
+- Add TCP support (waiting to see some devices that use this first)
++ Add H.323 support
++ Add IAX support
++ Add extra fuzz cases for SIP and SDP (inc. REGISTER, OPTIONS, NOTIFY, SUBSCRIBE, BYE)
+
+
+- Give cancel threads notification when done fuzzing
+- Check RFC 3261 to ensure all headers are being covered
+	* Done for INVITE_COMMON but need to improve Content-Type header and others where there is the possibility of iterating over a 	group of predefined strings e.g CSeq method part
+- Fix tabbing on GUI
+- Normalise the wait for register stuff into one class seperate from the interfaces
+- Added 'estimated time remaining' to GUI
++ Hybrid inband and process monitoring crash detection
++ Rewrite the cancellation/protocol level crash detection modules and integrate them into a single 'listener' 
+- Allow the crash threshold and the timeout to allow a client to settle in after a restart to be configurable by the user
+
+Optimisation
+- Add support for parallel testing of multiple targets (sulley)
+- Add hash map to avoid sending duplicate test cases (sulley)
+- Fix issue of fuzzer hanging when done with fuzz cases (sulley)
+
+Quality
+- Write documentation on how to add new fuzzers
+- Add 'help' info to the fuzzer classes
+- Fix the generation of epydocs
+- Integrate the usage information from README.txt into USAGE.txt
+

@@ -1,0 +1,50 @@
+  </td>
+  <td width="537" align="left" valign="top">  
+
+<!--Body Content Here-->
+
+<table width="100%" border="0" cellspacing="8" cellpadding="0">
+ <tr>
+  <td class="page_title">Fast-Track Loading Page</td>
+ </tr>
+
+ <tr>
+<td><p>
+<br>
+Fast-Track is currently attacking/updating the system, check the command shell for further information.
+If the command window has already closed, then the attack was unsuccessful. Better luck next time.
+<br><br>
+There are plans in the near future to add log files as well as output of the failed attempt in order
+to help further explain why the attack was unsuccessful. Coming soon to a theatre near you...
+<br><br>
+</p></td>
+ </tr>
+  <td bgcolor="#2A2A2A">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+     <tr>
+      <td class="box_bg">
+        <table width="100%" border="0" cellspacing="15" cellpadding="0">
+         <tr>
+          <td>
+           <p class="box_text">Be patient as Fast-Track attacks the system, this could take a bit...</p><br>
+           <FORM><p align=center><INPUT TYPE="button" VALUE="Finished" onClick="history.go(-1);return true;"></p></FORM>	
+
+          </td>
+         </tr>
+        </table>
+      </td>
+     </tr>
+     <tr>
+      <td><img src="images/fast_track_21.jpg" width="537" height="13" alt=""></td>
+     </tr>
+    </table>
+  </td>
+ </tr>
+</table>
+<p>&nbsp;</p>
+
+<!--Body Content End-->
+
+  <p>&nbsp;</p></td>
+ </tr>
+</table>    

@@ -1,0 +1,1 @@
+python setup.py py2exe --packages xml.sax.drivers --packages xml.sax.drivers2

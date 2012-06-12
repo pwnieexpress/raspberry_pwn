@@ -1,0 +1,9 @@
+2009-02-19	Craig Heffner	<dev@sourcesec.com>
+	
+	* Miranda v1.1 released.
+	
+	* Bugfix in receive loop, thanks to Johannes Veser.
+
+2008-11-03	Craig Heffner	<dev@sourcesec.com>
+	
+	*Initial release of Miranda v1.0.

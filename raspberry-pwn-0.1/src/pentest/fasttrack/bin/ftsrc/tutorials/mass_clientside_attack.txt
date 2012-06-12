@@ -1,0 +1,17 @@
+***********************************************************************
+Mass Client-Side Attack
+***********************************************************************
+
+Requirements: PExpect
+
+Pretty simple stuff here, I took a couple of the most recent and popular
+client-side exploits from Metasploit... First thing Fast-Track does is
+start up Apache by default. It then replaces the index.html located
+within /var/www/htdocs/ with a new file that has iframes imbedded inside.
+
+Metasploit is then launched on ports ranging in the 8000 range. Simply
+have a vulnerable server connect to you and it does a basic generic_bind
+shell on that specific host. It tries a multitude of different exploits..
+
+***********************************************************************
+

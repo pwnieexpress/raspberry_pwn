@@ -1,0 +1,52 @@
+  </td>
+  <td width="537" align="left" valign="top">  
+
+<!--Body Content Here-->
+
+<table width="100%" border="0" cellspacing="8" cellpadding="0">
+ <tr>
+  <td class="page_title">Fast-Track Goodtech Universal 6.4 Buffer Overflow</td>
+ </tr>
+ <tr>
+<td><p>
+<br>Goodtech Universal 6.4 SSH Buffer Overflow
+<br>Original exploit discovered by: r0ut3r
+<br>Coded by: ReL1K
+<br>Tested on GoodTech 6.4 Windows 2003 SP0 and SP1
+<br>Simple JMP ESP by the book exploit
+<br>
+</p></td>
+ </tr>
+ <tr>
+ <tr>
+  <td class="page_title">Exploit Options</td>
+ </tr>
+  <td bgcolor="#2A2A2A">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+     <tr>
+      <td class="box_bg">
+        <table width="100%" border="0" cellspacing="15" cellpadding="0">
+         <tr>
+          <td>
+           <FORM action="/goodtechpost" method="post">
+           <p align=center><INPUT type="image" name="attack" src="images/btn_launch_1.jpg" value="Launch">
+           </FORM><p>
+          </td>
+         </tr>
+        </table>
+      </td>
+     </tr>
+     <tr>
+      <td><img src="images/fast_track_21.jpg" width="537" height="13" alt=""></td>
+     </tr>
+    </table>
+  </td>
+ </tr>
+</table>
+<p>&nbsp;</p>
+
+<!--Body Content End-->
+
+  <p>&nbsp;</p></td>
+ </tr>
+</table>    

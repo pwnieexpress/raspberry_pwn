@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=svreport
+Encoding=UTF-8
+Exec=sh -c "cd /pentest/voip/sipvicious/ ; ./svreport.py --help ; sudo -s"
+Icon=btmenu.png
+StartupNotify=false
+Terminal=true
+Type=Application
+Categories=bt-report-tools-evidence-management;
+

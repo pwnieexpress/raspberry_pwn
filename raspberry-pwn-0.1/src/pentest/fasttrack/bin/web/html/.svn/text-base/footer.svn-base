@@ -1,0 +1,37 @@
+          </td>
+         </tr>
+        </table>
+          </td>
+          <td align="left" valign="top" background="images/fast_track_10.jpg"><img src="images/fast_track_10.jpg" width="38" height="503" alt=""></td>
+         </tr>
+        </table>
+      </td>
+     </tr>
+     <tr>
+      <td height="224" align="center" valign="top" background="images/fast_track_25.jpg">
+        <table width="90%" border="0" cellspacing="0" cellpadding="0">
+         <tr>
+          <td height="70" align="center" valign="middle">Visit us on irc.freenode.net #fasttrack or at <a href="http://www.securestate.com">SecureState</a></td>
+         </tr>
+         <tr>
+          <td height="90" align="center" valign="middle">Fast-Track 2010<br>All rights reserved.</td>
+         </tr>
+        </table>
+      </td>
+     </tr>
+     <tr>
+      <td height="80">&nbsp;</td>
+     </tr>
+    </table>
+  </td>
+ </tr>
+<script>
+ var x = get_cookie ( "anode" );
+ if (x!=null)
+ {
+fold(x);
+ }
+</script>
+</table>
+</body>
+</html>

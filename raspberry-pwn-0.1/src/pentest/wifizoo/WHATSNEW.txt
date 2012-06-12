@@ -1,0 +1,18 @@
+New/fixed in WifiZoo v1.3
+==========================
+
+-Some changes in the GUI in general. The info is presented a little bit better.
+-new parameters: -i <interface>, -c pcap_capture. Yes you can now use a previously saved capture file (from kismet
+or tcpdump/wireshark,etc).
+-AP List now optionally autorefreshes, shows number of clients per AP and shows vendor of wificard based on the MAC address.
+With this, you can, with one look, observe the MAC of identified wifi devices, the vendor and the # of clients. This is helpful for easily spotting potential targets, because of the vendor or because of the number of clients. For example, If the AP has a very big number of clients, is a good idea to go and try do something with that AP.
+-Clicking on an AP on the AP List window sends you to a new window with list of clients for that AP. the MAC
+of each client is displayed along with the vendor of the wifi card according to the MAC.
+-MSN data is now displayed
+
+This is a 'minor' release, although some useful things were fixed/added.
+
+=======================
+WifiZoo is written by Hernan Ochoa. Complaints to hernan@gmail.com.
+Thanks!.
+

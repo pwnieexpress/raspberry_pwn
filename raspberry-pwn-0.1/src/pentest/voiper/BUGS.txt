@@ -1,0 +1,21 @@
+- Level 1 and 2 crash detection are unreliable. This is fixed in the development branch
+  and will be merged soon. Use level 3 when possible.
+- On Windows sometimes we get an exception 'No buffer space available' when trying
+  to send data. This seems to be an issue with Winsock/Windows so short of catching the 
+  exception and trying again I'm not sure if there's much we can do. For now just
+  if you must run the fuzzer on Windows and this occurs just kill the process and 
+  restart
+- When finished fuzzing or if an exception occurs the program hangs and can't be 
+  killed via a Ctrl-C or whatever. This is because of some problem with Sulley and 
+  will hopefully be resolved in their next release. Use Ctrl-Z the kill -9 PID.
+- The GUI doesn't display exceptions that occur during execution
+- There are some other annoyances with the GUI
+
+Changes required for OS X:
+- OS X appears to only support sending of up to 9216 bytes of data via UDP. As a result
+some limits must be changed in misc/sip_utilities.py and sulley/sulley/sessions.py. Search
+for the number 65507 and replace and instances of it with 9216
+- OS X 10.5 (and some versions of Ubuntu apparently) have an issue with certain paramaters
+to socket.setsockopt() (namely the NOLINGER options used by Sulley). Removing the setsockopt() 
+call from the __connect method of sulley/sulley/pedrpc.py seems to resolve this without any
+particularly harmful consequences

@@ -1,0 +1,51 @@
+#Sample ENUM_HOSTS structure (truncated...). This structure can be enumerated using the 'host info' command.
+
+self.ENUM_HOSTS[0] = {
+		'name' : '192.168.0.1:5678',
+		'dataComplete' : False,
+		'proto' : 'http://',
+		'xmlFile' : 'http://192.168.0.1:5678/igd.xml',
+		'deviceList' : {
+			'InternetGatewayDevice' : {
+				'fullName'	   : 'urn:schemas-upnp-org:device:InternetGatewayDevice:1',
+				'manufacturerURL'  : 'http://www.linksys.com/',
+				'modelURL' 	   : 'http://www.linksys.com/',
+				'presentationURL'  : None,
+				'modelName'	   : 'WRT54G',
+				'modelNumber'	   : 'v3.03.9',
+				'serverType'	   : 'LINUX/2.4 UPnP/1.0 BRCM400/1.0',
+				'deviceType'	   : 'urn:schemas-upnp-org:device:InternetGatewayDevice:1',
+				'friendlyName'	   : 'Residential Gateway Device',
+				'modelDescription' : 'Internet Access Server',
+				'UDN'		   : 'uuid:0014-bf39-23280000fedc',
+				'UPC'		   : None,
+				'manufacturer'     : 'Linksys Inc.',
+				'services'         : {
+						'WANIPConnection' : {
+								'fullName'    : 'urn:schemas-upnp-org:service:WANIPConnection:1',
+								'controlURL'  : '/uuid:0014-bf39-23280200fedc/WANIPConnection:1',
+								'eventSubURL' : '/uuid:0014-bf39-23280200fedc/WANIPConnection:1',
+				 	 			'serviceId'   : 'urn:upnp-org:serviceId:WANIPConn1',
+				    				'SCPDURL'     : '/dynsvc/WANIPConnection:1.xml'
+								'actions'     : {
+									'setDefaultConnectionService' : {
+										'arguments' : {
+											'NewDefaultConnectionService' : {
+												'direction'            : 'in',
+												'relatedStateVariable' : 'DefaultConnectionService'
+											}
+										}
+									}
+								}
+								'serviceStateVariables' : {
+									'DefaultConnectionService' : {
+										'dataType'         : 'string'
+										'sendEvents'       : None,
+										'allowedValueList' : ['TCP','UDP']
+									}
+								}
+						}
+				}
+			}
+		}
+}

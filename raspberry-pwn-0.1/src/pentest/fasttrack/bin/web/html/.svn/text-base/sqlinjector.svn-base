@@ -1,0 +1,69 @@
+  </td>
+  <td width="537" align="left" valign="top">  
+
+<!--Body Content Here-->
+
+<table width="100%" border="0" cellspacing="8" cellpadding="0">
+ <tr>
+  <td class="page_title">Fast-Track MSSQL Injector</td>
+ </tr>
+ <tr>
+  <td><p>
+<br>The SQL Injector will use both POST and GET requests when attacking
+<br>the SQL server. This attack only works on MSSQL back-end databases.
+<br>Additionally, this module does not identify SQL Injection for you,
+<br>the exact paramater needs to be specified in the GET modules. In the
+<br>POST, you can specify a single page and it will attempt to inject into
+<br>each form field. This attack relies heavily off of the xp_cmdshell
+<br>stored procedure to interact with the underlying operating system.
+<br>
+<br>Fast-Track will automatically re-enable the xp_cmdshell stored
+<br>procedure and send over a nice payload with a reverse command
+<br>shell. The method for delivery is a hex to binary payload conversion
+<br>technique using windows debug.
+<br><br>
+There are four different options that you can select below, each one
+<br>is explained:
+<br>
+<br>SQL Injector POST - Using the POST method to transfer the payload, this
+<br>specific attack attempts to attack every FORM on the page.
+<br><br>SQL Injector GET - Specify a parameter that is within the URL bar
+<br>and a GET request will initiate the attack.
+<br><br>SQL Injector GET FTP - Uses FTP as the payload delivery instead
+<br>of the debug conversion method. ProFTPD is required.
+<br><br>SQL Injector Manual - If you are sitting inside a firewall and
+<br>have a box listening for netcat or something on the outside, use
+<br>the manual method.<br><br> 
+</p></td>
+ </tr>
+ <tr>
+  <td bgcolor="#2A2A2A">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+     <tr>
+      <td class="box_bg">
+        <table width="100%" border="0" cellspacing="15" cellpadding="0">
+         <tr>
+          <td>
+           <p class="box_text"><b><a href="/postpayload">SQL Injector - POST Binary Payload Attack</p>
+           <p class="box_text"><b><a href="/binarypayload">SQL Injector - GET Binary Payload Attack</p>
+           <p class="box_text"><b><a href="/ftppayload">SQL Injector - GET FTP Payload Attack</p>
+           <p class="box_text"><b><a href="/manualpayload">SQL Injector - GET Manual Setup Binary Payload Attack</p>
+          </td>
+         </tr>
+        </table>
+      </td>
+     </tr>
+     <tr>
+      <td><img src="images/fast_track_21.jpg" width="537" height="13" alt=""></td>
+     </tr>
+    </table>
+  </td>
+ </tr>
+</table>
+<p>&nbsp;</p>
+
+<!--Body Content End-->
+
+  <p>&nbsp;</p></td>
+ </tr>
+</table>    

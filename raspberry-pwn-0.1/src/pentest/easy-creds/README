@@ -1,0 +1,30 @@
+######   ##    ####  #   #        ####  #####  ###### #####   ####
+#       #  #  #       # #        #    # #    # #      #    # # 
+#####  #    #  ####    #   ##### #      #    # #####  #    #  ####
+#      ######      #   #         #      #####  #      #    #      #
+#      #    # #    #   #         #    # #   #  #      #    # #    #
+###### #    #  ####    #          ####  #    # ###### #####   ####
+
+v3.6-BT5 11/08/2011
+This script leverages tools for stealing credentials during a pen test.
+
+New Attacks:
+- DNS Spoofing Attack
+- AP Client deauth
+
+New Prereqs:
+- SSLStrip Updates
+- Edit etter.dns
+
+Enhancements:
+- Exit will now clean up attack before exiting
+- Less input required for creating dhcp.conf file
+
+Fixes:
+- Route add for wireless attacks specified wrong interface and would fail
+- Dsniff, URLSnarf & SSLStrip were listening on wrong interface for wireless attacks
+
+Instructional Videos:
+http://www.youtube.com/user/Brav0Hax
+
+

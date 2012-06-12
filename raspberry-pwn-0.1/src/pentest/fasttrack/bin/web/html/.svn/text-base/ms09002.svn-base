@@ -1,0 +1,63 @@
+  </td>
+  <td width="537" align="left" valign="top">  
+
+<!--Body Content Here-->
+
+<table width="100%" border="0" cellspacing="8" cellpadding="0">
+ <tr>
+  <td class="page_title">MS Internet Explorer 7 Memory Corruption Exploit (MS09-002)</td>
+ </tr>
+ <tr>
+<td><p>
+<br>MS Internet Explorer 7 Memory Corruption Exploit (MS09-002) (Universal)
+<br>
+<br>
+</p></td>
+<br>####################################################################
+<br># MS Internet Explorer 7 Memory Corruption Exploit (MS09-002)      				 		 				 				    
+<br>####################################################################
+<br>#								       
+<br># Thanks to str0ke for finding this in the wild.		       
+<br>#				 				       
+<br># Tested on Windows 2003 SP2 R2 				       
+<br>#				 				       
+<br># Written by SecureState R&D Team (ReL1K)			       
+<br># http://www.securestate.com				       
+<br>#						                       
+<br># win32_bind EXITFUNC=seh LPORT=5500 Size=314 Encoder=ShikataGaNai 
+<br>#							               
+<br>####################################################################
+ </tr>
+ <tr>
+ <tr>
+  <td class="page_title">Exploit Options</td>
+ </tr>
+  <td bgcolor="#2A2A2A">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+     <tr>
+      <td class="box_bg">
+        <table width="100%" border="0" cellspacing="15" cellpadding="0">
+         <tr>
+          <td>
+           <FORM action="/ms09002post" method="post">
+           <p align=center><INPUT type="image" name="attack" src="images/btn_launch_1.jpg" value="Launch">
+           </FORM><p>
+          </td>
+         </tr>
+        </table>
+      </td>
+     </tr>
+     <tr>
+      <td><img src="images/fast_track_21.jpg" width="537" height="13" alt=""></td>
+     </tr>
+    </table>
+  </td>
+ </tr>
+</table>
+<p>&nbsp;</p>
+
+<!--Body Content End-->
+
+  <p>&nbsp;</p></td>
+ </tr>
+</table>    

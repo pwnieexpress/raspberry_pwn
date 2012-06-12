@@ -1,0 +1,7 @@
+s_string("POST /");
+s_string_variable("index.html");
+s_string(" HTTP/1.1\r\n");
+s_string("Host: ");
+s_string_variable("192.168.1.65");
+s_string("\r\n\r\n");
+usleep(200000);

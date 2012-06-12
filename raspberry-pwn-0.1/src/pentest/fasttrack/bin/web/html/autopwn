@@ -1,0 +1,94 @@
+  </td>
+  <td width="537" align="left" valign="top">  
+
+<!--Body Content Here-->
+
+<table width="100%" border="0" cellspacing="8" cellpadding="0">
+ <tr>
+  <td class="page_title">Fast-Track Metasploit Autopwnage</td>
+ </tr>
+
+ <tr>
+<td><p>
+<br>Metasploit Autopwn is a feature within Metasploit that is rich with different options.
+<br>Autopwn allows you to NMAP scan a host, and automatically run exploits
+<br>against the open ports on the system. So to break it down in simplistic terms, a port
+<br>scan is ran against multiple hosts or one target, once those ports have been identified,
+<br>metasploit will pull what exploits it have for those open ports, it may be 0 it may be
+<br>30. Those exploits are then launches against the system you scanned. It's really a brute
+<br>force of exploits, it doesn't know what version is being run on the system it just blindly
+<br>launches a ton of exploits at the system.
+<br>
+<br>Additionally, you can do various other things like import nessus scans, etc.
+<br>
+<br>This feature runs the autopwn feature of Metasploit for you, including setting up the database,
+<br>creating it, launching the scans, and exploiting the systems.
+<br>
+<br>When Metasploit has finished, type sessions -l to list successful shells. If nothing is listed, you were unsuccessful.
+<br>
+<br>Sessions -i will jump you into the successful shells.
+<br>
+<br>Note, sometimes a specific Apache exploit will run, if you notice Metasploit not responding, it has finished, just hit return and should get a msf> prompt.
+<br>
+<br>Some additional examples you can pop into the form field here is:
+<br>
+<br>-PN (iprange)
+<br>-PN 192.168.1.1-254
+<br>-P0 (iprange)
+<br> 192.168.1.1/24
+<br>
+<br>Pretty much any NMap syntax you can think of you can use here.
+<br>
+</p></td>
+ </tr>
+ <tr>
+ <tr>
+  <td class="page_title">Metasploit Autopwn Options</td>
+ </tr>
+  <td bgcolor="#2A2A2A">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+     <tr>
+      <td class="box_bg">
+        <table width="100%" border="0" cellspacing="15" cellpadding="0">
+         <tr>
+          <td>
+           <FORM NAME="autopwn" FORM action="/autopwnpost" method="post">
+           <p class="box_text">Enter the IP address or range of IP addresses to attack, its generally recommended to only target specific ports, when running buffer overflows on remote systems, it generally tends to send off massive alarms and down various systems. To tweak this, lets say we only want to target MSSQL and Veritas NetBackup, we would place -p1433,10000 10.211.55.5-254, the -p specifies ports, 1433 and 10000 is MSSQL server default ports and veritas netbackup ports. The 10.211 IP ranges is just a made up range.</p>
+           <p class="box_text"><b>Enter the IP Address or Range:  <INPUT type="text" class="txtfield_35" name="iprange"></p></b>
+           <br>
+           <p class="box_text">Select if you want a reverse payload or bind payload. Bind = Connect to victim, Reverse = Victim connects to you.
+           <p class="box_text"><b>Payload Options:
+           <select name="cmbPayloads">
+            <option value="1"> Bind Payload</option>
+            <option value="2" selected> Reverse Payload</option>
+           </select></p></b>
+
+
+           <br>
+           <p align=center><INPUT type="image" name="attack" src="images/btn_msautopwn.jpg" value="Launch"> &nbsp;<a href="javascript:document.autopwn.reset()"><img src="images/btn_reset.jpg" border=0 alt="Reset"></a></FORM>
+           <FORM action="/metaupdatepost" method="post"></b>
+           <p class="box_text">Below you can simply click the "Update Metasploit" button in order to ensure your running the latest version of Metasploit.</p>
+           <p align=center><INPUT type="image" name="updatemeta" src="images/btn_updatems.jpg" value="Launch">
+           </FORM><p>
+
+
+
+          </td>
+         </tr>
+        </table>
+      </td>
+     </tr>
+     <tr>
+      <td><img src="images/fast_track_21.jpg" width="537" height="13" alt=""></td>
+     </tr>
+    </table>
+  </td>
+ </tr>
+</table>
+<p>&nbsp;</p>
+
+<!--Body Content End-->
+
+  <p>&nbsp;</p></td>
+ </tr>
+</table>    
