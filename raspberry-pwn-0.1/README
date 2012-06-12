@@ -1,0 +1,73 @@
+  _____      ___  _ ___ ___   _____  _____ ___ ___ ___ ___
+ | _ \ \    / / \| |_ _| __| | __\ \/ / _ \ _ \ __/ __/ __|
+ |  _/\ \/\/ /| .` || || _|  | _| >  <|  _/   / _|\__ \__ \
+ |_|   \_/\_/ |_|\_|___|___| |___/_/\_\_| |_|_\___|___/___/
+
+ Raspberry Pwn : A Raspberry Pi pentesting suite by Pwnie Express (pwnieexpress.com)
+ 
+ Release 0.1 (June 2012)
+
+----------------------------------------------
+Legal Stuff
+----------------------------------------------
+
+This software is provided free of charge under the GNU Public License (http://www.gnu.org/licenses/gpl.html). 
+
+As with any software application, downloads/transfers of this software is subject to export controls under the U.S. Commerce Department's Export Administration Regulations (EAR). By using this software you certify your complete understanding of and compliance with these regulations.
+
+All Pwnie Express products/releases are for legally authorized uses only. Under NO circumstances is Pwnie Express, Rapid Focus Security, or any of its affiliates, tradenames, or subsidiaries liable for any damage, loss of data, or misuse resulting from the use of this software.
+
+----------------------------------------------
+What you will need
+----------------------------------------------
+
+1. A stock Raspberry Pi board (http://www.raspberrypi.org/)
+2. The Debian Raspberry Pi distribution (installed onto SD card)
+3. SSH/console access to the Raspberry Pi
+4. Internet access from the Raspberry Pi
+
+----------------------------------------------
+Installation Steps
+----------------------------------------------
+
+1. Change to the root user:
+
+  # sudo su
+
+2. Confirm your Raspberry Pi Debian release is at least 6.0:
+
+  # cat /etc/debian_version
+
+3. Confirm you have internet access from your Raspberry Pi
+
+  # ping google.com
+
+4. Install git:
+
+  # aptitude -y install git
+
+5. Download the latest Raspberry Pwn installer from the Pwnie Express Github repository:
+
+  # git clone https://github.com/pwnieexpress/Raspberry-Pwn.git
+
+6. CD into the Raspberry-Pwn folder and run the install script:
+
+  # cd Raspberry-Pwn
+
+  # ./INSTALL_raspberry_pwn.sh
+
+
+----------------------------------------------
+Known Issues
+----------------------------------------------
+
+
+----------------------------------------------
+Support
+----------------------------------------------
+
+
+Public Github repo..
+
+Community Support Forum:
+http://forum.pwnieexpress.com

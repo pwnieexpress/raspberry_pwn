@@ -48,13 +48,14 @@ Installation Steps
 
 5. Download the latest Raspberry Pwn installer from the Pwnie Express Github repository:
 
-  # git
+  # git clone https://github.com/pwnieexpress/Raspberry-Pwn.git
 
-  # tar zxvf raspberry-pwn-0.1.tar.gz
+6. CD into the Raspberry-Pwn folder and run the install script:
 
-  # cd raspberry-pwn-0.1
+  # cd Raspberry-Pwn
 
   # ./INSTALL_raspberry_pwn.sh
+
 
 ----------------------------------------------
 Known Issues
