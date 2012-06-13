@@ -93,11 +93,16 @@ echo "[+] Perl/Python tools installed in /pentest."
 
 # Install SET
 echo "[+] Installing latest SET framework to /pentest..."
-svn co http://svn.secmaniac.com/social_engineering_toolkit /pentest/set/
+svn co http://svn.secmaniac.com/social_engineering_toolkit /pentest/exploits/set/
 cd src/pexpect-2.3/
 python setup.py install
 cd ../..
 echo "[+] SET framework installed in /pentest."
+
+# Install Exploit-DB
+echo "[+] Installing Exploit-DB to /pentest..."
+svn co svn://www.exploit-db.com/exploitdb /pentest/exploits/exploitdb/
+echo "[+] Exploit-DB installed in /pentest."
 
 # Update motd to show Raspberry Pwn release
 cp src/motd.tail.raspberrypwn /etc/motd.tail
