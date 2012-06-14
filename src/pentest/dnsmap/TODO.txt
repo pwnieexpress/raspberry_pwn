@@ -1,0 +1,13 @@
+* multi-threading - use pthread.h?
+* can't handle wildcarded domains that return more than one IP address on non-existing subdomains
+	test domain: proboards.com
+* allow using a customized list of DNS server to share network load
+* allow using DNS server supplied on the command line
+* for openDNS users: document how to permanently change DNS server settings so they are not overwritten by DHCP settings
+* convert hostent structs to addrinfo ?
+* replace inet_ntoa(*((struct in_addr *)host->h_addr_list[j])) with ipstr
+* obtain aliases for each domain (CNAME records)?
+* clever numerical domain bruteforce for clusters. i.e.: www2, www3
+* pickup new subdomains via reverse lookups (PTR records)
+* better input validation
+	* improve function that validates target domain

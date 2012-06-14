@@ -1,0 +1,25 @@
+20/02/2010: dnsmap 0.30 released at www.gnucitizen.org
+* IPv6 support
+* Makefile included
+* delay option (-d) added. This is useful in cases where dnsmap is killing your bandwidth
+* ignore IPs option (-i) added. This allows ignoring user-supplied IPs from the results. Useful for domains which cause dnsmap to produce false positives
+* changes made to make dnsmap compatible with OpenDNS
+* disclosure of internal IP addresses (RFC 1918) are reported
+* updated built-in wordlist
+* included a standalone three-letter acronym (TLA) subdomains wordlist
+* domains susceptible to "same site" scripting (http://snipurl.com/etbcv) are reported
+* completion time is now displayed to the user
+* mechanism to attempt to bruteforce wildcard-enabled domains
+* unique filename containing timestamp is now created when no specific output filename is supplied by user
+* various minor bugs fixed
+
+22/02/2009: dnsmap 0.22 released at www.gnucitizen.org
+* saving the results in human-readable and CSV format for easy processing
+* fixed bug that disallowed reading wordlists with DOS CRLF format
+* improved built-in subdomains wordlist
+* new bash script (dnsmap-bulk.sh) included which allows running dnsmap against a list of domains from a user-supplied file. i.e.: bruteforcing several domains in a bulk fashion
+* bypassing of signature-based dnsmap detection by generating a proper pseudo-random subdomain when checking for wildcards
+
+17/08/2006: dnsmap 0.1 (first public version) released at foro.elhacker.net
+* bruteforcing based on builtin list and user-supplied wordlist
+* obtain all available A records for each bruteforced (sub)domain (rather than only one)

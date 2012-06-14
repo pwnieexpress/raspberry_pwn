@@ -1,0 +1,10 @@
+Main author:
+pagvac (gnucitizen.org)
+
+Patches, bug hunting and general feedback:
+Borys Lacki (www.bothunters.pl)
+Philipp Winter (7c0.org)
+meathive (kinqpinz.info)
+David Kierznowski (withdk.com)
+GNa (gnanet.net)
+srl (security.research.labs@gmail.com)
