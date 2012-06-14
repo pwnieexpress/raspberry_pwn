@@ -32,7 +32,7 @@ Installation Steps
 
 1. Change to the root user:
 
-  # sudo su
+  # sudo -i
 
 2. Confirm your Raspberry Pi Debian release is at least 6.0:
 
