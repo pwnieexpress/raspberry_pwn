@@ -48,7 +48,7 @@ echo "[+] Base system Debian packages updated."
 
 # Install baseline pentesting tools via aptitude
 echo "[+] Installing baseline pentesting tools/dependencies..."
-aptitude -y install hostapd nmap dsniff netcat nikto xprobe python-scapy wireshark tcpdump ettercap hping3 medusa macchanger nbtscan john ptunnel p0f ngrep tcpflow openvpn iodine httptunnel cryptcat sipsak yersinia smbclient sslsniff tcptraceroute pbnj netdiscover netmask udptunnel dnstracer sslscan medusa ipcalc dnswalk socat onesixtyone tinyproxy dmitry fcrackzip ssldump fping ike-scan gpsd darkstat swaks arping tcpreplay sipcrack proxychains proxytunnel siege sqlmap wapiti skipfish w3af libssl-dev libpcap-dev libpcre3 libpcre3-dev libnl-dev libncurses-dev subversion python-twisted-web python-pymssql
+aptitude -y install telnet btscanner libnet-dns-perl hostapd nmap dsniff netcat nikto xprobe python-scapy wireshark tcpdump ettercap hping3 medusa macchanger nbtscan john ptunnel p0f ngrep tcpflow openvpn iodine httptunnel cryptcat sipsak yersinia smbclient sslsniff tcptraceroute pbnj netdiscover netmask udptunnel dnstracer sslscan medusa ipcalc dnswalk socat onesixtyone tinyproxy dmitry fcrackzip ssldump fping ike-scan gpsd darkstat swaks arping tcpreplay sipcrack proxychains proxytunnel siege sqlmap wapiti skipfish w3af libssl-dev libpcap-dev libpcre3 libpcre3-dev libnl-dev libncurses-dev subversion python-twisted-web python-pymssql
 echo "[+] Baseline pentesting tools installed."
 
 # Remove unneeded statup items
@@ -93,19 +93,27 @@ echo "[+] Perl/Python tools installed in /pentest."
 
 # Install SET
 echo "[+] Installing latest SET framework to /pentest..."
-svn co http://svn.secmaniac.com/social_engineering_toolkit /pentest/exploits/set/
+svn co http://svn.secmaniac.com/social_engineering_toolkit /pentest/set/
 cd src/pexpect-2.3/
 python setup.py install
 cd ../..
 echo "[+] SET framework installed in /pentest."
 
-# Install Exploit-DB
-echo "[+] Installing Exploit-DB to /pentest..."
-svn co svn://www.exploit-db.com/exploitdb /pentest/exploits/exploitdb/
-echo "[+] Exploit-DB installed in /pentest."
-
 # Update motd to show Raspberry Pwn release
 cp src/motd.tail.raspberrypwn /etc/motd.tail
+
+#
+# Extras
+#
+
+echo "Preparing to pull down the latest Exploit-DB to your system."
+echo "This will take a lot of space. Press [Ctrl-C] to exit without"
+echo "installing."
+
+# Install Exploit-DB
+echo "[+] Installing Exploit-DB to /pentest..."
+svn co svn://www.exploit-db.com/exploitdb /pentest/exploitdb/
+echo "[+] Exploit-DB installed in /pentest."
 
 echo ""
 echo "---------------------------------------------------------------"
