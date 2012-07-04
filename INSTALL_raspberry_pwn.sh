@@ -70,15 +70,15 @@ make install
 cd ../..
 echo "[+] Wireless pentesting tools installed."
 
-# Install Metasploit -- Removed for now. Not enough memory to run on Pi
-#echo "[+] Installing latest Metasploit Framework..."
-#aptitude -y install ruby irb ri rubygems libruby ruby-dev libpcap-dev
-#mkdir /opt/metasploit
-#cd /opt/metasploit
-#wget http://downloads.metasploit.com/data/releases/framework-latest.tar.bz2
-#tar jxvf framework-latest.tar.bz2
-#ln -sf /opt/metasploit/msf3/msf* /usr/local/bin/
-#echo "[+] Latest Metasploit Framework installed."
+# Install Metasploit -- Note this will require changing the default RAM allocation 
+echo "[+] Installing latest Metasploit Framework..."
+aptitude -y install ruby irb ri rubygems libruby ruby-dev libpcap-dev
+mkdir /opt/metasploit
+cd /opt/metasploit
+wget http://downloads.metasploit.com/data/releases/framework-latest.tar.bz2
+tar jxvf framework-latest.tar.bz2
+ln -sf /opt/metasploit/msf3/msf* /usr/local/bin/
+echo "[+] Latest Metasploit Framework installed."
 
 # Install Perl/Python tools to /pentest
 echo "[+] Installing Perl/Python tools to /pentest..."
@@ -102,18 +102,20 @@ echo "[+] SET framework installed in /pentest."
 # Update motd to show Raspberry Pwn release
 cp src/motd.tail.raspberrypwn /etc/motd.tail
 
-#
-# Extras
-#
-
-echo "Preparing to pull down the latest Exploit-DB to your system."
-echo "This will take a lot of space. Press [Ctrl-C] to exit without"
-echo "installing."
-
 # Install Exploit-DB
 echo "[+] Installing Exploit-DB to /pentest..."
 svn co svn://www.exploit-db.com/exploitdb /pentest/exploitdb/
 echo "[+] Exploit-DB installed in /pentest."
+
+echo "[+] Setting default RAM allocation"
+cp /boot/arm224_start.elf /boot/start.elf
+
+echo ""
+echo "[+] In order for the new RAM allocation to take effect, we must"
+echo "[+] now reboot the pi. Press [Ctrl-C] to exit without rebooting."
+echo ""
+read
+reboot
 
 echo ""
 echo "---------------------------------------------------------------"
