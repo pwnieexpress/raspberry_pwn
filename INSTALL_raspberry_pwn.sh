@@ -111,15 +111,15 @@ echo "[+] Setting default RAM allocation"
 cp /boot/arm224_start.elf /boot/start.elf
 
 echo ""
+echo "---------------------------------------------------------------"
+echo "Raspberry Pwn Release 0.1 installed successfully!"
+echo "---------------------------------------------------------------"
+echo ""
+
+
 echo "[+] In order for the new RAM allocation to take effect, we must"
 echo "[+] now reboot the pi. Press [Ctrl-C] to exit without rebooting."
 echo ""
 read
 reboot
 
-echo ""
-echo "---------------------------------------------------------------"
-echo "Raspberry Pwn Release 0.1 installed successfully!"
-echo "---------------------------------------------------------------"
-echo ""
-exit 1
