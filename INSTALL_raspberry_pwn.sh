@@ -13,17 +13,23 @@ fi
 
 # Verify Raspberry Pwn 0.1 is not already installed
 if [ "`grep -o 0.1 /etc/motd.tail`" == "0.1" ] ; then 
-        echo "[-] Raspberry Pwn 0.1 already installed. Aborting..."
+        echo "[-] Raspberry Pwn 0.1 already installed. Please install on a fresh wheezy system..."
+        exit 1
+fi
+
+# Verify Raspberry Pwn 0.2 is not already installed
+if [ "`grep -o 0.2 /etc/motd.tail`" == "0.2" ] ; then 
+        echo "[-] Raspberry Pwn 0.2 already installed. Aborting..."
         exit 1
 fi
 
 
 echo "  _____      ___  _ ___ ___   _____  _____ ___ ___ ___ ___      "
 echo " | _ \ \    / / \| |_ _| __| | __\ \/ / _ \ _ \ __/ __/ __|     "
-echo " |  _/\ \/\/ /| .\` || || _|  | _| >  <|  _/   / _|\__ \__ \    "
+echo " |  _/\ \/\/ /| .\ || || _|  | _| >  <|  _/   / _|\__ \__ \    "
 echo " |_|   \_/\_/ |_|\_|___|___| |___/_/\_\_| |_|_\___|___/___/     "
 echo ""
-echo "              === Raspberry Pwn Release 0.1 ===                 "
+echo "              === Raspberry Pwn Release 0.2 ===                 "
 echo "     A Raspberry Pi Pentesting suite by PwnieExpress.com        "
 echo ""
 echo "----------------------------------------------------------------"
@@ -41,7 +47,7 @@ chown -R root:root .
 
 # Update base debian packages
 echo "[+] Updating base system Debian packages..."
-echo "deb http://ftp.debian.org/debian/ squeeze main contrib non-free" > /etc/apt/sources.list
+echo "deb http://ftp.debian.org/debian/ wheezy main contrib non-free\ndeb http://archive.raspbian.org/raspbian wheezy main contrib non-free rpi\ndeb-src http://archive.raspbian.org/raspbian wheezy main contrib non-free rpi" > /etc/apt/sources.list
 aptitude -y update
 aptitude -y upgrade
 echo "[+] Base system Debian packages updated."
@@ -75,8 +81,7 @@ echo "[+] Installing latest Metasploit Framework..."
 aptitude -y install ruby irb ri rubygems libruby ruby-dev libpcap-dev
 mkdir /opt/metasploit
 cd /opt/metasploit
-wget http://downloads.metasploit.com/data/releases/framework-latest.tar.bz2
-tar jxvf framework-latest.tar.bz2
+git clone https://github.com/rapid7/metasploit-framework.git msf3
 ln -sf /opt/metasploit/msf3/msf* /usr/local/bin/
 echo "[+] Latest Metasploit Framework installed."
 
@@ -112,7 +117,7 @@ cp /boot/arm224_start.elf /boot/start.elf
 
 echo ""
 echo "---------------------------------------------------------------"
-echo "Raspberry Pwn Release 0.1 installed successfully!"
+echo "Raspberry Pwn Release 0.2 installed successfully!"
 echo "---------------------------------------------------------------"
 echo ""
 
