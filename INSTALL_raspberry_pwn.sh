@@ -68,7 +68,15 @@ echo "[+] Base system Debian packages updated."
 
 # Install baseline pentesting tools via apt
 echo "[+] Installing baseline pentesting tools/dependencies..."
-apt-get -y install telnet btscanner libnet-dns-perl hostapd nmap dsniff netcat nikto xprobe python-scapy wireshark tcpdump ettercap hping3 medusa macchanger nbtscan john ptunnel p0f ngrep tcpflow openvpn iodine httptunnel cryptcat sipsak yersinia smbclient sslsniff tcptraceroute pbnj netdiscover netmask udptunnel dnstracer sslscan medusa ipcalc dnswalk socat onesixtyone tinyproxy dmitry fcrackzip ssldump fping ike-scan gpsd darkstat swaks arping tcpreplay sipcrack proxychains proxytunnel siege sqlmap wapiti skipfish w3af libssl-dev libpcap-dev libpcre3 libpcre3-dev libnl-dev libncurses-dev subversion python-twisted-web python-pymssql
+apt-get -y install telnet btscanner libnet-dns-perl hostapd nmap dsniff netcat nikto 
+apt-get -y xprobe python-scapy wireshark tcpdump ettercap-text-only hping3 medusa macchanger 
+apt-get -y nbtscan john ptunnel p0f ngrep tcpflow openvpn iodine httptunnel cryptcat 
+apt-get -y sipsak yersinia smbclient sslsniff tcptraceroute pbnj netdiscover netmask 
+apt-get -y udptunnel dnstracer sslscan medusa ipcalc dnswalk socat onesixtyone tinyproxy
+apt-get -y dmitry fcrackzip ssldump fping ike-scan gpsd darkstat swaks arping tcpreplay 
+apt-get -y sipcrack proxychains proxytunnel siege sqlmap wapiti skipfish w3af libssl-dev 
+apt-get -y libpcap-dev libpcre3 libpcre3-dev libnl-dev libncurses-dev subversion 
+apt-get -y python-twisted-web python-pymssql
 echo "[+] Baseline pentesting tools installed."
 
 # Remove unneeded statup items
@@ -77,7 +85,6 @@ update-rc.d -f gpsd remove
 update-rc.d -f tinyproxy remove
 update-rc.d -f ntp remove
 apt-get -y purge portmap
-apt-get -y autoremove gdm
 apt-get -y autoremove
 echo "[+] Unneeded startup items removed."
 
@@ -128,6 +135,11 @@ echo "[+] Exploit-DB installed in /pentest."
 
 echo "[+] Setting default RAM allocation"
 cp /boot/arm224_start.elf /boot/start.elf
+
+# Remove the debian sources from the apt sources.list - prevents problems w/ the apt package itself
+rm /etc/apt/sources.list
+echo "deb http://archive.raspbian.org/raspbian wheezy main contrib non-free rpi" >> /etc/apt/sources.list
+echo "deb-src http://archive.raspbian.org/raspbian wheezy main contrib non-free rpi" >> /etc/apt/sources.list
 
 echo ""
 echo "---------------------------------------------------------------"

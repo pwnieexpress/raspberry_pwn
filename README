@@ -5,7 +5,7 @@
 
  Raspberry Pwn : A Raspberry Pi pentesting suite by Pwnie Express (pwnieexpress.com)
  
- Release 0.1 (June 2012)
+ Release 0.2 (August 2012)
 
 ----------------------------------------------
 Legal Stuff
@@ -18,49 +18,52 @@ As with any software application, downloads/transfers of this software is subjec
 All Pwnie Express products/releases are for legally authorized uses only. Under NO circumstances is Pwnie Express, Rapid Focus Security, or any of its affiliates, tradenames, or subsidiaries liable for any damage, loss of data, or misuse resulting from the use of this software.
 
 ----------------------------------------------
-What you will need
+What you will need:
 ----------------------------------------------
 
 1. A stock Raspberry Pi board (http://www.raspberrypi.org/)
-2. The Debian Raspberry Pi distribution (http://elinux.org/RPi_Beginners)
+2. The Raspbian Linux distribution (http://elinux.org/RPi_Easy_SD_Card_Setup) - Tested with: 2012-07-15-wheezy-raspbian.zip
 3. SSH/console access to the Raspberry Pi
 4. Internet access from the Raspberry Pi
 
+Once you have completed the installation of Raspian and verified you have SSH / Internet access, you're ready to install Raspberry Pwn!
+
 ----------------------------------------------
-Installation Steps
+Raspberry Pwn Installation Steps:
 ----------------------------------------------
 
-1. Change to the root user:
+1. Log onto the system and change to the root user:
 
-  $ sudo -i
+  pi@raspberrypi ~ $ sudo -s
 
-2. Confirm your Raspberry Pi Debian release is at least 6.0:
+2. Confirm your Raspberry Pi Debian release is wheezy/sid:
 
-  # cat /etc/debian_version
+  root@raspberrypi:/home/pi# cat /etc/debian_version 
+  wheezy/sid
 
-3. Confirm you have internet access from your Raspberry Pi
+3. Confirm you have internet access from your Raspberry Pi:
 
-  # ping google.com
+  root@raspberrypi:/home/pi# ping google.com
 
 4. Install git:
 
-  # aptitude -y install git
+  root@raspberrypi:/home/pi# apt-get -y install git-core
 
 5. Download the Raspberry Pwn installer from the Pwnie Express Github repository:
 
-  # git clone https://github.com/pwnieexpress/Raspberry-Pwn.git
+  root@raspberrypi:/home/pi# git clone https://github.com/pwnieexpress/Raspberry-Pwn.git
 
 6. CD into the Raspberry-Pwn folder and run the install script:
 
-  # cd Raspberry-Pwn
-
-  # ./INSTALL_raspberry_pwn.sh
+  root@raspberrypi:/home/pi# cd Raspberry-Pwn
+  root@raspberrypi:/home/pi# ./INSTALL_raspberry_pwn.sh
 
 
 ----------------------------------------------
 Known Issues
 ----------------------------------------------
 
+1. The Debian Wheezy package servers are only temporarily used during install, due to issues with the 'apt' package. Raspbian package servers are left after install. This means that updates to the Raspberry pwn packages will not be available unless the Debian packages are added back. This can be done by adding to the /etc/apt/sources.list the line below. HOWEVER - testing indicated that performing an apt-get upgrade with these servers in the sources.list led to instability. It is recommended you do not perform an upgrade with them. 
 
 ----------------------------------------------
 Support
