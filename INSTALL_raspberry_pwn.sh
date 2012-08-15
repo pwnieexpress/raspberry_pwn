@@ -1,28 +1,37 @@
 #!/bin/bash
-# Raspberry Pwn 0.1 : A Raspberry Pi Pentesting suite by Pwnie Express
-# pwnieexpress.com
-# Installer Revision 6.12.2012
+
+###
+### Raspberry Pwn 0.1 : A Raspberry Pi Pentesting suite by Pwnie Express
+### pwnieexpress.com
+### Installer Revision 08.14.2012
+###
 
 echo ""
 
 # Verify we are root
 if [[ $EUID -ne 0 ]]; then
-   echo "This script must be run as root" 1>&2
-   exit 1
+  echo "This script must be run as root" 1>&2
+  exit 1
 fi
 
 # Verify Raspberry Pwn 0.1 is not already installed
 if [ "`grep -o 0.1 /etc/motd.tail`" == "0.1" ] ; then 
-        echo "[-] Raspberry Pwn 0.1 already installed. Please install on a fresh wheezy system..."
-        exit 1
+  echo "[-] Raspberry Pwn 0.1 already installed. Please install on a fresh wheezy system..."
+  exit 1
 fi
 
 # Verify Raspberry Pwn 0.2 is not already installed
 if [ "`grep -o 0.2 /etc/motd.tail`" == "0.2" ] ; then 
-        echo "[-] Raspberry Pwn 0.2 already installed. Aborting..."
-        exit 1
+  echo "[-] Raspberry Pwn 0.2 already installed. Aborting..."
+  exit 1
 fi
 
+# If we can't detect version, warn the user
+if ! [ -f /etc/motd.tail]; then
+  echo "Unable to detect version"
+  echo "Press ENTER to continue, CTRL+C to abort."
+  read INPUT
+fi
 
 echo "  _____      ___  _ ___ ___   _____  _____ ___ ___ ___ ___      "
 echo " | _ \ \    / / \| |_ _| __| | __\ \/ / _ \ _ \ __/ __/ __|     "
@@ -42,22 +51,16 @@ echo "Press ENTER to continue, CTRL+C to abort."
 read INPUT
 echo ""
 
-###
-### Make sure all installer files are owned by root
-###
+# Make sure all installer files are owned by root
 chown -R root:root .
 
-###
-### Update sources.list to include the main debian repos too
-### 
+# Update sources.list to include the main debian repos too
 rm /etc/apt/sources.list
 echo "deb http://archive.raspbian.org/raspbian wheezy main contrib non-free rpi" >> /etc/apt/sources.list
 echo "deb-src http://archive.raspbian.org/raspbian wheezy main contrib non-free rpi" >> /etc/apt/sources.list
 echo "deb http://ftp.debian.org/debian/ wheezy main contrib non-free" >> /etc/apt/sources.list
 
-###
-### Update base debian packages
-###
+# Update base debian packages
 echo "[+] Updating base system Debian packages..."
 aptitude -y update
 aptitude -y upgrade
