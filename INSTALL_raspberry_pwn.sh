@@ -42,12 +42,23 @@ echo "Press ENTER to continue, CTRL+C to abort."
 read INPUT
 echo ""
 
-# Make sure all installer files are owned by root
+###
+### Make sure all installer files are owned by root
+###
 chown -R root:root .
 
-# Update base debian packages
+###
+### Update sources.list to include the main debian repos too
+### 
+rm /etc/apt/sources.list
+echo "deb http://archive.raspbian.org/raspbian wheezy main contrib non-free rpi" >> /etc/apt/sources.list
+echo "deb-src http://archive.raspbian.org/raspbian wheezy main contrib non-free rpi" >> /etc/apt/sources.list
+echo "deb http://ftp.debian.org/debian/ wheezy main contrib non-free" >> /etc/apt/sources.list
+
+###
+### Update base debian packages
+###
 echo "[+] Updating base system Debian packages..."
-echo "deb http://ftp.debian.org/debian/ wheezy main contrib non-free\ndeb http://archive.raspbian.org/raspbian wheezy main contrib non-free rpi\ndeb-src http://archive.raspbian.org/raspbian wheezy main contrib non-free rpi" > /etc/apt/sources.list
 aptitude -y update
 aptitude -y upgrade
 echo "[+] Base system Debian packages updated."
