@@ -27,7 +27,7 @@ if [ "`grep -o 0.2 /etc/motd.tail`" == "0.2" ] ; then
 fi
 
 # If we can't detect version, warn the user
-if ! [ -f /etc/motd.tail]; then
+if ! [ -f /etc/motd.tail ]; then
   echo "Unable to detect version"
   echo "Press ENTER to continue, CTRL+C to abort."
   read INPUT
