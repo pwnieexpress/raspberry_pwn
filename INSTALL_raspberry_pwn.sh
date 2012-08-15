@@ -62,13 +62,13 @@ echo "deb http://ftp.debian.org/debian/ wheezy main contrib non-free" >> /etc/ap
 
 # Update base debian packages
 echo "[+] Updating base system Debian packages..."
-aptitude -y update
-aptitude -y upgrade
+apt-get -y update
+#apt-get -y upgrade
 echo "[+] Base system Debian packages updated."
 
-# Install baseline pentesting tools via aptitude
+# Install baseline pentesting tools via apt
 echo "[+] Installing baseline pentesting tools/dependencies..."
-aptitude -y install telnet btscanner libnet-dns-perl hostapd nmap dsniff netcat nikto xprobe python-scapy wireshark tcpdump ettercap hping3 medusa macchanger nbtscan john ptunnel p0f ngrep tcpflow openvpn iodine httptunnel cryptcat sipsak yersinia smbclient sslsniff tcptraceroute pbnj netdiscover netmask udptunnel dnstracer sslscan medusa ipcalc dnswalk socat onesixtyone tinyproxy dmitry fcrackzip ssldump fping ike-scan gpsd darkstat swaks arping tcpreplay sipcrack proxychains proxytunnel siege sqlmap wapiti skipfish w3af libssl-dev libpcap-dev libpcre3 libpcre3-dev libnl-dev libncurses-dev subversion python-twisted-web python-pymssql
+apt-get -y install telnet btscanner libnet-dns-perl hostapd nmap dsniff netcat nikto xprobe python-scapy wireshark tcpdump ettercap hping3 medusa macchanger nbtscan john ptunnel p0f ngrep tcpflow openvpn iodine httptunnel cryptcat sipsak yersinia smbclient sslsniff tcptraceroute pbnj netdiscover netmask udptunnel dnstracer sslscan medusa ipcalc dnswalk socat onesixtyone tinyproxy dmitry fcrackzip ssldump fping ike-scan gpsd darkstat swaks arping tcpreplay sipcrack proxychains proxytunnel siege sqlmap wapiti skipfish w3af libssl-dev libpcap-dev libpcre3 libpcre3-dev libnl-dev libncurses-dev subversion python-twisted-web python-pymssql
 echo "[+] Baseline pentesting tools installed."
 
 # Remove unneeded statup items
@@ -83,7 +83,7 @@ echo "[+] Unneeded startup items removed."
 
 # Install wireless pentesting tools
 echo "[+] Installing wireless pentesting tools..."
-aptitude -y install kismet
+apt-get -y install kismet
 cd src/aircrack-ng-1.1
 chmod +x evalrev
 make install
@@ -92,7 +92,7 @@ echo "[+] Wireless pentesting tools installed."
 
 # Install Metasploit -- Note this will require changing the default RAM allocation 
 echo "[+] Installing latest Metasploit Framework..."
-aptitude -y install ruby irb ri rubygems libruby ruby-dev libpcap-dev
+apt-get -y install ruby irb ri rubygems libruby ruby-dev libpcap-dev
 mkdir /opt/metasploit
 cd /opt/metasploit
 git clone https://github.com/rapid7/metasploit-framework.git msf3
