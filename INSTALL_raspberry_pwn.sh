@@ -68,17 +68,7 @@ echo "[+] Base system Debian packages updated."
 
 # Install baseline pentesting tools via apt
 echo "[+] Installing baseline pentesting tools/dependencies..."
-apt-get -y install git-core build-essential perl-base python
-apt-get -y install ruby irb ri rubygems libruby ruby-dev libpcap-dev
-apt-get -y install telnet btscanner libnet-dns-perl hostapd nmap dsniff netcat nikto 
-apt-get -y install xprobe python-scapy wireshark tcpdump ettercap-text-only hping3 medusa macchanger 
-apt-get -y install nbtscan john ptunnel p0f ngrep tcpflow openvpn iodine httptunnel cryptcat 
-apt-get -y install sipsak yersinia smbclient sslsniff tcptraceroute pbnj netdiscover netmask 
-apt-get -y install udptunnel dnstracer sslscan medusa ipcalc dnswalk socat onesixtyone tinyproxy
-apt-get -y install dmitry fcrackzip ssldump fping ike-scan gpsd darkstat swaks arping tcpreplay 
-apt-get -y install sipcrack proxychains proxytunnel siege sqlmap wapiti skipfish libssl-dev 
-apt-get -y install libpcap-dev libpcre3 libpcre3-dev libnl-dev libncurses5-dev subversion 
-apt-get -y install python-twisted-web python-pymssql
+apt-get -y --force-yes install git-core build-essential perl-base python ruby irb ri rubygems libruby ruby-dev libpcap-dev telnet btscanner libnet-dns-perl hostapd nmap dsniff netcat nikto xprobe python-scapy wireshark tcpdump ettercap-text-only hping3 medusa macchanger nbtscan john ptunnel p0f ngrep tcpflow openvpn iodine httptunnel cryptcat sipsak yersinia smbclient sslsniff tcptraceroute pbnj netdiscover netmask udptunnel dnstracer sslscan medusa ipcalc dnswalk socat onesixtyone tinyproxy dmitry fcrackzip ssldump fping ike-scan gpsd darkstat swaks arping tcpreplay sipcrack proxychains proxytunnel siege sqlmap wapiti skipfish libssl-dev libpcap-dev libpcre3 libpcre3-dev libnl-dev libncurses5-dev subversion python-twisted-web python-pymssql
 echo "[+] Baseline pentesting tools installed."
 
 # Remove unneeded statup items
@@ -92,7 +82,7 @@ echo "[+] Unneeded startup items removed."
 
 # Install wireless pentesting tools
 echo "[+] Installing wireless pentesting tools..."
-apt-get -y install kismet
+apt-get -y --force-yes install kismet
 
 # Currently broken on Raspian
 #cd src/aircrack-ng-1.1
