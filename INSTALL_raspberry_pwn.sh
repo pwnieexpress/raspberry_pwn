@@ -68,15 +68,17 @@ echo "[+] Base system Debian packages updated."
 
 # Install baseline pentesting tools via apt
 echo "[+] Installing baseline pentesting tools/dependencies..."
+apt-get -y install git-core build-essential perl-base python
+apt-get -y install ruby irb ri rubygems libruby ruby-dev libpcap-dev
 apt-get -y install telnet btscanner libnet-dns-perl hostapd nmap dsniff netcat nikto 
-apt-get -y xprobe python-scapy wireshark tcpdump ettercap-text-only hping3 medusa macchanger 
-apt-get -y nbtscan john ptunnel p0f ngrep tcpflow openvpn iodine httptunnel cryptcat 
-apt-get -y sipsak yersinia smbclient sslsniff tcptraceroute pbnj netdiscover netmask 
-apt-get -y udptunnel dnstracer sslscan medusa ipcalc dnswalk socat onesixtyone tinyproxy
-apt-get -y dmitry fcrackzip ssldump fping ike-scan gpsd darkstat swaks arping tcpreplay 
-apt-get -y sipcrack proxychains proxytunnel siege sqlmap wapiti skipfish w3af libssl-dev 
-apt-get -y libpcap-dev libpcre3 libpcre3-dev libnl-dev libncurses-dev subversion 
-apt-get -y python-twisted-web python-pymssql
+apt-get -y install xprobe python-scapy wireshark tcpdump ettercap-text-only hping3 medusa macchanger 
+apt-get -y install nbtscan john ptunnel p0f ngrep tcpflow openvpn iodine httptunnel cryptcat 
+apt-get -y install sipsak yersinia smbclient sslsniff tcptraceroute pbnj netdiscover netmask 
+apt-get -y install udptunnel dnstracer sslscan medusa ipcalc dnswalk socat onesixtyone tinyproxy
+apt-get -y install dmitry fcrackzip ssldump fping ike-scan gpsd darkstat swaks arping tcpreplay 
+apt-get -y install sipcrack proxychains proxytunnel siege sqlmap wapiti skipfish libssl-dev 
+apt-get -y install libpcap-dev libpcre3 libpcre3-dev libnl-dev libncurses5-dev subversion 
+apt-get -y install python-twisted-web python-pymssql
 echo "[+] Baseline pentesting tools installed."
 
 # Remove unneeded statup items
@@ -91,24 +93,26 @@ echo "[+] Unneeded startup items removed."
 # Install wireless pentesting tools
 echo "[+] Installing wireless pentesting tools..."
 apt-get -y install kismet
-cd src/aircrack-ng-1.1
-chmod +x evalrev
-make install
-cd ../..
+
+# Currently broken on Raspian
+#cd src/aircrack-ng-1.1
+#chmod +x evalrev
+#make install
+#cd ../..
+
 echo "[+] Wireless pentesting tools installed."
 
 # Install Metasploit -- Note this will require changing the default RAM allocation 
 echo "[+] Installing latest Metasploit Framework..."
-apt-get -y install ruby irb ri rubygems libruby ruby-dev libpcap-dev
 mkdir /opt/metasploit
 cd /opt/metasploit
-git clone https://github.com/rapid7/metasploit-framework.git msf3
+git clone https://github.com/pwnieexpress/metasploit-framework.git msf3
 ln -sf /opt/metasploit/msf3/msf* /usr/local/bin/
 echo "[+] Latest Metasploit Framework installed."
 
 # Install Perl/Python tools to /pentest
 echo "[+] Installing Perl/Python tools to /pentest..."
-cp -a src/pentest/ /
+mv src/pentest/ /
 chown -R root:root /pentest/
 chmod +x /pentest/cisco-auditing-tool/CAT
 chmod +x /pentest/easy-creds/easy-creds.sh
@@ -128,10 +132,10 @@ echo "[+] SET framework installed in /pentest."
 # Update motd to show Raspberry Pwn release
 cp src/motd.tail.raspberrypwn /etc/motd.tail
 
-# Install Exploit-DB
-echo "[+] Installing Exploit-DB to /pentest..."
-svn co svn://www.exploit-db.com/exploitdb /pentest/exploitdb/
-echo "[+] Exploit-DB installed in /pentest."
+# Install Exploit-DB - removed to save space
+#echo "[+] Installing Exploit-DB to /pentest..."
+#svn co svn://www.exploit-db.com/exploitdb /pentest/exploitdb/
+#echo "[+] Exploit-DB installed in /pentest."
 
 echo "[+] Setting default RAM allocation"
 cp /boot/arm224_start.elf /boot/start.elf
