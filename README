@@ -18,11 +18,16 @@ As with any software application, downloads/transfers of this software is subjec
 All Pwnie Express products/releases are for legally authorized uses only. Under NO circumstances is Pwnie Express, Rapid Focus Security, or any of its affiliates, tradenames, or subsidiaries liable for any damage, loss of data, or misuse resulting from the use of this software.
 
 ----------------------------------------------
+Important
+----------------------------------------------
+* Raspberry Pwn is built on DEBIAN - not RASPBIAN - and will not work on RASPBIAN images!!
+
+----------------------------------------------
 What you will need
 ----------------------------------------------
 
 1. A stock Raspberry Pi board (http://www.raspberrypi.org/)
-2. The Debian Raspberry Pi distribution (http://elinux.org/RPi_Beginners)
+2. The Debian (not Raspbian) Raspberry Pi distribution (http://downloads.raspberrypi.org/download.php?file=/images/debian/6/debian6-19-04-2012/debian6-19-04-2012.zip)
 3. SSH/console access to the Raspberry Pi
 4. Internet access from the Raspberry Pi
 
@@ -60,7 +65,7 @@ Installation Steps
 ----------------------------------------------
 Known Issues
 ----------------------------------------------
-
+* Raspberry Pwn is NOT compatible with the newer Raspbian images being released.
 
 ----------------------------------------------
 Support
