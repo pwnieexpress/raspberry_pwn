@@ -27,45 +27,69 @@ What you will need
 ----------------------------------------------
 
 1. A stock Raspberry Pi board (http://www.raspberrypi.org/)
-2. The Debian (not Raspbian) Raspberry Pi distribution (http://downloads.raspberrypi.org/download.php?file=/images/debian/6/debian6-19-04-2012/debian6-19-04-2012.zip)
-3. SSH/console access to the Raspberry Pi
-4. Internet access from the Raspberry Pi
+2. The Debian (not Raspbian) Raspberry Pi distribution. The Debian build is regularly updated,
+   so look at http://www.raspberrypi.org/downloads for the latest download.
+3. An SD card of at least 4GB in size
+4. SSH/console access to the Raspberry Pi
+5. Internet access from the Raspberry Pi
 
 ----------------------------------------------
 Installation Steps
 ----------------------------------------------
 
+1. Follow the steps on http://www.raspberrypi.org/downloads to image your SD card. Don't forget to
+perform, at least, the following steps through the post-installation wizard :
+  a. extend the root partition to utilize the whole SD card.
+  b. enable the SSH server
+
+2. ssh into your raspberry pi :
+
+  $ ssh pi@[ip address of your raspberry pi]
+
+  the default password for the 'pi' user is 'raspberry'. With ssh enabled you might want to change that.
+
+3. change your default password :
+
+  $ passwd
+
 1. Change to the root user:
 
   $ sudo -i
 
-2. Confirm your Raspberry Pi Debian release is at least 6.0:
-
-  # cat /etc/debian_version
-
-3. Confirm you have internet access from your Raspberry Pi
+3. Confirm you have internet access from your Raspberry Pi :
 
   # ping google.com
 
-4. Install git:
+4. update your apt :
 
-  # aptitude -y install git
+  # apt-get update
 
-5. Download the Raspberry Pwn installer from the Pwnie Express Github repository:
+5. Install git:
+
+  # apt-get install git
+
+6. Download the Raspberry Pwn installer from the Pwnie Express Github repository:
 
   # git clone https://github.com/pwnieexpress/Raspberry-Pwn.git
 
-6. CD into the Raspberry-Pwn folder and run the install script:
+7. CD into the Raspberry-Pwn folder and run the install script:
 
   # cd Raspberry-Pwn
 
   # ./INSTALL_raspberry_pwn.sh
 
+[optional]
+
+8. Install a wireless adapter :
+
+  if you want to install a wireless adapter, follow this guide :
+  http://www.raspberrypi-tutorials.co.uk/set-raspberry-pi-wireless-network/
 
 ----------------------------------------------
 Known Issues
 ----------------------------------------------
 * Raspberry Pwn is NOT compatible with the newer Raspbian images being released.
+<-- this install guide was tested with the "Soft-float Devian Wheezy" build and works as expected.
 
 ----------------------------------------------
 Support
