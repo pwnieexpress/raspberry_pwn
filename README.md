@@ -1,7 +1,9 @@
-  _____      ___  _ ___ ___   _____  _____ ___ ___ ___ ___
+ ```
+ _____      ___  _ ___ ___   _____  _____ ___ ___ ___ ___
  | _ \ \    / / \| |_ _| __| | __\ \/ / _ \ _ \ __/ __/ __|
  |  _/\ \/\/ /| .` || || _|  | _| >  <|  _/   / _|\__ \__ \
  |_|   \_/\_/ |_|\_|___|___| |___/_/\_\_| |_|_\___|___/___/
+```
 
  Raspberry Pwn : A Raspberry Pi pentesting suite by Pwnie Express (pwnieexpress.com)
  
@@ -37,60 +39,59 @@ What you will need
 Installation Steps
 ----------------------------------------------
 
-1. Follow the steps on http://www.raspberrypi.org/downloads to image your SD card. Don't forget to
-perform, at least, the following steps through the post-installation wizard :
-  a. extend the root partition to utilize the whole SD card.
-  b. enable the SSH server
+1. Follow the steps on http://www.raspberrypi.org/downloads to image your SD card. Don't forget to perform, at least, the following steps through the post-installation wizard :
+  1. extend the root partition to utilize the whole SD card.
+  1. enable the SSH server
 
 2. ssh into your Raspberry Pi :
 
-```bash
-$ ssh pi@[ip address of your Raspberry Pi]
+```
+ssh pi@[ip address of your Raspberry Pi]
 ```
 
   the default password for the 'pi' user is 'raspberry'. With ssh enabled you might want to change that.
 
 3. change your default password :
 
-```bash
-$ passwd
+```
+passwd
 ```
 
 1. Change to the root user:
 
-```bash
+```
 $ sudo -i
 ```
 
 3. Confirm you have internet access from your Raspberry Pi :
 
-```bash
-# ping google.com
+```
+ping google.com
 ```
 
 4. update your apt :
 
-```bash
-# apt-get update
+```
+apt-get update
 ```
 
 5. Install git:
 
-```bash
-# apt-get install git
+```
+apt-get install git
 ```
 
 6. Download the Raspberry Pwn installer from the Pwnie Express Github repository:
 
-```bash
-# git clone https://github.com/pwnieexpress/Raspberry-Pwn.git
+```
+git clone https://github.com/pwnieexpress/Raspberry-Pwn.git
 ```
 
 7. CD into the Raspberry-Pwn folder and run the install script:
 
-```bash
-# cd Raspberry-Pwn
-# ./INSTALL_raspberry_pwn.sh
+```
+cd Raspberry-Pwn
+./INSTALL_raspberry_pwn.sh
 ```
 
 [optional]
@@ -103,7 +104,8 @@ $ sudo -i
 ----------------------------------------------
 Known Issues
 ----------------------------------------------
-* Raspberry Pwn is NOT compatible with the Hard-float (armhf) Raspbian images.
+
+Raspberry Pwn is NOT compatible with the Hard-float (armhf) Raspbian images.
 
 ----------------------------------------------
 Support
