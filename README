@@ -42,9 +42,9 @@ perform, at least, the following steps through the post-installation wizard :
   a. extend the root partition to utilize the whole SD card.
   b. enable the SSH server
 
-2. ssh into your raspberry pi :
+2. ssh into your Raspberry Pi :
 
-  $ ssh pi@[ip address of your raspberry pi]
+  $ ssh pi@[ip address of your Raspberry Pi]
 
   the default password for the 'pi' user is 'raspberry'. With ssh enabled you might want to change that.
 
@@ -95,9 +95,17 @@ Known Issues
 Support
 ----------------------------------------------
 
-
 Feature requests / bug reports:
 https://github.com/pwnieexpress/Raspberry-Pwn/issues
 
 Community Support Forum:
 http://forum.pwnieexpress.com
+
+----------------------------------------------
+Thanks!
+----------------------------------------------
+Special thanks to those contributors that have helped with the project:
+
+* alecthegeek
+* g13net
+* Wim Remes
