@@ -5,7 +5,7 @@
 
  Raspberry Pwn : A Raspberry Pi pentesting suite by Pwnie Express (pwnieexpress.com)
  
- Release 0.1 (June 2012)
+ Release 0.2 (December 2012)
 
 ----------------------------------------------
 Legal Stuff
@@ -20,7 +20,7 @@ All Pwnie Express products/releases are for legally authorized uses only. Under 
 ----------------------------------------------
 Important
 ----------------------------------------------
-* Raspberry Pwn is built on DEBIAN - not RASPBIAN - and will not work on RASPBIAN images!!
+* Raspberry Pwn is built on DEBIAN - not RASPBIAN - and will not work on RASPBIAN images!! This install guide was tested with the "Soft-float Debian Wheezy" build and works as expected.
 
 ----------------------------------------------
 What you will need
@@ -44,39 +44,54 @@ perform, at least, the following steps through the post-installation wizard :
 
 2. ssh into your Raspberry Pi :
 
+```bash
   $ ssh pi@[ip address of your Raspberry Pi]
+```
 
   the default password for the 'pi' user is 'raspberry'. With ssh enabled you might want to change that.
 
 3. change your default password :
 
+```bash
   $ passwd
+```
 
 1. Change to the root user:
 
+```bash
   $ sudo -i
+```
 
 3. Confirm you have internet access from your Raspberry Pi :
 
+```bash
   # ping google.com
+```
 
 4. update your apt :
 
+```bash
   # apt-get update
+```
 
 5. Install git:
 
+```bash
   # apt-get install git
+```
 
 6. Download the Raspberry Pwn installer from the Pwnie Express Github repository:
 
+```bash
   # git clone https://github.com/pwnieexpress/Raspberry-Pwn.git
+```
 
 7. CD into the Raspberry-Pwn folder and run the install script:
 
+```bash
   # cd Raspberry-Pwn
-
   # ./INSTALL_raspberry_pwn.sh
+```
 
 [optional]
 
@@ -88,8 +103,7 @@ perform, at least, the following steps through the post-installation wizard :
 ----------------------------------------------
 Known Issues
 ----------------------------------------------
-* Raspberry Pwn is NOT compatible with the newer Raspbian images being released.
-<-- this install guide was tested with the "Soft-float Devian Wheezy" build and works as expected.
+* Raspberry Pwn is NOT compatible with the Hard-float (armhf) Raspbian images.
 
 ----------------------------------------------
 Support
