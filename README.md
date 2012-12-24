@@ -44,7 +44,7 @@ perform, at least, the following steps through the post-installation wizard :
 
 2. ssh into your Raspberry Pi :
 
-```
+```bash
 $ ssh pi@[ip address of your Raspberry Pi]
 ```
 
