@@ -1,5 +1,5 @@
 #!/bin/bash
-# Raspberry Pwn 0.1 : A Raspberry Pi Pentesting suite by Pwnie Express
+# Raspberry Pwn 0.2 : A Raspberry Pi Pentesting suite by Pwnie Express
 # pwnieexpress.com
 # Installer Revision 6.12.2012
 
@@ -23,7 +23,7 @@ echo " | _ \ \    / / \| |_ _| __| | __\ \/ / _ \ _ \ __/ __/ __|     "
 echo " |  _/\ \/\/ /| .\` || || _|  | _| >  <|  _/   / _|\__ \__ \    "
 echo " |_|   \_/\_/ |_|\_|___|___| |___/_/\_\_| |_|_\___|___/___/     "
 echo ""
-echo "              === Raspberry Pwn Release 0.1 ===                 "
+echo "              === Raspberry Pwn Release 0.2 ===                 "
 echo "     A Raspberry Pi Pentesting suite by PwnieExpress.com        "
 echo ""
 echo "----------------------------------------------------------------"
@@ -101,6 +101,8 @@ echo "[+] SET framework installed in /pentest."
 
 # Update motd to show Raspberry Pwn release
 cp src/motd.tail.raspberrypwn /etc/motd.tail
+# Update motd for pi user to show Raspberry Pwn release
+cp src/motd.tail.raspberrypwn /etc/motd
 
 # Install Exploit-DB
 echo "[+] Installing Exploit-DB to /pentest..."
@@ -112,7 +114,7 @@ cp /boot/arm224_start.elf /boot/start.elf
 
 echo ""
 echo "---------------------------------------------------------------"
-echo "Raspberry Pwn Release 0.1 installed successfully!"
+echo "Raspberry Pwn Release 0.2 installed successfully!"
 echo "---------------------------------------------------------------"
 echo ""
 

@@ -1,5 +1,5 @@
 #!/bin/bash
-# Raspberry Pwn 0.1 : A Raspberry Pi Pentesting suite by Pwnie Express
+# Raspberry Pwn 0.2 : A Raspberry Pi Pentesting suite by Pwnie Express
 # pwnieexpress.com
 # UNINSTALLER Revision 6.12.2012
 
@@ -16,7 +16,7 @@ echo " | _ \ \    / / \| |_ _| __| | __\ \/ / _ \ _ \ __/ __/ __|     "
 echo " |  _/\ \/\/ /| .\` || || _|  | _| >  <|  _/   / _|\__ \__ \    "
 echo " |_|   \_/\_/ |_|\_|___|___| |___/_/\_\_| |_|_\___|___/___/     "
 echo ""
-echo "        === Raspberry Pwn Release 0.1 UNINSTALLER ===           "
+echo "        === Raspberry Pwn Release 0.2 UNINSTALLER ===           "
 echo ""
 echo "----------------------------------------------------------------"
 echo " This UNINSTALLER will remove the Raspberry Pwn pentesting      "
@@ -41,10 +41,12 @@ rm -rf /pentest
 
 # Restore original motd
 cp src/motd.tail.original /etc/motd.tail
+# Restore original pi user motd
+cp src/motd.tail.original /etc/motd.tail
 
 echo ""
 echo "---------------------------------------------------------------"
-echo "Raspberry Pwn Release 0.1 UNINSTALLED successfully!"
+echo "Raspberry Pwn Release 0.2 UNINSTALLED successfully!"
 echo "---------------------------------------------------------------"
 echo ""
 exit 1
