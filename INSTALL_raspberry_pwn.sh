@@ -2,6 +2,7 @@
 # Raspberry Pwn 0.2 : A Raspberry Pi Pentesting suite by Pwnie Express
 # pwnieexpress.com
 # Installer Revision 6.12.2012
+# Modifications by Robert Pendell to support Wheezy
 
 echo ""
 
@@ -11,9 +12,9 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-# Verify Raspberry Pwn 0.1 is not already installed
-if [ "`grep -o 0.1 /etc/motd.tail`" == "0.1" ] ; then 
-        echo "[-] Raspberry Pwn 0.1 already installed. Aborting..."
+# Verify Raspberry Pwn 0.2 is not already installed
+if [ "`grep -o 0.2 /etc/motd.tail`" == "0.2" ] ; then 
+        echo "[-] Raspberry Pwn 0.2 already installed. Aborting..."
         exit 1
 fi
 
@@ -35,13 +36,14 @@ echo ""
 echo "Press ENTER to continue, CTRL+C to abort."
 read INPUT
 echo ""
-
+BASEDIR=$PWD
 # Make sure all installer files are owned by root
 chown -R root:root .
 
 # Update base debian packages
 echo "[+] Updating base system Debian packages..."
-echo "deb http://ftp.debian.org/debian/ squeeze main contrib non-free" > /etc/apt/sources.list
+#commenting this out... don't need it!
+#echo "deb http://ftp.debian.org/debian/ squeeze main contrib non-free" > /etc/apt/sources.list
 aptitude -y update
 aptitude -y upgrade
 echo "[+] Base system Debian packages updated."
@@ -82,6 +84,7 @@ echo "[+] Latest Metasploit Framework installed."
 
 # Install Perl/Python tools to /pentest
 echo "[+] Installing Perl/Python tools to /pentest..."
+cd $BASEDIR
 cp -a src/pentest/ /
 chown -R root:root /pentest/
 chmod +x /pentest/cisco-auditing-tool/CAT
@@ -109,8 +112,9 @@ echo "[+] Installing Exploit-DB to /pentest..."
 svn co svn://www.exploit-db.com/exploitdb /pentest/exploitdb/
 echo "[+] Exploit-DB installed in /pentest."
 
-echo "[+] Setting default RAM allocation"
-cp /boot/arm224_start.elf /boot/start.elf
+echo "[+] Setting default RAM allocation (disabled!)"
+#won't work on 512M boards!
+#cp /boot/arm224_start.elf /boot/start.elf
 
 echo ""
 echo "---------------------------------------------------------------"
