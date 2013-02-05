@@ -125,3 +125,5 @@ Special thanks to those contributors that have helped with the project:
 * alecthegeek
 * g13net
 * Wim Remes
+* sgaudet
+* shinji257 
