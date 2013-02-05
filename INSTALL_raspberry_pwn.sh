@@ -2,6 +2,9 @@
 # Raspberry Pwn 0.2 : A Raspberry Pi Pentesting suite by Pwnie Express
 # pwnieexpress.com
 # Installer Revision 6.12.2012
+# * Updated to supprot wheezy -- commented out sources.list change, added package
+# * wi to dependencies, modify metasploit install process to not change directory
+# * commented out mem check and just added a note to change it using raspi-config
 
 echo ""
 
@@ -11,9 +14,9 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-# Verify Raspberry Pwn 0.1 is not already installed
-if [ "`grep -o 0.1 /etc/motd.tail`" == "0.1" ] ; then 
-        echo "[-] Raspberry Pwn 0.1 already installed. Aborting..."
+# Verify Raspberry Pwn 0.2 is not already installed
+if [ "`grep -o 0.2 /etc/motd.tail`" == "0.2" ] ; then 
+        echo "[-] Raspberry Pwn 0.2 already installed. Aborting..."
         exit 1
 fi
 
@@ -41,14 +44,15 @@ chown -R root:root .
 
 # Update base debian packages
 echo "[+] Updating base system Debian packages..."
-echo "deb http://ftp.debian.org/debian/ squeeze main contrib non-free" > /etc/apt/sources.list
+#commenting this out... don't need it!
+#echo "deb http://ftp.debian.org/debian/ squeeze main contrib non-free" > /etc/apt/sources.list
 aptitude -y update
 aptitude -y upgrade
 echo "[+] Base system Debian packages updated."
 
 # Install baseline pentesting tools via aptitude
 echo "[+] Installing baseline pentesting tools/dependencies..."
-aptitude -y install telnet btscanner libnet-dns-perl hostapd nmap dsniff netcat nikto xprobe python-scapy wireshark tcpdump ettercap hping3 medusa macchanger nbtscan john ptunnel p0f ngrep tcpflow openvpn iodine httptunnel cryptcat sipsak yersinia smbclient sslsniff tcptraceroute pbnj netdiscover netmask udptunnel dnstracer sslscan medusa ipcalc dnswalk socat onesixtyone tinyproxy dmitry fcrackzip ssldump fping ike-scan gpsd darkstat swaks arping tcpreplay sipcrack proxychains proxytunnel siege sqlmap wapiti skipfish w3af libssl-dev libpcap-dev libpcre3 libpcre3-dev libnl-dev libncurses-dev subversion python-twisted-web python-pymssql
+aptitude -y install telnet btscanner libnet-dns-perl hostapd nmap dsniff netcat nikto xprobe python-scapy wireshark tcpdump ettercap hping3 medusa macchanger nbtscan john ptunnel p0f ngrep tcpflow openvpn iodine httptunnel cryptcat sipsak yersinia smbclient sslsniff tcptraceroute pbnj netdiscover netmask udptunnel dnstracer sslscan medusa ipcalc dnswalk socat onesixtyone tinyproxy dmitry fcrackzip ssldump fping ike-scan gpsd darkstat swaks arping tcpreplay sipcrack proxychains proxytunnel siege sqlmap wapiti skipfish w3af libssl-dev libpcap-dev libpcre3 libpcre3-dev libnl-dev libncurses-dev subversion python-twisted-web python-pymssql wi
 echo "[+] Baseline pentesting tools installed."
 
 # Remove unneeded statup items
@@ -74,9 +78,8 @@ echo "[+] Wireless pentesting tools installed."
 echo "[+] Installing latest Metasploit Framework..."
 aptitude -y install ruby irb ri rubygems libruby ruby-dev libpcap-dev
 mkdir /opt/metasploit
-cd /opt/metasploit
 wget http://downloads.metasploit.com/data/releases/framework-latest.tar.bz2
-tar jxvf framework-latest.tar.bz2
+tar jxvf framework-latest.tar.bz2 -C /opt/metasploit
 ln -sf /opt/metasploit/msf3/msf* /usr/local/bin/
 echo "[+] Latest Metasploit Framework installed."
 
@@ -109,8 +112,10 @@ echo "[+] Installing Exploit-DB to /pentest..."
 svn co svn://www.exploit-db.com/exploitdb /pentest/exploitdb/
 echo "[+] Exploit-DB installed in /pentest."
 
-echo "[+] Setting default RAM allocation"
-cp /boot/arm224_start.elf /boot/start.elf
+echo "[+] Setting default RAM allocation (disabled!)"
+echo "[!] If your RPi board only has 256MB ram please set split to"
+echo "    224/32 using raspi-config."
+#cp /boot/arm224_start.elf /boot/start.elf
 
 echo ""
 echo "---------------------------------------------------------------"
