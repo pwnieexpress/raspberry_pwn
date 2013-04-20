@@ -112,7 +112,7 @@ echo "[+] Installing Exploit-DB to /pentest..."
 mkdir -p /pentest/exploitdb
 cd /pentest/exploitdb/
 wget  http://www.exploit-db.com/archive.tar.bz2
-tar -zxvf archive.tar.bz2 
+tar -xjvf archive.tar.bz2 
 echo "[+] Exploit-DB installed in /pentest."
 
 echo "[+] Setting default RAM allocation (disabled!)"
