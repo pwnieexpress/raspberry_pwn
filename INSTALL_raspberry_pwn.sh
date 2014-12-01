@@ -1,10 +1,7 @@
 #!/bin/bash
-# Raspberry Pwn 0.2 : A Raspberry Pi Pentesting suite by Pwnie Express
+# Raspberry Pwn 0.3 : A Raspberry Pi Pentesting suite by Pwnie Express
 # pwnieexpress.com
-# Installer Revision 6.12.2012
-# * Updated to supprot wheezy -- commented out sources.list change, added package
-# * wi to dependencies, modify metasploit install process to not change directory
-# * commented out mem check and just added a note to change it using raspi-config
+# Installer Revision 11.7.2014
 
 echo ""
 
@@ -14,9 +11,9 @@ if [[ $EUID -ne 0 ]]; then
    exit 1
 fi
 
-# Verify Raspberry Pwn 0.2 is not already installed
-if [ "`grep -o 0.2 /etc/motd.tail`" == "0.2" ] ; then 
-        echo "[-] Raspberry Pwn 0.2 already installed. Aborting..."
+# Verify Raspberry Pwn 0.3 is not already installed
+if [ "`grep -o 0.3 /etc/motd.tail`" == "0.3" ] ; then 
+        echo "[-] Raspberry Pwn 0.3 already installed. Aborting..."
         exit 1
 fi
 
@@ -26,7 +23,7 @@ echo " | _ \ \    / / \| |_ _| __| | __\ \/ / _ \ _ \ __/ __/ __|     "
 echo " |  _/\ \/\/ /| .\` || || _|  | _| >  <|  _/   / _|\__ \__ \    "
 echo " |_|   \_/\_/ |_|\_|___|___| |___/_/\_\_| |_|_\___|___/___/     "
 echo ""
-echo "              === Raspberry Pwn Release 0.2 ===                 "
+echo "              === Raspberry Pwn Release 0.3 ===                 "
 echo "     A Raspberry Pi Pentesting suite by PwnieExpress.com        "
 echo ""
 echo "----------------------------------------------------------------"
@@ -52,7 +49,8 @@ echo "[+] Base system Debian packages updated."
 
 # Install baseline pentesting tools via aptitude
 echo "[+] Installing baseline pentesting tools/dependencies..."
-aptitude -y install telnet btscanner libnet-dns-perl hostapd nmap dsniff netcat nikto xprobe python-scapy wireshark tcpdump ettercap-graphical hping3 medusa macchanger nbtscan john ptunnel p0f ngrep tcpflow openvpn iodine httptunnel cryptcat sipsak yersinia smbclient sslsniff tcptraceroute pbnj netdiscover netmask udptunnel dnstracer sslscan medusa ipcalc dnswalk socat onesixtyone tinyproxy dmitry fcrackzip ssldump fping ike-scan gpsd darkstat swaks arping tcpreplay sipcrack proxychains proxytunnel siege sqlmap wapiti skipfish w3af libssl-dev libpcap-dev libpcre3 libpcre3-dev libnl-dev libncurses-dev subversion python-twisted-web python-pymssql wi
+aptitude -y install telnet btscanner libnet-dns-perl hostapd nmap dsniff netcat nikto xprobe python-scapy wireshark tcpdump ettercap-graphical hping3 medusa macchanger nbtscan john ptunnel p0f ngrep tcpflow openvpn iodine httptunnel cryptcat sipsak yersinia smbclient sslsniff tcptraceroute pbnj netdiscover netmask udptunnel dnstracer sslscan medusa ipcalc dnswalk socat onesixtyone tinyproxy dmitry fcrackzip ssldump fping ike-scan gpsd darkstat swaks arping tcpreplay sipcrack proxychains proxytunnel siege wapiti skipfish w3af libssl-dev libpcap-dev libpcre3 libpcre3-dev libnl-dev libncurses-dev subversion python-twisted-web python-pymssql iw mc zip links w3m lynx arj dbview odt2txt gv catdvi djvulibre-bin python-boto python-tz pkg-config
+
 echo "[+] Baseline pentesting tools installed."
 
 # Remove unneeded statup items
@@ -60,18 +58,19 @@ echo "[+] Remove unneeded startup items..."
 update-rc.d -f gpsd remove
 update-rc.d -f tinyproxy remove
 update-rc.d -f ntp remove
-apt-get -y purge portmap
-apt-get -y autoremove gdm
+#apt-get -y purge portmap
+#apt-get -y autoremove gdm
 apt-get -y autoremove
 echo "[+] Unneeded startup items removed."
 
 # Install wireless pentesting tools
 echo "[+] Installing wireless pentesting tools..."
 aptitude -y install kismet
-cd src/aircrack-ng-1.1
+cd src/aircrack-ng-1.2-rc1
 chmod +x evalrev
 make install
 cd ../..
+airodump-ng-oui-update
 echo "[+] Wireless pentesting tools installed."
 
 # Install Metasploit -- Note this will require changing the default RAM allocation 
@@ -96,7 +95,7 @@ echo "[+] Perl/Python tools installed in /pentest."
 
 # Install SET
 echo "[+] Installing latest SET framework to /pentest..."
-svn co http://svn.secmaniac.com/social_engineering_toolkit /pentest/set/
+git clone https://github.com/trustedsec/social-engineer-toolkit/ /pentest/set/
 cd src/pexpect-2.3/
 python setup.py install
 cd ../..
@@ -122,7 +121,7 @@ echo "    224/32 using raspi-config."
 
 echo ""
 echo "---------------------------------------------------------------"
-echo "Raspberry Pwn Release 0.2 installed successfully!"
+echo "Raspberry Pwn Release 0.3 installed successfully!"
 echo "---------------------------------------------------------------"
 echo ""
 
