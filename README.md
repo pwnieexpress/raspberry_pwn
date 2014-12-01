@@ -101,6 +101,40 @@ cd Raspberry-Pwn
   if you want to install a wireless adapter, follow this guide :
   http://www.raspberrypi-tutorials.co.uk/set-raspberry-pi-wireless-network/
 
+9. Configure Metasploit Framework
+
+```
+cd /opt/metasploit/msf3
+```
+
+- avoiding dependency hellz
+
+```
+apt-get install libpq-dev
+
+gem install pg
+```
+
+- avoiding moar dependency hellz
+
+```
+apt-get install ruby1.8-dev ruby1.8 ri1.8 rdoc1.8 irb1.8
+
+apt-get install libreadline-ruby1.8 libruby1.8 libopenssl-ruby
+
+apt-get install libxslt-dev libxml2-dev
+
+gem install nokogiri
+
+bundle install
+```
+
+- imma chargin mah lazersss
+
+```
+msfconsole
+```
+
 ----------------------------------------------
 Known Issues
 ----------------------------------------------
